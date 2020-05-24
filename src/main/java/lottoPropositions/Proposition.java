@@ -1,22 +1,34 @@
 package lottoPropositions;
 
-import java.util.TreeSet;
+import dataSupport.FileService;
+
+import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class Proposition {
     Integer index;
-    TreeSet<Integer> propositionList = new TreeSet<>();
+    ArrayList<Integer> propositionList = new ArrayList<>();
 
     public Proposition(Integer index) {
         this.index = index;
-        createProposition();
     }
 
-    public TreeSet<Integer> getPropositionList() {
+    public ArrayList<Integer> forMultiCombination() {
+        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersFile");
+        TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = (TreeMap<Integer, TreeMap<Integer, Boolean>>) FileService.loadObject("AlgorithmFile").getObject();
+        TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index);
+
+        multiProposition.forEach((number, value) -> {
+            if (algorithm.containsKey(number)) {
+                algorithm.get(number).forEach((x,y)->{
+                    if (lotteryNumbers.get(index).contains(x)){
+                        propositionList.add(number);
+                    }
+                });
+            }
+        });
         return propositionList;
     }
 
-    private void createProposition() {
-        this.propositionList.addAll(propositionList);
-    }
 }
 

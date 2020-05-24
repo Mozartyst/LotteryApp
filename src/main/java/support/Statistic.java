@@ -1,7 +1,6 @@
 package support;
 
 import dataSupport.FileService;
-import dataSupport.LotteryNumbersDownloader;
 
 import java.util.ArrayList;
 import java.util.TreeMap;

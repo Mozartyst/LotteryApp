@@ -1,34 +1,21 @@
+import algorithm.Algorithm;
 import dataSupport.FileService;
+import dataSupport.PolishLotteryDownloader;
 import entity.MultiCombinationKeys;
+import entity.ObjectForFileService;
 import lottoPropositions.NumbersAfterMultiCombinations;
+import lottoPropositions.Proposition;
+import support.EachWithEveryOne;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class TesterMain {
 
     public static void main(String[] args) {
-        Integer index = 12;
-        ArrayList<ArrayList<Integer>> lotteryNumbersFile1 = FileService.loadFile("LotteryNumbersFile");
-        TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = (TreeMap<Integer, TreeMap<Integer, Boolean>>) FileService.loadObject("AlgorithmFile").getObject();
-        TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbersFile1).getProposition(index);
-        ArrayList<Integer> proposition = new ArrayList<>();
-        ArrayList<Integer> integerArrayList = lotteryNumbersFile1.get(index);
+        System.out.println(new Algorithm().getPropositionList(1));
 
-        multiProposition.forEach((number, value) -> {
-            if (algorithm.containsKey(number)) {
-                algorithm.get(number).forEach((x,y)->{
-                    if (integerArrayList.contains(x)){
-                        proposition.add(number);
-                    }
-                });
-            }
-        });
-
-        System.out.println(proposition);
-        if (index != 0) {
-            System.out.println(lotteryNumbersFile1.get(index-1));
-        }
     }
 }
 

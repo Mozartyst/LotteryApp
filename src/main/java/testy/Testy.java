@@ -243,5 +243,40 @@ public class Testy {
         System.out.println("-" + iloscTrafien + " trafień");
         System.out.println("-" + iloscLiczbtypowanych + " ilość liczb typowanych" + " / " + iloscLiczbtypowanych / (lotteryNumber.size()-4) + " średnio na losowanie");
     }
+    public void skutecznoscAlgorithm() {
+        ArrayList<Integer> listaTraf = new ArrayList<>();
+        int iloscTrafien = 0;
+        int iloscPropozycji = 0;
+        int trafionychLosowan = 0;
+        int iloscLiczbtypowanych = 0;
+        boolean trafionyWeek = false;
+        for (int i = (lotteryNumber.size() - 4); i > 0; i--) {
+            int traf = 0;
+            ArrayList<Integer> propositionNumbers = new Proposition(i).forMultiCombination();
+            if (propositionNumbers.size() != 0) {
+                iloscLiczbtypowanych += propositionNumbers.size();
+                iloscPropozycji += 1;
+                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
+                for (Integer o : listOfNumbersNext) {
+                    if (propositionNumbers.contains(o)) {
+                        iloscTrafien += 1;
+                        traf += 1;
+                        trafionyWeek = true;
+                    }
+                }
+            }
+            if (trafionyWeek) {
+                trafionychLosowan += 1;
+                trafionyWeek = false;
+            }
+            listaTraf.add(traf);
+        }
+        System.out.println(listaTraf);
+        System.out.println("Skutecznośc Algorithm " + "dla " + (lotteryNumber.size()-4) + " losowań:");
+        System.out.println("-" + trafionychLosowan + " trafionych losowań" + "/ " + "skuteczność " + Math.round((float) trafionychLosowan / (lotteryNumber.size()-4) * 100) + " procent,");
+        System.out.println("-" + iloscPropozycji + " propozycji");
+        System.out.println("-" + iloscTrafien + " trafień");
+        System.out.println("-" + iloscLiczbtypowanych + " ilość liczb typowanych" + " / " + iloscLiczbtypowanych / (lotteryNumber.size()-4) + " średnio na losowanie");
+    }
 }
 

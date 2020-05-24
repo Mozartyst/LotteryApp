@@ -1,7 +1,7 @@
 import creators.*;
 import dataSupport.FileService;
 import dataSupport.LotteryNumbers;
-import dataSupport.LotteryNumbersDownloader;
+import dataSupport.IrishLotteryDownloader;
 import dataSupport.MultiCombinationReducer;
 import entity.CombinationNumbers;
 import lottoPropositions.NumbersAfterMultiCombinations;
@@ -33,9 +33,9 @@ public class Main {
 
         int number = scanner.nextInt();
         if (number == 1) {
-            FileService.saveFile(new LotteryNumbersDownloader().getNumbers(2020, 2020), "LotteryNumbersFile");
+            FileService.saveFile(new IrishLotteryDownloader().getNumbers(2020, 2020), "LotteryNumbersFile");
         } else if (number == 2) {
-            FileService.saveFile(new LotteryNumbersDownloader().getNumbers(2016, 2019), "LotteryNumbersForAlgorithm");
+            FileService.saveFile(new IrishLotteryDownloader().getNumbers(2016, 2019), "LotteryNumbersForAlgorithm");
         } else if (number == 3) {
             System.out.println("Wybierz kreator");
             System.out.println("1 - Kreator Liczb i dependencji");
@@ -100,7 +100,10 @@ public class Main {
         } else if (number == 7) {
             System.out.println("Podaj dla jakiego indeksu:");
             int index = scanner.nextInt();
-            System.out.println(new Proposition(index).getPropositionList());
+            System.out.println(new Proposition(index).forMultiCombination());
+            if (index != 0) {
+                System.out.println(FileService.loadFile("LotteryNumbersFile").get(index - 1));
+            }
         } else if (number == 8) {
             System.out.println("Wybierz rodzaj testu:");
             System.out.println("1 - NAN");
@@ -108,7 +111,7 @@ public class Main {
             System.out.println("3 - NAT");
             System.out.println("4 - Duet");
             System.out.println("5 - Slant");
-            System.out.println("6 - ");
+            System.out.println("6 - Algorithm");
             System.out.println("7 - ");
             System.out.println("8 - Random");
             System.out.println("9 - ");
@@ -127,6 +130,7 @@ public class Main {
             } else if (choice == 5) {
                 testy.skutecznoscSlant();
             } else if (choice == 6) {
+                testy.skutecznoscAlgorithm();
             } else if (choice == 7) {
             } else if (choice == 8) {
                 System.out.println("Podaj randomowych 6 liczb:");

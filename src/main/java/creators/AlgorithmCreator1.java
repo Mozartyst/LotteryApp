@@ -1,59 +1,66 @@
 package creators;
 
 import dataSupport.FileService;
+import entity.CombinationNumbers;
 import entity.Number;
 import entity.ObjectForFileService;
+import entity.Occurrences;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.TreeMap;
 
-
-public class AlgorithmCreator {
+public class AlgorithmCreator1 {
     private final TreeMap<Integer, Number> listOfNumbers = (TreeMap<Integer, Number>) FileService.loadObject("ListOfNumbers").getObject();
     private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersForAlgorithm");
-    private TreeMap<Integer, TreeMap<Integer, Boolean>> algorithmFinished = new TreeMap<>();
+    private TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>> algorithmFinished = new TreeMap<>();
 
     public void createAlgorithm() {
-        TreeMap<Integer, TreeMap<Integer, TreeMap<Boolean, Integer>>> algorithm = new TreeMap<>();
+        TreeMap<Integer, TreeMap<CombinationNumbers, TreeMap<Boolean, Integer>>> algorithm = new TreeMap<>();
         for (int i = 1; i <= 47; i++) {
-            TreeMap<Integer, TreeMap<Boolean, Integer>> algForNumber = new TreeMap<>();
-            TreeMap<Integer, Integer> afterNumbers = listOfNumbers.get(i).getDependency().getAfterNumbers();
+
+            TreeMap<CombinationNumbers, TreeMap<Boolean, Integer>> algForNumber = new TreeMap<>();
+            TreeMap<CombinationNumbers, Occurrences> afterNumbers = listOfNumbers.get(i).getDependency().getAfterPairs();
             int finalI = i;
-            afterNumbers.forEach((number, value) -> {
+
+            afterNumbers.forEach((combinationNumbers, value) -> {
                 for (ArrayList<Integer> weekNumbers : lotteryNumbers) {
+
                     int index = lotteryNumbers.indexOf(weekNumbers);
                     if (index == 0) {
                         continue;
                     }
                     ArrayList<Integer> nextLottery = lotteryNumbers.get(index - 1);
-                    if (weekNumbers.contains(number)) {
+                    if (weekNumbers.contains(combinationNumbers.getFirstNumber())&&weekNumbers.contains(combinationNumbers.getSecondNumber())) {
                         if (nextLottery.contains(finalI)) {
-                            if (algForNumber.containsKey(number)) {
-                                TreeMap<Boolean, Integer> booleanIntegerTreeMap = algForNumber.get(number);
+                            if (algForNumber.containsKey(combinationNumbers)) {
+                                TreeMap<Boolean, Integer> booleanIntegerTreeMap = algForNumber.get(combinationNumbers);
                                 if (booleanIntegerTreeMap.containsKey(true)) {
                                     booleanIntegerTreeMap.put(true, booleanIntegerTreeMap.get(true) + 1);
                                 } else {
                                     booleanIntegerTreeMap.put(true, 1);
                                 }
-                                algForNumber.put(number, booleanIntegerTreeMap);
+                                algForNumber.put(combinationNumbers, booleanIntegerTreeMap);
                             } else {
                                 TreeMap<Boolean, Integer> booleanIntegerTreeMap = new TreeMap<>();
                                 booleanIntegerTreeMap.put(true, 1);
-                                algForNumber.put(number, booleanIntegerTreeMap);
+                                algForNumber.put(combinationNumbers, booleanIntegerTreeMap);
                             }
                         } else {
-                            if (algForNumber.containsKey(number)) {
-                                TreeMap<Boolean, Integer> booleanIntegerTreeMap = algForNumber.get(number);
+                            if (algForNumber.containsKey(combinationNumbers)) {
+                                TreeMap<Boolean, Integer> booleanIntegerTreeMap = algForNumber.get(combinationNumbers);
                                 if (booleanIntegerTreeMap.containsKey(false)) {
                                     booleanIntegerTreeMap.put(false, booleanIntegerTreeMap.get(false) + 1);
                                 } else {
                                     booleanIntegerTreeMap.put(false, 1);
                                 }
-                                algForNumber.put(number, booleanIntegerTreeMap);
+                                algForNumber.put(combinationNumbers, booleanIntegerTreeMap);
                             } else {
                                 TreeMap<Boolean, Integer> booleanIntegerTreeMap = new TreeMap<>();
                                 booleanIntegerTreeMap.put(false, 1);
-                                algForNumber.put(number, booleanIntegerTreeMap);
+                                algForNumber.put(combinationNumbers, booleanIntegerTreeMap);
                             }
                         }
                     }
@@ -69,15 +76,17 @@ public class AlgorithmCreator {
         }
     }
 
-    private void findTrueAlgorithm(TreeMap<Integer, TreeMap<Integer, TreeMap<Boolean, Integer>>> algorithm) {
+    private void findTrueAlgorithm(TreeMap<Integer, TreeMap<CombinationNumbers, TreeMap<Boolean, Integer>>> algorithm) {
         algorithm.forEach((number, afterNumberMap) -> {
-            TreeMap<Integer, Boolean> algorithmFinal = new TreeMap<>();
-            TreeMap<Integer, Integer> tempMap = new TreeMap<>();
+            TreeMap<CombinationNumbers, Boolean> algorithmFinal = new TreeMap<>();
+            TreeMap<CombinationNumbers, Integer> tempMap = new TreeMap<>();
             afterNumberMap.forEach((afterNumber, value) -> {
                 Integer trueValue = value.get(true);
                 Integer falseValue = value.get(false);
                 if (trueValue == null) {
                     trueValue = falseValue;
+                }else if (falseValue == null){
+                    falseValue = 1;
                 }
                 tempMap.put(afterNumber, (falseValue / trueValue));
 
@@ -100,8 +109,9 @@ public class AlgorithmCreator {
     }
 
     private void saveObject() throws IOException {
-        ObjectForFileService<TreeMap<Integer, TreeMap<Integer, Boolean>>> objectForFileService = new ObjectForFileService<>();
+        ObjectForFileService<TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>>> objectForFileService = new ObjectForFileService<>();
         objectForFileService.setObject(algorithmFinished);
-        FileService.saveObject(objectForFileService, "AlgorithmFile");
+        FileService.saveObject(objectForFileService, "AlgorithmFile1");
     }
 }
+
