@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class CombinationCreator {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersForAlgorithm");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationMap = new TreeMap<>();
 
     public void createAllCombinationNumbers() throws IOException {
@@ -66,9 +66,7 @@ public class CombinationCreator {
     }
 
     private void saveMulti() throws IOException {
-        ObjectForFileService<TreeMap<Integer, ArrayList<CombinationNumbers>>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(combinationMap);
-        FileService.saveObject(objectForFileService, "CombinationNumbers");
+        FileService.saveObject(combinationMap, "CombinationNumbers");
     }
     private void addToMap(ArrayList<CombinationNumbers> combinationNumbersArrayList){
         combinationNumbersArrayList.forEach((combination)->{

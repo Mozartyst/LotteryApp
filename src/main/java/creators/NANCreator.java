@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NANCreator {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersForAlgorithm");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = new TreeMap<>();
 
     public void createNAN() {
@@ -47,8 +47,6 @@ public class NANCreator {
         listOfNumbersAfterNumbers.put(previousNumber, numbersForNumber);
     }
     private synchronized void saveMulti() throws IOException {
-        ObjectForFileService<TreeMap<Integer, TreeMap<Integer, Integer>>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(listOfNumbersAfterNumbers);
-        FileService.saveObject(objectForFileService, "NumbersAfterNumbers");
+        FileService.saveObject(listOfNumbersAfterNumbers, "NumbersAfterNumbers");
     }
 }

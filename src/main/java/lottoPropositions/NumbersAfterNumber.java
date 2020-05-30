@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumbersAfterNumber {
-    private final TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers =
-            (TreeMap<Integer, TreeMap<Integer, Integer>>) FileService.loadObject("NumbersAfterNumbers").getObject();
+    private final TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = FileService.loadObject("NumbersAfterNumbers");
     private ArrayList<ArrayList<Integer>> lotteryNumbers;
 
     public NumbersAfterNumber(ArrayList<ArrayList<Integer>> lotteryNumbers) {

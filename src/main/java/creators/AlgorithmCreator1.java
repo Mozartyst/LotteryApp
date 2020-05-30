@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.TreeMap;
 
 public class AlgorithmCreator1 {
-    private final TreeMap<Integer, Number> listOfNumbers = (TreeMap<Integer, Number>) FileService.loadObject("ListOfNumbers").getObject();
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersForAlgorithm");
+    private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>> algorithmFinished = new TreeMap<>();
 
     public void createAlgorithm() {
@@ -109,9 +109,7 @@ public class AlgorithmCreator1 {
     }
 
     private void saveObject() throws IOException {
-        ObjectForFileService<TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(algorithmFinished);
-        FileService.saveObject(objectForFileService, "AlgorithmFile1");
+        FileService.saveObject(algorithmFinished, "AlgorithmFile1");
     }
 }
 

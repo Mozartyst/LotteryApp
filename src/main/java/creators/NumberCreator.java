@@ -11,9 +11,8 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumberCreator {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersFile");
+    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
     private TreeMap<Integer, Number> listOfNumbers = new TreeMap<>();
-    private ObjectForFileService<TreeMap<Integer, Number>> objectForFileService = new ObjectForFileService();
 
     public void createNumbers() throws IOException {
         for (int i = 1; i < 48; i++) {
@@ -27,8 +26,7 @@ public class NumberCreator {
             listOfNumbers.get(i).setOccurred(valueOfAppeared(i));
         }
 
-        objectForFileService.setObject(listOfNumbers);
-        FileService.saveObject(objectForFileService, "ListOfNumbers");
+        FileService.saveObject(listOfNumbers, "ListOfNumbers");
     }
 
     private TreeMap<Integer, Integer> NumberAfterNumbers(Integer forNumber) {

@@ -1,11 +1,11 @@
 import creators.*;
 import dataSupport.FileService;
-import dataSupport.LotteryNumbers;
 import dataSupport.IrishLotteryDownloader;
 import dataSupport.MultiCombinationReducer;
 import entity.CombinationNumbers;
 import lottoPropositions.NumbersAfterMultiCombinations;
 import lottoPropositions.Proposition;
+import support.EachWithEveryOne;
 import testy.Testy;
 import threeHunter.CombinationGenerators;
 import threeHunter.Find3Numbers;
@@ -13,17 +13,20 @@ import threeHunter.Finded3NumbersTester;
 import threeHunter.KeyTripleList;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        LocalDateTime now = LocalDateTime.now();
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Podaj liczbę wyboru:");
-        System.out.println("1 - Zaktualizuj LotteryNumber");
-        System.out.println("2 - Zapisz LotteryNumber dla Algorithm");
-        System.out.println("3 - Kreatory");
-        System.out.println("4 - Reducer dla pliku MultiCombination");
-        System.out.println("5 - ");
+        System.out.println("1 - Zaktualizuj pełne LotteryNumber");
+        System.out.println("2 - Zaktualizuj LotteryNumber dla roku 2020");
+        System.out.println("3 - Zapisz LotteryNumber dla Algorithm");
+        System.out.println("4 - Kreatory");
+        System.out.println("5 - Reducer dla pliku MultiCombination");
         System.out.println("6 - ");
         System.out.println("7 - Proposition");
         System.out.println("8 - Testy");
@@ -33,10 +36,24 @@ public class Main {
 
         int number = scanner.nextInt();
         if (number == 1) {
-            FileService.saveFile(new IrishLotteryDownloader().getNumbers(2020, 2020), "LotteryNumbersFile");
+            try {
+                FileService.saveObject(new IrishLotteryDownloader().getNumbers(2016, 2020), "LotteryNumbersFile");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (number == 2) {
-            FileService.saveFile(new IrishLotteryDownloader().getNumbers(2016, 2019), "LotteryNumbersForAlgorithm");
+            try {
+                FileService.saveObject(new IrishLotteryDownloader().getNumbers(2020, 2020), "LastYearLotteryNumbersFile");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else if (number == 3) {
+            try {
+                FileService.saveObject(new IrishLotteryDownloader().getNumbers(2016, 2019), "LotteryNumbersForAlgorithm");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else if (number == 4) {
             System.out.println("Wybierz kreator");
             System.out.println("1 - Kreator Liczb i dependencji");
             System.out.println("2 - Kreator Duetów");
@@ -73,7 +90,7 @@ public class Main {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (number == 5) {
+            } else if (creatorChoice == 5) {
                 Thread thread1 = new Thread(new ComboKeyGenerator());
                 Thread thread2 = new Thread(new ComboKeyGenerator());
                 Thread thread3 = new Thread(new ComboKeyGenerator());
@@ -89,20 +106,22 @@ public class Main {
             } else if (creatorChoice == 8) {
                 new NATCreator().createNAT();
             }
-        } else if (number == 4) {
+        } else if (number == 5) {
             try {
                 new MultiCombinationReducer().reduceMultiFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (number == 5) {
         } else if (number == 6) {
+            ArrayList<ArrayList<Integer>> arrayLists = new EachWithEveryOne().returnTriple();
+            arrayLists.forEach((x)-> System.out.println(x));
         } else if (number == 7) {
             System.out.println("Podaj dla jakiego indeksu:");
             int index = scanner.nextInt();
             System.out.println(new Proposition(index).forMultiCombination());
             if (index != 0) {
-                System.out.println(FileService.loadFile("LotteryNumbersFile").get(index - 1));
+                ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+                System.out.println(lotteryNumbers.get(index - 1));
             }
         } else if (number == 8) {
             System.out.println("Wybierz rodzaj testu:");
@@ -148,10 +167,11 @@ public class Main {
         } else if (number == 9) {
             System.out.println("Podaj jaki index:");
             int index = scanner.nextInt();
-            TreeMap<Integer, Integer> lotteryNumbersFile = new NumbersAfterMultiCombinations(FileService.loadFile("LotteryNumbersFile")).getProposition(index);
+            TreeMap<Integer, Integer> lotteryNumbersFile = new NumbersAfterMultiCombinations(FileService.loadObject("LotteryNumbersFile")).getProposition(index);
             System.out.println(lotteryNumbersFile);
             if (index > 0) {
-                System.out.println(FileService.loadFile("LotteryNumbersFile").get(index - 1));
+                ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+                System.out.println(lotteryNumbers.get(index - 1));
             }
         } else if (number == 10) {
 
@@ -166,9 +186,7 @@ public class Main {
             int c = scanner.nextInt();
             System.out.println("DO:");
             int d = scanner.nextInt();
-            LotteryNumbers lotteryNumbersFromFile = new LotteryNumbers();
-            ArrayList<ArrayList<Integer>> lotteryNumbers = lotteryNumbersFromFile.convertToInt((ArrayList<String>) lotteryNumbersFromFile.readFileAndAddToList("src/main/resources/wyniki-6Liczb"));
-            Collections.reverse(lotteryNumbers);
+            ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
 
             CombinationGenerators combinationGenerators = new CombinationGenerators();
             Find3Numbers find3Numbers = new Find3Numbers();

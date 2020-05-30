@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Testy {
-    private ArrayList<ArrayList<Integer>> lotteryNumber = FileService.loadFile("LotteryNumbersFile");
+    private ArrayList<ArrayList<Integer>> lotteryNumber = FileService.loadObject("LastYearLotteryNumbersFile");
     private NumbersAfterDuet duet = new NumbersAfterDuet();
     private NumbersAfterSlant slant = new NumbersAfterSlant();
 
@@ -258,7 +258,7 @@ public class Testy {
                 iloscPropozycji += 1;
                 ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
                 for (Integer o : listOfNumbersNext) {
-                    if (propositionNumbers.contains(o)) {
+                    if (propositionNumbers.contains(o) || propositionNumbers.contains(o+1)||propositionNumbers.contains(o-1)) {
                         iloscTrafien += 1;
                         traf += 1;
                         trafionyWeek = true;

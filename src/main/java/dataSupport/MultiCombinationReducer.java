@@ -9,8 +9,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class MultiCombinationReducer {
-    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey =
-            (ArrayList<MultiCombinationKeys>) FileService.loadObject("AfterMultiCombinationNumbersNew").getObject();
+    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject("AfterMultiCombinationNumbers");
 
     public void reduceMultiFile() throws IOException {
         for (MultiCombinationKeys multi : afterMultiCombinationKey) {
@@ -25,8 +24,6 @@ public class MultiCombinationReducer {
         }
         afterMultiCombinationKey.removeIf(multiCombinationKeys -> multiCombinationKeys.getWhatNumbers().size() == 0);
 
-        ObjectForFileService<ArrayList<MultiCombinationKeys>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(afterMultiCombinationKey);
-        FileService.saveObject(objectForFileService, "ReducedMulti");
+        FileService.saveObject(afterMultiCombinationKey, "ReducedMulti");
     }
 }

@@ -10,8 +10,7 @@ import java.util.TreeMap;
 
 public class NumbersAfterPairs {
     private ArrayList<ArrayList<Integer>> lotteryNumbers;
-    private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs =
-            (TreeMap<CombinationNumbers, TreeMap<Integer, Integer>>) FileService.loadObject("NumbersAfterPairs").getObject();
+    private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs = FileService.loadObject("NumbersAfterPairs");
 
     public NumbersAfterPairs(ArrayList<ArrayList<Integer>> lotteryNumbers) {
         this.lotteryNumbers = lotteryNumbers;

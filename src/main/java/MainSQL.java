@@ -10,12 +10,10 @@ public class MainSQL {
     public static void main(String[] args) {
 //        new MultiCombinationKeysDAO().dropTable("compar");
 //        new MultiCombinationKeysDAO().createTable("multiCombination");
-        TreeSet<MultiCombinationKeys> afterMultiCombinationKey = (TreeSet<MultiCombinationKeys>) FileService.loadObject("TreeSetReducedAfterMulti").getObject();
+        TreeSet<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject("TreeSetReducedAfterMulti");
         ArrayList<MultiCombinationKeys> multiCombinationKeys = new ArrayList<>(afterMultiCombinationKey);
-        ObjectForFileService forFileService = new ObjectForFileService();
-        forFileService.setObject(multiCombinationKeys);
         try {
-            FileService.saveObject(forFileService,"ReducedAfterMulti");
+            FileService.saveObject(multiCombinationKeys,"ReducedAfterMulti");
         } catch (IOException e) {
             e.printStackTrace();
         }

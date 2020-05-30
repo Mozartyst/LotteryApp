@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class IrishLotteryDownloader implements Serializable {
+public class IrishLotteryDownloader {
     private ArrayList<ArrayList<Integer>> listOfNumbers = new ArrayList<>();
     private ArrayList<Integer> numbers = new ArrayList<>();
 

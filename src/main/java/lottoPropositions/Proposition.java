@@ -14,8 +14,8 @@ public class Proposition {
     }
 
     public ArrayList<Integer> forMultiCombination() {
-        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersFile");
-        TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = (TreeMap<Integer, TreeMap<Integer, Boolean>>) FileService.loadObject("AlgorithmFile").getObject();
+        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LastYearLotteryNumbersFile");
+        TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = FileService.loadObject("AlgorithmFile");
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index);
 
         multiProposition.forEach((number, value) -> {

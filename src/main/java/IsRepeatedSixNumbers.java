@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class IsRepeatedSixNumbers {
     public static void main(String[] args) {
-        ArrayList<ArrayList<Integer>> lotteryNumbers = Auxiliary.returnReversedListLotteryNumbers(FileService.loadFile("LotteryNumbersFile"));
+        ArrayList<ArrayList<Integer>> lotteryNumbers = Auxiliary.returnReversedListLotteryNumbers(FileService.loadObject("LotteryNumbersFile"));
         for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
             for (ArrayList<Integer> nextWeeklyNumbers : lotteryNumbers) {
                 if (lotteryNumbers.indexOf(nextWeeklyNumbers) <= lotteryNumbers.indexOf(weeklyNumbers)) {

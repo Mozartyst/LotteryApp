@@ -11,9 +11,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class ComboKeyGenerator implements Runnable {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersForAlgorithm");
-    private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationNumbers =
-            (TreeMap<Integer, ArrayList<CombinationNumbers>>) FileService.loadObject("CombinationNumbers").getObject();
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
+    private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationNumbers = FileService.loadObject("CombinationNumbers");
     private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = new ArrayList<>();
 
 
@@ -23,20 +22,20 @@ public class ComboKeyGenerator implements Runnable {
         System.out.println("Watek" + id);
         int counter = 0;
         int index = 0;
-        if (id == 11) {
+        if (id == 12) {
             counter = 100;
             index = 1;
-        } else if (id == 12) {
+        } else if (id == 13) {
             counter = 200;
             index = 101;
-        } else if (id == 13) {
+        } else if (id == 14) {
             counter = 300;
             index = 201;
-        } else if (id == 14) {
-            counter = lotteryNumbers.size()-3;
+        } else if (id == 15) {
+            counter = lotteryNumbers.size()-4;
             index = 301;
         }
-        for (int i = index; i < counter; i++) {
+        for (int i = index; i <= counter; i++) {
             int finalIndex = i;
             System.out.println(finalIndex);
             TreeSet<CombinationNumbers> combinationNumbersForFirst = new TreeSet<>();
@@ -84,9 +83,7 @@ public class ComboKeyGenerator implements Runnable {
 
 
     private synchronized void saveMulti() throws IOException {
-        ObjectForFileService<ArrayList<MultiCombinationKeys>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(afterMultiCombinationKey);
-        FileService.saveObject(objectForFileService, "AfterMultiCombinationNumbers");
+        FileService.saveObject(afterMultiCombinationKey, "AfterMultiCombinationNumbers");
     }
 
     private synchronized void addToAfterMulti(MultiCombinationKeys multi, Integer index) {

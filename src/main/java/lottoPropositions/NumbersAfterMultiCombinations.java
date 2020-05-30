@@ -10,7 +10,7 @@ import java.util.TreeSet;
 
 public class NumbersAfterMultiCombinations {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers;
-    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = (ArrayList<MultiCombinationKeys>) FileService.loadObject("ReducedMulti").getObject();
+    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject("ReducedMulti");
 
     public NumbersAfterMultiCombinations(ArrayList<ArrayList<Integer>> lotteryNumbers) {
         this.lotteryNumbers = lotteryNumbers;

@@ -1,13 +1,11 @@
-import dataSupport.LotteryNumbers;
+import dataSupport.FileService;
 
 import java.util.*;
 
 public class Wojtek {
     public static void main(String[] args) {
-        LotteryNumbers lotteryNumbersFromFile = new LotteryNumbers();
-        ArrayList<ArrayList<Integer>> lotteryNumbers = lotteryNumbersFromFile.convertToInt((ArrayList<String>) lotteryNumbersFromFile.readFileAndAddToList("src/main/resources/wyniki-6Liczb"));
+        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
 
-        Collections.reverse(lotteryNumbers);
 
         System.out.println(getIndexesIfPass(lotteryNumbers));
     }

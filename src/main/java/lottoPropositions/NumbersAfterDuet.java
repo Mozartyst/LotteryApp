@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class NumbersAfterDuet {
     public ArrayList<Integer> returnNumbersAfterDuet(ArrayList<ArrayList<Integer>> lotteryNumbers, int index) {
-        Auxiliary auxiliary = new Auxiliary();
         ArrayList<Integer> propositionForNextGame = new ArrayList<>();
         ArrayList<Integer> lastGameNumbers = lotteryNumbers.get(index);
         ArrayList<Integer> oneGamesBeforeNumbers = lotteryNumbers.get(index + 1);
@@ -15,7 +14,7 @@ public class NumbersAfterDuet {
         numbersBeside(propositionForNextGame, lastGameNumbers);
         numbersBeside(propositionForNextGame, lastGameNumbers, oneGamesBeforeNumbers);
 
-        return auxiliary.changeNumbersOverAndUnder(propositionForNextGame);
+        return Auxiliary.changeNumbersOverAndUnder(propositionForNextGame);
     }
 
     private void numbersBeside(ArrayList<Integer> propositionForNextGame, ArrayList<Integer> lastGameNumbers) {

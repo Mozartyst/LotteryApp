@@ -2,15 +2,14 @@ package creators;
 
 import dataSupport.FileService;
 import entity.Number;
-import entity.ObjectForFileService;
 
 import java.io.IOException;
 import java.util.*;
 
 
 public class AlgorithmCreator {
-    private final TreeMap<Integer, Number> listOfNumbers = (TreeMap<Integer, Number>) FileService.loadObject("ListOfNumbers").getObject();
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersForAlgorithm");
+    private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private TreeMap<Integer, TreeMap<Integer, Boolean>> algorithmFinished = new TreeMap<>();
 
     public void createAlgorithm() {
@@ -100,8 +99,6 @@ public class AlgorithmCreator {
     }
 
     private void saveObject() throws IOException {
-        ObjectForFileService<TreeMap<Integer, TreeMap<Integer, Boolean>>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(algorithmFinished);
-        FileService.saveObject(objectForFileService, "AlgorithmFile");
+        FileService.saveObject(algorithmFinished, "AlgorithmFile");
     }
 }

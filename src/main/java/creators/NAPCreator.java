@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NAPCreator {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersForAlgorithm");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs = new TreeMap<>();
 
     public void createNAP() {
@@ -52,8 +52,6 @@ public class NAPCreator {
         listOfNumbersAfterPairs.put(keyPair, numbersForNumber);
     }
     private synchronized void saveMulti() throws IOException {
-        ObjectForFileService<TreeMap<CombinationNumbers, TreeMap<Integer, Integer>>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(listOfNumbersAfterPairs);
-        FileService.saveObject(objectForFileService, "NumbersAfterPairs");
+        FileService.saveObject(listOfNumbersAfterPairs, "NumbersAfterPairs");
     }
 }

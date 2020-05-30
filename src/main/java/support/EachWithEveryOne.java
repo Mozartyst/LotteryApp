@@ -3,9 +3,9 @@ package support;
 import java.util.ArrayList;
 
 public class EachWithEveryOne {
-    private Integer[] first = {9,10,11};
-    private Integer[] second = {13,14,15};
-    private Integer[] third = {44,46,47};
+    private Integer[] first = {11,13,14};
+    private Integer[] second = {18,19,20};
+    private Integer[] third = {39,41,1};
 
 
     public ArrayList<ArrayList<Integer>> returnTriple() {

@@ -9,8 +9,8 @@ import java.util.TreeMap;
 public class MainTest2 {
     public static void main(String[] args) {
         Integer index = 0;
-        ArrayList<ArrayList<Integer>> lotteryNumbersFile1 = FileService.loadFile("LotteryNumbersFile");
-        TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>> algorithm = (TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>>) FileService.loadObject("AlgorithmFile1").getObject();
+        ArrayList<ArrayList<Integer>> lotteryNumbersFile1 = FileService.loadObject("LotteryNumbersFile");
+        TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>> algorithm = FileService.loadObject("AlgorithmFile1");
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbersFile1).getProposition(index);
         ArrayList<Integer> proposition = new ArrayList<>();
         ArrayList<Integer> integerArrayList = lotteryNumbersFile1.get(index);

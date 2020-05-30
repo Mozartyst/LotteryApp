@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class DuetCreator {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersFile");
+    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
     private TreeMap<CombinationNumbers, ArrayList<Integer>> collectionPairsAndIndexes = new TreeMap<>();
     private TreeMap<CombinationNumbers, ArrayList<Integer>> collectionTripleAndIndexes = new TreeMap<>();
-    private TreeMap<Integer, Number> listOfNumbers = (TreeMap<Integer, Number>) FileService.loadObject("ListOfNumbers").getObject();
+    private TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
     private TreeMap<Integer, TreeMap<CombinationNumbers, Duet>> afterDuetForNumbers = new TreeMap<>();
 
     public void createDuets() throws IOException {
@@ -56,9 +56,7 @@ public class DuetCreator {
             }
         }
         createDuetsForNumbers();
-        ObjectForFileService<TreeMap<Integer, Number>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(listOfNumbers);
-        FileService.saveObject(objectForFileService, "ListOfNumbers");
+        FileService.saveObject(listOfNumbers, "ListOfNumbers");
     }
 
     private void createDuetsForNumbers(){

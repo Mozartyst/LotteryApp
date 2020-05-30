@@ -13,8 +13,8 @@ public class DependenciesCreator {
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAN = new TreeMap<>();
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAP = new TreeMap<>();
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAT = new TreeMap<>();
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersFile");
-    private final TreeMap<Integer, Number> listOfNumbers = (TreeMap<Integer, Number>) FileService.loadObject("ListOfNumbers").getObject();
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+    private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
 
     public void createDependencies() throws IOException {
         for (int i = lotteryNumbers.size() - 1; i > 0; i--) {
@@ -185,8 +185,6 @@ public class DependenciesCreator {
             dependency.setIsOverAndUnderAverageNAT(favoriteOverAndUnder);
             number.setDependency(dependency);
         }
-        ObjectForFileService<TreeMap<Integer, Number>> objectForFileService = new ObjectForFileService<>();
-        objectForFileService.setObject(listOfNumbers);
-        FileService.saveObject(objectForFileService, "ListOfNumbers");
+        FileService.saveObject(listOfNumbers, "ListOfNumbers");
     }
 }

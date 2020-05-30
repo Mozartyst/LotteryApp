@@ -15,10 +15,10 @@ public class Algorithm implements Serializable {
 
 
     public ArrayList<Integer> getPropositionList(Integer index) {
-        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadFile("LotteryNumbersFile");
-        TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = (TreeMap<Integer, TreeMap<Integer, Boolean>>) FileService.loadObject("AlgorithmFile").getObject();
+        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LastYearLotteryNumbersFile");
+        TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = FileService.loadObject("AlgorithmFile");
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index);
-        TreeMap<Integer, Number> listOfNumbers = (TreeMap<Integer, Number>) FileService.loadObject("ListOfNumbers").getObject();
+        TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
         ArrayList<Integer> tempPropositionList = new ArrayList<>();
         multiProposition.forEach((number, value) -> {
             if (algorithm.containsKey(number)) {
@@ -30,8 +30,7 @@ public class Algorithm implements Serializable {
             }
         });
         tempPropositionList.forEach((number) -> {
-            Number number1 = listOfNumbers.get(number);
-            if (number1.isHot()) {
+            if (multiProposition.get(number)>1) {
                 propositionList.add(number);
             }
         });
