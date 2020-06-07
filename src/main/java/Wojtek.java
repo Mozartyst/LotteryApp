@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Wojtek {
     public static void main(String[] args) {
-        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
 
 
         System.out.println(getIndexesIfPass(lotteryNumbers));

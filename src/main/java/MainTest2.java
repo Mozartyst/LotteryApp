@@ -1,4 +1,3 @@
-import creators.AlgorithmCreator1;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import lottoPropositions.NumbersAfterMultiCombinations;
@@ -9,7 +8,7 @@ import java.util.TreeMap;
 public class MainTest2 {
     public static void main(String[] args) {
         Integer index = 0;
-        ArrayList<ArrayList<Integer>> lotteryNumbersFile1 = FileService.loadObject("LotteryNumbersFile");
+        ArrayList<ArrayList<Integer>> lotteryNumbersFile1 = FileService.loadObject("FullLotteryNumbersFile");
         TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>> algorithm = FileService.loadObject("AlgorithmFile1");
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbersFile1).getProposition(index);
         ArrayList<Integer> proposition = new ArrayList<>();

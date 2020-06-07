@@ -1,7 +1,6 @@
 package creators;
 
 import entity.*;
-import entity.ObjectForFileService;
 import dataSupport.FileService;
 import entity.Number;
 import support.*;
@@ -13,7 +12,7 @@ public class DependenciesCreator {
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAN = new TreeMap<>();
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAP = new TreeMap<>();
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAT = new TreeMap<>();
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
     private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
 
     public void createDependencies() throws IOException {

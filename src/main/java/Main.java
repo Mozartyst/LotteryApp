@@ -6,6 +6,7 @@ import entity.CombinationNumbers;
 import lottoPropositions.NumbersAfterMultiCombinations;
 import lottoPropositions.Proposition;
 import support.EachWithEveryOne;
+import support.Settings;
 import testy.Testy;
 import threeHunter.CombinationGenerators;
 import threeHunter.Find3Numbers;
@@ -13,23 +14,47 @@ import threeHunter.Finded3NumbersTester;
 import threeHunter.KeyTripleList;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        LocalDateTime now = LocalDateTime.now();
-
+        Settings settings = FileService.loadObject("Settings");
+        long l = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
+        LocalDateTime nextUpdate = LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getNextUpdate()), ZoneOffset.UTC.normalized());
+        if (l >= settings.getNextUpdate()) {
+            try {
+                FileService.saveObject(new IrishLotteryDownloader().getNumbers(2016, 2020), "FullLotteryNumbersFile");
+                FileService.saveObject(new IrishLotteryDownloader().getNumbers(2020, 2020), "LastYearLotteryNumbersFile");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (nextUpdate.getDayOfWeek().getValue() == 3) {
+                settings.setLastUpdate(settings.getNextUpdate());
+                settings.setNextUpdate(settings.getNextUpdate() + 259200000L);
+            } else {
+                settings.setLastUpdate(settings.getNextUpdate());
+                settings.setNextUpdate(settings.getNextUpdate() + 345600000L);
+            }
+            try {
+                FileService.saveObject(settings,"Settings");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Last update: " + LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getDateLastUpdate()), ZoneOffset.UTC.normalized()));
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Podaj liczbę wyboru:");
-        System.out.println("1 - Zaktualizuj pełne LotteryNumber");
-        System.out.println("2 - Zaktualizuj LotteryNumber dla roku 2020");
-        System.out.println("3 - Zapisz LotteryNumber dla Algorithm");
-        System.out.println("4 - Kreatory");
-        System.out.println("5 - Reducer dla pliku MultiCombination");
-        System.out.println("6 - ");
+        System.out.println("Select number:");
+        System.out.println("1 - Save LotteryNumber for Algorithm");
+        System.out.println("2 - ");
+        System.out.println("3 - ");
+        System.out.println("4 - Creators");
+        System.out.println("5 - Reducer for file MultiCombination");
+        System.out.println("6 - EachWithEveryOne");
         System.out.println("7 - Proposition");
-        System.out.println("8 - Testy");
+        System.out.println("8 - Tests");
         System.out.println("9 - NAMultiCombination");
         System.out.println("10 -");
         System.out.println("11 - Wojtka ThreeNumbers");
@@ -37,22 +62,14 @@ public class Main {
         int number = scanner.nextInt();
         if (number == 1) {
             try {
-                FileService.saveObject(new IrishLotteryDownloader().getNumbers(2016, 2020), "LotteryNumbersFile");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if (number == 2) {
-            try {
-                FileService.saveObject(new IrishLotteryDownloader().getNumbers(2020, 2020), "LastYearLotteryNumbersFile");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else if (number == 3) {
-            try {
                 FileService.saveObject(new IrishLotteryDownloader().getNumbers(2016, 2019), "LotteryNumbersForAlgorithm");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if (number == 2) {
+
+        } else if (number == 3) {
+
         } else if (number == 4) {
             System.out.println("Wybierz kreator");
             System.out.println("1 - Kreator Liczb i dependencji");
@@ -113,14 +130,32 @@ public class Main {
                 e.printStackTrace();
             }
         } else if (number == 6) {
-            ArrayList<ArrayList<Integer>> arrayLists = new EachWithEveryOne().returnTriple();
-            arrayLists.forEach((x)-> System.out.println(x));
+            System.out.println("Podaj pierwszą liczbę do pierwszej listy:");
+            int first = scanner.nextInt();
+            System.out.println("Podaj drugą liczbę do pierwszej listy:");
+            int second = scanner.nextInt();
+            System.out.println("Podaj trzecią liczbę do pierwszej listy:");
+            int third = scanner.nextInt();
+            System.out.println("Podaj pierwszą liczbę do drugiej listy:");
+            int fourth = scanner.nextInt();
+            System.out.println("Podaj drugą liczbę do drugiej listy:");
+            int fifth = scanner.nextInt();
+            System.out.println("Podaj trzecią liczbę do drugiej listy:");
+            int sixth = scanner.nextInt();
+            System.out.println("Podaj pierwszą liczbę do trzeciej listy:");
+            int seventh = scanner.nextInt();
+            System.out.println("Podaj drugą liczbę do trzeciej listy:");
+            int eight = scanner.nextInt();
+            System.out.println("Podaj trzecią liczbę do trzeciej listy:");
+            int ninth = scanner.nextInt();
+            ArrayList<ArrayList<Integer>> arrayLists = new EachWithEveryOne(first, second, third, fourth, fifth, sixth, seventh, eight, ninth).returnTriple();
+            arrayLists.forEach((x) -> System.out.println(x));
         } else if (number == 7) {
             System.out.println("Podaj dla jakiego indeksu:");
             int index = scanner.nextInt();
             System.out.println(new Proposition(index).forMultiCombination());
             if (index != 0) {
-                ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+                ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
                 System.out.println(lotteryNumbers.get(index - 1));
             }
         } else if (number == 8) {
@@ -167,10 +202,10 @@ public class Main {
         } else if (number == 9) {
             System.out.println("Podaj jaki index:");
             int index = scanner.nextInt();
-            TreeMap<Integer, Integer> lotteryNumbersFile = new NumbersAfterMultiCombinations(FileService.loadObject("LotteryNumbersFile")).getProposition(index);
+            TreeMap<Integer, Integer> lotteryNumbersFile = new NumbersAfterMultiCombinations(FileService.loadObject("FullLotteryNumbersFile")).getProposition(index);
             System.out.println(lotteryNumbersFile);
             if (index > 0) {
-                ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+                ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
                 System.out.println(lotteryNumbers.get(index - 1));
             }
         } else if (number == 10) {
@@ -186,7 +221,7 @@ public class Main {
             int c = scanner.nextInt();
             System.out.println("DO:");
             int d = scanner.nextInt();
-            ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+            ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
 
             CombinationGenerators combinationGenerators = new CombinationGenerators();
             Find3Numbers find3Numbers = new Find3Numbers();

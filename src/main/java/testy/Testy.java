@@ -258,7 +258,7 @@ public class Testy {
                 iloscPropozycji += 1;
                 ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
                 for (Integer o : listOfNumbersNext) {
-                    if (propositionNumbers.contains(o) || propositionNumbers.contains(o+1)||propositionNumbers.contains(o-1)) {
+                    if (propositionNumbers.contains(o)) {
                         iloscTrafien += 1;
                         traf += 1;
                         trafionyWeek = true;

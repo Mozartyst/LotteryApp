@@ -1,7 +1,6 @@
 package creators;
 
 import entity.*;
-import entity.ObjectForFileService;
 import dataSupport.FileService;
 import entity.Number;
 import support.Auxiliary;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumberCreator {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
     private TreeMap<Integer, Number> listOfNumbers = new TreeMap<>();
 
     public void createNumbers() throws IOException {

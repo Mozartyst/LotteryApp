@@ -20,6 +20,10 @@ public class Algorithm implements Serializable {
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index);
         TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
         ArrayList<Integer> tempPropositionList = new ArrayList<>();
+
+        lotteryNumbers.forEach((list)->list.forEach((number)->{
+
+        }));
         multiProposition.forEach((number, value) -> {
             if (algorithm.containsKey(number)) {
                 algorithm.get(number).forEach((x, y) -> {

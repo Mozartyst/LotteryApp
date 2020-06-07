@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Statistic {
-    ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+    ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
     TreeMap<Integer, Integer> howOftenNumbersAppeared = returnHowOftenNumbersAppeared(lotteryNumbers);
     TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = returnDistanceBetweenNumbers(lotteryNumbers);
 

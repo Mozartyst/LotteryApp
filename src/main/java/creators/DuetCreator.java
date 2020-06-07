@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class DuetCreator {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersFile");
+    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
     private TreeMap<CombinationNumbers, ArrayList<Integer>> collectionPairsAndIndexes = new TreeMap<>();
     private TreeMap<CombinationNumbers, ArrayList<Integer>> collectionTripleAndIndexes = new TreeMap<>();
     private TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
