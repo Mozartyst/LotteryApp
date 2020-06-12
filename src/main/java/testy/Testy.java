@@ -3,6 +3,7 @@ package testy;
 import dataSupport.FileService;
 import lottoPropositions.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -10,6 +11,9 @@ public class Testy {
     private ArrayList<ArrayList<Integer>> lotteryNumber = FileService.loadObject("LastYearLotteryNumbersFile");
     private NumbersAfterDuet duet = new NumbersAfterDuet();
     private NumbersAfterSlant slant = new NumbersAfterSlant();
+
+    public Testy() throws IOException, ClassNotFoundException {
+    }
 
     public void skutecznoscDuet() {
         int iloscTrafien = 0;
@@ -49,7 +53,7 @@ public class Testy {
         System.out.println("Skutecznośc SLANT " + iloscTrafien + " trafień" + " / " + iloscPropozycji + " propozycji" + " / " + lotteryNumber.size() + " losowań " + " / " + Math.round((float) iloscTrafien / lotteryNumber.size() * 100) + " procent");
     }
 
-    public void skutecznoscNumbersAfterNumber() {
+    public void skutecznoscNumbersAfterNumber() throws IOException, ClassNotFoundException {
         ArrayList<Integer> listaTraf = new ArrayList();
         int licznik = 0;
         int iloscTrafien = 0;
@@ -88,7 +92,7 @@ public class Testy {
         System.out.println("-" + iloscLiczbtypowanych + " ilość liczb typowanych" + " / " + iloscLiczbtypowanych / lotteryNumber.size() + " średnio na losowanie");
     }
 
-    public void skutecznoscNumbersAfterPairs() {
+    public void skutecznoscNumbersAfterPairs() throws IOException, ClassNotFoundException {
         ArrayList<Integer> listaTraf = new ArrayList();
         int licznik = 0;
         int iloscTrafien = 0;
@@ -127,7 +131,7 @@ public class Testy {
         System.out.println("-" + iloscLiczbtypowanych + " ilość liczb typowanych" + " / " + iloscLiczbtypowanych / lotteryNumber.size() + " średnio na losowanie");
     }
 
-    public void skutecznoscNumbersAfterTriple() {
+    public void skutecznoscNumbersAfterTriple() throws IOException, ClassNotFoundException {
         ArrayList<Integer> listaTraf = new ArrayList();
         int licznik = 0;
         int iloscTrafien = 0;
@@ -207,7 +211,7 @@ public class Testy {
         System.out.println("-" + iloscTrafien + " trafień");
     }
 
-    public void skutecznoscMultiCombination() {
+    public void skutecznoscMultiCombination() throws IOException, ClassNotFoundException {
         ArrayList<Integer> listaTraf = new ArrayList<>();
         int iloscTrafien = 0;
         int iloscPropozycji = 0;
@@ -243,7 +247,7 @@ public class Testy {
         System.out.println("-" + iloscTrafien + " trafień");
         System.out.println("-" + iloscLiczbtypowanych + " ilość liczb typowanych" + " / " + iloscLiczbtypowanych / (lotteryNumber.size()-4) + " średnio na losowanie");
     }
-    public void skutecznoscAlgorithm() {
+    public void skutecznoscAlgorithm() throws IOException, ClassNotFoundException {
         ArrayList<Integer> listaTraf = new ArrayList<>();
         int iloscTrafien = 0;
         int iloscPropozycji = 0;

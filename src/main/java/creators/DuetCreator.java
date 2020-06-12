@@ -15,6 +15,9 @@ public class DuetCreator {
     private TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
     private TreeMap<Integer, TreeMap<CombinationNumbers, Duet>> afterDuetForNumbers = new TreeMap<>();
 
+    public DuetCreator() throws IOException, ClassNotFoundException {
+    }
+
     public void createDuets() throws IOException {
         for (int i = lotteryNumbers.size() - 1; i > 0; i--) {
             ArrayList<Integer> currentGameList = lotteryNumbers.get(i);

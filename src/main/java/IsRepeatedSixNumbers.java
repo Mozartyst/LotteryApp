@@ -1,10 +1,11 @@
 import dataSupport.FileService;
 import support.Auxiliary;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class IsRepeatedSixNumbers {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ArrayList<ArrayList<Integer>> lotteryNumbers = Auxiliary.returnReversedListLotteryNumbers(FileService.loadObject("FullLotteryNumbersFile"));
         for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
             for (ArrayList<Integer> nextWeeklyNumbers : lotteryNumbers) {

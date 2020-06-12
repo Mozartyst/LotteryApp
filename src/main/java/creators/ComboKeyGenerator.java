@@ -15,6 +15,9 @@ public class ComboKeyGenerator implements Runnable {
     private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationNumbers = FileService.loadObject("CombinationNumbers");
     private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = new ArrayList<>();
 
+    public ComboKeyGenerator() throws IOException, ClassNotFoundException {
+    }
+
 
     @Override
     public void run() {

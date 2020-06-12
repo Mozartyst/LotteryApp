@@ -2,6 +2,7 @@ package lottoPropositions;
 
 import dataSupport.FileService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -13,7 +14,7 @@ public class Proposition {
         this.index = index;
     }
 
-    public ArrayList<Integer> forMultiCombination() {
+    public ArrayList<Integer> forMultiCombination() throws IOException, ClassNotFoundException {
         ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LastYearLotteryNumbersFile");
         TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = FileService.loadObject("AlgorithmFile");
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index);

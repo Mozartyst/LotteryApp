@@ -20,7 +20,7 @@ import java.time.ZoneOffset;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Settings settings = FileService.loadObject("Settings");
         long l = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
         LocalDateTime nextUpdate = LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getNextUpdate()), ZoneOffset.UTC.normalized());
@@ -71,15 +71,15 @@ public class Main {
         } else if (number == 3) {
 
         } else if (number == 4) {
-            System.out.println("Wybierz kreator");
-            System.out.println("1 - Kreator Liczb i dependencji");
-            System.out.println("2 - Kreator Duetów");
-            System.out.println("3 - Kreator Algorytmu");
-            System.out.println("4 - Kreator Combination");
-            System.out.println("5 - Kreator MultiCombination");
-            System.out.println("6 - Kreator NAN");
-            System.out.println("7 - Kreator NAP");
-            System.out.println("8 - Kreator NAT");
+            System.out.println("Select number of creator: ");
+            System.out.println("1 - Numbers and Dependency Creator");
+            System.out.println("2 - Duets Creator");
+            System.out.println("3 - Algorithm Creator");
+            System.out.println("4 - Combination Creator");
+            System.out.println("5 - MultiCombination Creator");
+            System.out.println("6 - NAN Creator");
+            System.out.println("7 - NAP Creator");
+            System.out.println("8 - NAT Creator");
             int creatorChoice = scanner.nextInt();
             if (creatorChoice == 1) {
                 try {
@@ -130,28 +130,28 @@ public class Main {
                 e.printStackTrace();
             }
         } else if (number == 6) {
-            System.out.println("Podaj pierwszą liczbę do pierwszej listy:");
+            System.out.println("Input first number to first list:");
             int first = scanner.nextInt();
-            System.out.println("Podaj drugą liczbę do pierwszej listy:");
+            System.out.println("Input second number to first list:");
             int second = scanner.nextInt();
-            System.out.println("Podaj trzecią liczbę do pierwszej listy:");
+            System.out.println("Input third number to first list:");
             int third = scanner.nextInt();
-            System.out.println("Podaj pierwszą liczbę do drugiej listy:");
+            System.out.println("Input first number to second list:");
             int fourth = scanner.nextInt();
-            System.out.println("Podaj drugą liczbę do drugiej listy:");
+            System.out.println("Input second number to second list:");
             int fifth = scanner.nextInt();
-            System.out.println("Podaj trzecią liczbę do drugiej listy:");
+            System.out.println("Input third number to second list:");
             int sixth = scanner.nextInt();
-            System.out.println("Podaj pierwszą liczbę do trzeciej listy:");
+            System.out.println("Input first number to third list:");
             int seventh = scanner.nextInt();
-            System.out.println("Podaj drugą liczbę do trzeciej listy:");
+            System.out.println("Input second number to third list:");
             int eight = scanner.nextInt();
-            System.out.println("Podaj trzecią liczbę do trzeciej listy:");
+            System.out.println("Input second number to third list:");
             int ninth = scanner.nextInt();
             ArrayList<ArrayList<Integer>> arrayLists = new EachWithEveryOne(first, second, third, fourth, fifth, sixth, seventh, eight, ninth).returnTriple();
             arrayLists.forEach((x) -> System.out.println(x));
         } else if (number == 7) {
-            System.out.println("Podaj dla jakiego indeksu:");
+            System.out.println("Input index:");
             int index = scanner.nextInt();
             System.out.println(new Proposition(index).forMultiCombination());
             if (index != 0) {
@@ -159,7 +159,7 @@ public class Main {
                 System.out.println(lotteryNumbers.get(index - 1));
             }
         } else if (number == 8) {
-            System.out.println("Wybierz rodzaj testu:");
+            System.out.println("Select test:");
             System.out.println("1 - NAN");
             System.out.println("2 - NAP");
             System.out.println("3 - NAT");
@@ -187,7 +187,7 @@ public class Main {
                 testy.skutecznoscAlgorithm();
             } else if (choice == 7) {
             } else if (choice == 8) {
-                System.out.println("Podaj randomowych 6 liczb:");
+                System.out.println("Input 6 numbers:");
                 ArrayList<Integer> arrayList = new ArrayList<>();
                 for (int i = 0; i < 6; i++) {
                     int random = scanner.nextInt();
@@ -200,7 +200,7 @@ public class Main {
                 testy.skutecznoscMultiCombination();
             }
         } else if (number == 9) {
-            System.out.println("Podaj jaki index:");
+            System.out.println("Input index:");
             int index = scanner.nextInt();
             TreeMap<Integer, Integer> lotteryNumbersFile = new NumbersAfterMultiCombinations(FileService.loadObject("FullLotteryNumbersFile")).getProposition(index);
             System.out.println(lotteryNumbersFile);
@@ -211,15 +211,15 @@ public class Main {
         } else if (number == 10) {
 
         } else if (number == 11) {
-            System.out.println("Podaj zakres pierwszej trójki:");
-            System.out.println("OD:");
+            System.out.println("Input range first triple:");
+            System.out.println("FROM:");
             int a = scanner.nextInt();
-            System.out.println("DO:");
+            System.out.println("TO:");
             int b = scanner.nextInt();
-            System.out.println("Podaj zakres drugiej trójki:");
-            System.out.println("OD:");
+            System.out.println("Input range second triple:");
+            System.out.println("FROM:");
             int c = scanner.nextInt();
-            System.out.println("DO:");
+            System.out.println("TO:");
             int d = scanner.nextInt();
             ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
 

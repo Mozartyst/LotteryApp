@@ -12,6 +12,9 @@ public class NATCreator {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = new TreeMap<>();
 
+    public NATCreator() throws IOException, ClassNotFoundException {
+    }
+
 
     public void createNAT() {
         for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {

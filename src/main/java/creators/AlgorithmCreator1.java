@@ -17,6 +17,9 @@ public class AlgorithmCreator1 {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>> algorithmFinished = new TreeMap<>();
 
+    public AlgorithmCreator1() throws IOException, ClassNotFoundException {
+    }
+
     public void createAlgorithm() {
         TreeMap<Integer, TreeMap<CombinationNumbers, TreeMap<Boolean, Integer>>> algorithm = new TreeMap<>();
         for (int i = 1; i <= 47; i++) {

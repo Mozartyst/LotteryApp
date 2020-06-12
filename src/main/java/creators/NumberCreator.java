@@ -13,6 +13,9 @@ public class NumberCreator {
     private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
     private TreeMap<Integer, Number> listOfNumbers = new TreeMap<>();
 
+    public NumberCreator() throws IOException, ClassNotFoundException {
+    }
+
     public void createNumbers() throws IOException {
         for (int i = 1; i < 48; i++) {
             Dependency dependency = new Dependency();

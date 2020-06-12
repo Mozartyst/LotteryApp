@@ -1,9 +1,10 @@
 import dataSupport.FileService;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Wojtek {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
 
 

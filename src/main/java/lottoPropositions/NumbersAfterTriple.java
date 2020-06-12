@@ -5,6 +5,7 @@ import dataSupport.FileService;
 import support.Auxiliary;
 import entity.CombinationNumbers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -12,7 +13,7 @@ public class NumbersAfterTriple {
     private ArrayList<ArrayList<Integer>> lotteryNumbers;
     private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = FileService.loadObject("NumbersAfterTriple");
 
-    public NumbersAfterTriple(ArrayList<ArrayList<Integer>> lotteryNumbers) {
+    public NumbersAfterTriple(ArrayList<ArrayList<Integer>> lotteryNumbers) throws IOException, ClassNotFoundException {
         this.lotteryNumbers = lotteryNumbers;
     }
 

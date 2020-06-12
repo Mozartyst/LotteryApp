@@ -2,6 +2,7 @@ package lottoPropositions;
 
 import dataSupport.FileService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -9,7 +10,7 @@ public class NumbersAfterNumber {
     private final TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = FileService.loadObject("NumbersAfterNumbers");
     private ArrayList<ArrayList<Integer>> lotteryNumbers;
 
-    public NumbersAfterNumber(ArrayList<ArrayList<Integer>> lotteryNumbers) {
+    public NumbersAfterNumber(ArrayList<ArrayList<Integer>> lotteryNumbers) throws IOException, ClassNotFoundException {
         this.lotteryNumbers = lotteryNumbers;
     }
 

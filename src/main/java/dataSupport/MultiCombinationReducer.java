@@ -11,6 +11,9 @@ import java.util.TreeMap;
 public class MultiCombinationReducer {
     private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject("AfterMultiCombinationNumbers");
 
+    public MultiCombinationReducer() throws IOException, ClassNotFoundException {
+    }
+
     public void reduceMultiFile() throws IOException {
         for (MultiCombinationKeys multi : afterMultiCombinationKey) {
             TreeMap<Integer, Integer> whatNumbers = new TreeMap<>();

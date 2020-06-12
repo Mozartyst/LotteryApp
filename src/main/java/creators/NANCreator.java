@@ -11,6 +11,9 @@ public class NANCreator {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = new TreeMap<>();
 
+    public NANCreator() throws IOException, ClassNotFoundException {
+    }
+
     public void createNAN() {
         for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
             int index = lotteryNumbers.indexOf(weeklyNumbers);

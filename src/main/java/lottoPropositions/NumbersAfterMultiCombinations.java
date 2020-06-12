@@ -4,6 +4,7 @@ import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationKeys;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -12,7 +13,7 @@ public class NumbersAfterMultiCombinations {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers;
     private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject("ReducedMulti");
 
-    public NumbersAfterMultiCombinations(ArrayList<ArrayList<Integer>> lotteryNumbers) {
+    public NumbersAfterMultiCombinations(ArrayList<ArrayList<Integer>> lotteryNumbers) throws IOException, ClassNotFoundException {
         this.lotteryNumbers = lotteryNumbers;
     }
 

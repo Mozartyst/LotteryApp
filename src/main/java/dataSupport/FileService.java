@@ -13,27 +13,24 @@ public class FileService {
             file.createNewFile();
         }
         ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
-        outputStream.writeObject(objectForFileService);
-        outputStream.flush();
-        outputStream.close();
+        try {
+            outputStream.writeObject(objectForFileService);
+        } finally {
+            outputStream.flush();
+            outputStream.close();
+        }
     }
 
-    public static <R> R loadObject(String fileName) {
+    public static <R> R loadObject(String fileName) throws IOException, ClassNotFoundException {
         ObjectInputStream inputStream = null;
-        ObjectForFileService<R> objectForFileService = null;
-        R object = null;
+        ObjectForFileService<R> objectForFileService;
+        R object;
         try {
             inputStream = new ObjectInputStream(new FileInputStream("src/main/resources/" + fileName));
             objectForFileService = (ObjectForFileService<R>) inputStream.readObject();
             object = objectForFileService.getObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            inputStream.close();
         }
         return object;
     }

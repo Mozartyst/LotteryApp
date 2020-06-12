@@ -2,6 +2,7 @@ package support;
 
 import dataSupport.FileService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -9,6 +10,9 @@ public class Statistic {
     ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
     TreeMap<Integer, Integer> howOftenNumbersAppeared = returnHowOftenNumbersAppeared(lotteryNumbers);
     TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = returnDistanceBetweenNumbers(lotteryNumbers);
+
+    public Statistic() throws IOException, ClassNotFoundException {
+    }
 
     private TreeMap<Integer, Integer> returnHowOftenNumbersAppeared(ArrayList<ArrayList<Integer>> lotteryNumbers) {
         TreeMap<Integer, Integer> howOftenNumbersAppeared = new TreeMap<>();

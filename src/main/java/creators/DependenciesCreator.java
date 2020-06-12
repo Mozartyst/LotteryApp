@@ -15,6 +15,9 @@ public class DependenciesCreator {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
     private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
 
+    public DependenciesCreator() throws IOException, ClassNotFoundException {
+    }
+
     public void createDependencies() throws IOException {
         for (int i = lotteryNumbers.size() - 1; i > 0; i--) {
             ArrayList<Integer> numbersForCreateDependency = lotteryNumbers.get(i);

@@ -12,6 +12,9 @@ public class NAPCreator {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs = new TreeMap<>();
 
+    public NAPCreator() throws IOException, ClassNotFoundException {
+    }
+
     public void createNAP() {
         for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
             int index = lotteryNumbers.indexOf(weeklyNumbers);

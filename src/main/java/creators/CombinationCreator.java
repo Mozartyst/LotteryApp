@@ -12,6 +12,9 @@ public class CombinationCreator {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationMap = new TreeMap<>();
 
+    public CombinationCreator() throws IOException, ClassNotFoundException {
+    }
+
     public void createAllCombinationNumbers() throws IOException {
         ArrayList<CombinationNumbers> combinationNumbersArrayList = new ArrayList<>();
         for (int index = 0; index < lotteryNumbers.size(); index++) {

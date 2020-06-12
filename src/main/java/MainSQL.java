@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class MainSQL {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 //        new MultiCombinationKeysDAO().dropTable("compar");
 //        new MultiCombinationKeysDAO().createTable("multiCombination");
         TreeSet<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject("TreeSetReducedAfterMulti");
