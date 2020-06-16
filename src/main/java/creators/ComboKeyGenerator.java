@@ -3,7 +3,6 @@ package creators;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationKeys;
-import entity.ObjectForFileService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,32 +12,20 @@ import java.util.TreeSet;
 public class ComboKeyGenerator implements Runnable {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
     private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationNumbers = FileService.loadObject("CombinationNumbers");
-    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = new ArrayList<>();
+    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey;
+    private final int start;
+    private final int end;
 
-    public ComboKeyGenerator() throws IOException, ClassNotFoundException {
+    public ComboKeyGenerator(int start, int end, ArrayList<MultiCombinationKeys> afterMultiCombinationKey) throws IOException, ClassNotFoundException {
+        this.start = start;
+        this.end = end;
+        this.afterMultiCombinationKey = afterMultiCombinationKey;
     }
 
 
     @Override
     public void run() {
-        long id = Thread.currentThread().getId();
-        System.out.println("Watek" + id);
-        int counter = 0;
-        int index = 0;
-        if (id == 12) {
-            counter = 100;
-            index = 1;
-        } else if (id == 13) {
-            counter = 200;
-            index = 101;
-        } else if (id == 14) {
-            counter = 300;
-            index = 201;
-        } else if (id == 15) {
-            counter = lotteryNumbers.size()-4;
-            index = 301;
-        }
-        for (int i = index; i <= counter; i++) {
+        for (int i = start; i <= end; i++) {
             int finalIndex = i;
             System.out.println(finalIndex);
             TreeSet<CombinationNumbers> combinationNumbersForFirst = new TreeSet<>();

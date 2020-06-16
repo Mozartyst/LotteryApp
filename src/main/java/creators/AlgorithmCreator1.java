@@ -3,7 +3,6 @@ package creators;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.Number;
-import entity.ObjectForFileService;
 import entity.Occurrences;
 
 import java.io.IOException;

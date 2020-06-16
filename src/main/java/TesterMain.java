@@ -1,31 +1,30 @@
 import algorithm.Algorithm;
+import creators.AlgorithmCreator1;
+import creators.PropositionReducerCreator;
 import creators.QuantityOfAppearedCreator;
 import dataSupport.FileService;
+import lottoPropositions.Proposition;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class TesterMain {
-    private static ArrayList<ArrayList<Integer>> lotteryNumbers;
-
-    static {
-        try {
-            lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        for (int i = 6; i >= 0; i--) {
-            ArrayList<Integer> proposition = new Algorithm().getPropositionList(i);
-            System.out.println(proposition);
-//            System.out.println(lotteryNumbers.get(i - 1));
-        }
+//        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LastYearLotteryNumbersFile");
+//        TreeMap<Integer, ArrayList<Double>> results = new TreeMap<>();
+//        Thread thread = new Thread(new PropositionReducerCreator(lotteryNumbers.size(),35,results));
+//        Thread thread1 = new Thread(new PropositionReducerCreator(34,25,results));
+//        Thread thread2 = new Thread(new PropositionReducerCreator(24,15,results));
+//        Thread thread3 = new Thread(new PropositionReducerCreator(14,1,results));
+//        thread.start();
+//        thread1.start();
+//        thread2.start();
+//        thread3.start();
 
+        TreeMap<Integer, ArrayList<Double>> results = FileService.loadObject("Results");
+        System.out.println(results);
     }
 }
 

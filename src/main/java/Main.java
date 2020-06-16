@@ -3,6 +3,7 @@ import dataSupport.FileService;
 import dataSupport.IrishLotteryDownloader;
 import dataSupport.MultiCombinationReducer;
 import entity.CombinationNumbers;
+import entity.MultiCombinationKeys;
 import lottoPropositions.NumbersAfterMultiCombinations;
 import lottoPropositions.Proposition;
 import support.EachWithEveryOne;
@@ -39,7 +40,7 @@ public class Main {
                 settings.setNextUpdate(settings.getNextUpdate() + 345600000L);
             }
             try {
-                FileService.saveObject(settings,"Settings");
+                FileService.saveObject(settings, "Settings");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -108,10 +109,12 @@ public class Main {
                     e.printStackTrace();
                 }
             } else if (creatorChoice == 5) {
-                Thread thread1 = new Thread(new ComboKeyGenerator());
-                Thread thread2 = new Thread(new ComboKeyGenerator());
-                Thread thread3 = new Thread(new ComboKeyGenerator());
-                Thread thread4 = new Thread(new ComboKeyGenerator());
+                ArrayList<ArrayList<Integer>> lotteryForAlgorithm = FileService.loadObject("LotteryNumbersForAlgorithm");
+                ArrayList<MultiCombinationKeys> afterMultiCombinationKey = new ArrayList<>();
+                Thread thread1 = new Thread(new ComboKeyGenerator(1, 100, afterMultiCombinationKey));
+                Thread thread2 = new Thread(new ComboKeyGenerator(101, 200, afterMultiCombinationKey));
+                Thread thread3 = new Thread(new ComboKeyGenerator(201, 300, afterMultiCombinationKey));
+                Thread thread4 = new Thread(new ComboKeyGenerator(301, lotteryForAlgorithm.size() - 4, afterMultiCombinationKey));
                 thread1.start();
                 thread2.start();
                 thread3.start();
