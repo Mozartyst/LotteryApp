@@ -5,6 +5,7 @@ import dataSupport.MultiCombinationReducer;
 import entity.CombinationNumbers;
 import entity.MultiCombinationKeys;
 import lottoPropositions.NumbersAfterMultiCombinations;
+import lottoPropositions.NumbersAfterTriple;
 import lottoPropositions.Proposition;
 import support.EachWithEveryOne;
 import support.Settings;
@@ -57,7 +58,7 @@ public class Main {
         System.out.println("7 - Proposition");
         System.out.println("8 - Tests");
         System.out.println("9 - NAMultiCombination");
-        System.out.println("10 -");
+        System.out.println("10 -NAT");
         System.out.println("11 - Wojtka ThreeNumbers");
 
         int number = scanner.nextInt();
@@ -212,7 +213,14 @@ public class Main {
                 System.out.println(lotteryNumbers.get(index - 1));
             }
         } else if (number == 10) {
-
+            System.out.println("Input index:");
+            int index = scanner.nextInt();
+            TreeMap<Integer, Integer> lotteryNumbersFile = new NumbersAfterTriple(FileService.loadObject("FullLotteryNumbersFile")).getPropositionNumbersAfterTriple(index);
+            System.out.println(lotteryNumbersFile);
+            if (index > 0) {
+                ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
+                System.out.println(lotteryNumbers.get(index - 1));
+            }
         } else if (number == 11) {
             System.out.println("Input range first triple:");
             System.out.println("FROM:");

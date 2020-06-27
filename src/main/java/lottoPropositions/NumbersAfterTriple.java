@@ -24,11 +24,13 @@ public class NumbersAfterTriple {
 
         for (Integer firstNumber : lotteryNumbers.get(index)) {
             for (Integer secondNumber : lotteryNumbers.get(index)) {
-                if ((int) firstNumber >= (int) secondNumber)
+                if ((int) firstNumber >= (int) secondNumber) {
                     continue;
+                }
                 for (Integer thirdNumber : lotteryNumbers.get(index)) {
-                    if (secondNumber >= thirdNumber)
+                    if (secondNumber >= thirdNumber) {
                         continue;
+                    }
                     CombinationNumbers combinationNumbers = new CombinationNumbers(firstNumber, secondNumber, thirdNumber);
                     if (listOfNumbersAfterTriple.get(combinationNumbers) != null)
                         listOfNumbersForWeek.put(combinationNumbers, listOfNumbersAfterTriple.get(combinationNumbers));

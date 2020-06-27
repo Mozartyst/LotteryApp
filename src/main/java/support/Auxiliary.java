@@ -123,4 +123,14 @@ public class Auxiliary {
         });
         return listOfNumber;
     }
+    public static boolean RepeatedReducer(Integer first, Integer second, Integer third, Integer fourth, Integer fifth, Integer sixth,ArrayList<ArrayList<Integer>> lotteryNumbers){
+
+        for (ArrayList<Integer> weeklyNumbers: lotteryNumbers) {
+            if (weeklyNumbers.contains(fifth)){
+
+            }
+        }
+
+        return true;
+    }
 }

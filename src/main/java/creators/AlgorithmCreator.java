@@ -91,6 +91,8 @@ public class AlgorithmCreator {
 
             Integer first = values.get(0);
             Integer second = values.get(1);
+            Integer third = values.get(2);
+
 
             tempMap.forEach((x, y) -> {
                 if (y == first || y == second) {
