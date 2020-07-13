@@ -6,6 +6,7 @@ import lottoPropositions.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class Testy {
     private ArrayList<ArrayList<Integer>> lotteryNumber = FileService.loadObject("LastYearLotteryNumbersFile");
@@ -256,7 +257,7 @@ public class Testy {
         boolean trafionyWeek = false;
         for (int i = (lotteryNumber.size() - 4); i > 0; i--) {
             int traf = 0;
-            ArrayList<Integer> propositionNumbers = new Proposition(i).forMultiCombination();
+            TreeSet<Integer> propositionNumbers = new Proposition(i).forMultiCombination();
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
                 iloscPropozycji += 1;

@@ -1,4 +1,6 @@
+import algorithm.Algorithm;
 import creators.*;
+import dataSupport.EuroMillionLotteryDownloader;
 import dataSupport.FileService;
 import dataSupport.IrishLotteryDownloader;
 import dataSupport.MultiCombinationReducer;
@@ -25,8 +27,9 @@ public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Settings settings = FileService.loadObject("Settings");
         long l = LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli();
-        LocalDateTime nextUpdate = LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getNextUpdate()), ZoneOffset.UTC.normalized());
-        if (l >= settings.getNextUpdate()) {
+        LocalDateTime nextUpdate = LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getIrishNextUpdate()), ZoneOffset.UTC.normalized());
+        LocalDateTime nextUpdateEuro = LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getEuroNextUpdate()), ZoneOffset.UTC.normalized());
+        if (l >= settings.getIrishNextUpdate()) {
             try {
                 FileService.saveObject(new IrishLotteryDownloader().getNumbers(2016, 2020), "FullLotteryNumbersFile");
                 FileService.saveObject(new IrishLotteryDownloader().getNumbers(2020, 2020), "LastYearLotteryNumbersFile");
@@ -34,11 +37,11 @@ public class Main {
                 e.printStackTrace();
             }
             if (nextUpdate.getDayOfWeek().getValue() == 3) {
-                settings.setLastUpdate(settings.getNextUpdate());
-                settings.setNextUpdate(settings.getNextUpdate() + 259200000L);
+                settings.setIrishLastUpdate(settings.getIrishNextUpdate());
+                settings.setIrishNextUpdate(settings.getIrishNextUpdate() + 259200000L);
             } else {
-                settings.setLastUpdate(settings.getNextUpdate());
-                settings.setNextUpdate(settings.getNextUpdate() + 345600000L);
+                settings.setIrishLastUpdate(settings.getIrishNextUpdate());
+                settings.setIrishNextUpdate(settings.getIrishNextUpdate() + 345600000L);
             }
             try {
                 FileService.saveObject(settings, "Settings");
@@ -46,11 +49,31 @@ public class Main {
                 e.printStackTrace();
             }
         }
-        System.out.println("Last update: " + LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getDateLastUpdate()), ZoneOffset.UTC.normalized()));
+        if (l >= settings.getEuroNextUpdate()) {
+            try {
+                FileService.saveObject(new EuroMillionLotteryDownloader().getNumbers(2014, 2020), "FullEuroNumbersFile");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (nextUpdateEuro.getDayOfWeek().getValue() == 2) {
+                settings.setEuroLastUpdate(settings.getEuroNextUpdate());
+                settings.setEuroNextUpdate(settings.getEuroNextUpdate() + 259200000L);
+            } else {
+                settings.setEuroLastUpdate(settings.getEuroNextUpdate());
+                settings.setEuroNextUpdate(settings.getEuroNextUpdate() + 345600000L);
+            }
+            try {
+                FileService.saveObject(settings, "Settings");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Last IrishLottery update: " + LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getIrishLastUpdate()), ZoneOffset.UTC.normalized()));
+        System.out.println("Last EuroMillion update: " + LocalDateTime.ofInstant(Instant.ofEpochMilli(settings.getEuroLastUpdate()), ZoneOffset.UTC.normalized()));
         Scanner scanner = new Scanner(System.in);
         System.out.println("Select number:");
         System.out.println("1 - Save LotteryNumber for Algorithm");
-        System.out.println("2 - ");
+        System.out.println("2 - Algorithm proposition");
         System.out.println("3 - ");
         System.out.println("4 - Creators");
         System.out.println("5 - Reducer for file MultiCombination");
@@ -69,7 +92,13 @@ public class Main {
                 e.printStackTrace();
             }
         } else if (number == 2) {
-
+            System.out.println("Input index:");
+            int index = scanner.nextInt();
+            System.out.println(new Algorithm().getPropositionList(index));
+            if (index != 0) {
+                ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
+                System.out.println(lotteryNumbers.get(index - 1));
+            }
         } else if (number == 3) {
 
         } else if (number == 4) {

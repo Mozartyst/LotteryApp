@@ -3,27 +3,47 @@ package support;
 import java.io.Serializable;
 
 public class Settings implements Serializable {
-    long lastUpdate;
-    long nextLottery;
+    long irishLastUpdate;
+    long irishNextLottery;
+    long euroLastUpdate;
+    long euroNextLottery;
 
-    public Settings(long lastUpdate, long nextLottery) {
-        this.lastUpdate = lastUpdate;
-        this.nextLottery = nextLottery;
+    public Settings(long irishLastUpdate, long irishNextLottery, long euroLastUpdate, long euroNextLottery) {
+        this.irishLastUpdate = irishLastUpdate;
+        this.irishNextLottery = irishNextLottery;
+        this.euroLastUpdate = euroLastUpdate;
+        this.euroNextLottery = euroNextLottery;
     }
 
-    public long getDateLastUpdate() {
-        return lastUpdate;
+    public long getIrishLastUpdate() {
+        return irishLastUpdate;
     }
 
-    public void setLastUpdate(long lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setIrishLastUpdate(long irishLastUpdate) {
+        this.irishLastUpdate = irishLastUpdate;
     }
 
-    public long getNextUpdate() {
-        return nextLottery;
+    public long getIrishNextUpdate() {
+        return irishNextLottery;
     }
 
-    public void setNextUpdate(long nextLottery) {
-        this.nextLottery = nextLottery;
+    public void setIrishNextUpdate(long nextLottery) {
+        this.irishNextLottery = nextLottery;
+    }
+
+    public long getEuroLastUpdate() {
+        return euroLastUpdate;
+    }
+
+    public void setEuroLastUpdate(long euroLastUpdate) {
+        this.euroLastUpdate = euroLastUpdate;
+    }
+
+    public long getEuroNextUpdate() {
+        return euroNextLottery;
+    }
+
+    public void setEuroNextUpdate(long euroNextLottery) {
+        this.euroNextLottery = euroNextLottery;
     }
 }

@@ -7,17 +7,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class IrishLotteryDownloader {
+public class EuroMillionLotteryDownloader {
     private ArrayList<ArrayList<Integer>> listOfNumbers = new ArrayList<>();
     private ArrayList<Integer> numbers = new ArrayList<>();
 
     public ArrayList<ArrayList<Integer>> getNumbers(int from , int to) {
         for (int i = to; i >= from; i--) {
 
-            Connection connection = Jsoup.connect("https://irish.national-lottery.com/irish-lotto/results-archive-" + i);
+            Connection connection = Jsoup.connect("https://www.euro-millions.com/results-history-" + i);
             Document document = null;
             try {
                 document = connection.get();
@@ -26,7 +25,7 @@ public class IrishLotteryDownloader {
             }
             Elements elements = null;
             if (document != null) {
-                elements = document.getElementsByClass("result medium irish-lotto ball dark ball");
+                elements = document.getElementsByClass("new ball");
             }
 
             if (elements != null) {
@@ -35,7 +34,7 @@ public class IrishLotteryDownloader {
                     String temp = span.text();
                     numbers.add(Integer.valueOf(temp));
                     licznik++;
-                    if (licznik == 6) {
+                    if (licznik == 5) {
                         listOfNumbers.add(numbers);
                         numbers = new ArrayList<>();
                         licznik = 0;
@@ -45,6 +44,5 @@ public class IrishLotteryDownloader {
         }
         return listOfNumbers;
     }
+
 }
-
-

@@ -6,6 +6,7 @@ import lottoPropositions.Proposition;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class PropositionReducerCreator implements Runnable {
     private final TreeMap<Integer, ArrayList<Double>> results;
@@ -23,7 +24,7 @@ public class PropositionReducerCreator implements Runnable {
     @Override
     public void run() {
         for (int i = start; i >= end; i--) {
-            ArrayList<Integer> tempPropositionList = null;
+            TreeSet<Integer> tempPropositionList = null;
             try {
                 tempPropositionList = new Proposition(i).forMultiCombination();
             } catch (IOException | ClassNotFoundException e) {
