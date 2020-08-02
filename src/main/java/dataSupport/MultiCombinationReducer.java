@@ -3,15 +3,15 @@ package dataSupport;
 import entity.MultiCombinationKeys;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 public class MultiCombinationReducer {
-    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject("AfterMultiCombinationNumbers");
+    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey;
+    private final Properties properties;
 
-    public MultiCombinationReducer() throws IOException, ClassNotFoundException {
+    public MultiCombinationReducer(ArrayList<MultiCombinationKeys> afterMultiCombinationKey, Properties properties) {
+        this.afterMultiCombinationKey = afterMultiCombinationKey;
+        this.properties = properties;
     }
 
     public void reduceMultiFile() throws IOException {
@@ -29,6 +29,6 @@ public class MultiCombinationReducer {
         afterMultiCombinationKey.removeIf(Objects::isNull);
         afterMultiCombinationKey.removeIf(multiCombinationKeys -> multiCombinationKeys.getWhatNumbers().size() == 0);
 
-        FileService.saveObject(afterMultiCombinationKey, "IrishLottery/ReducedMulti");
+        FileService.saveObject(afterMultiCombinationKey, properties.getProperty("reducedMulti"));
     }
 }

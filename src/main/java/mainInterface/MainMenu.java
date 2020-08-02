@@ -29,7 +29,7 @@ public class MainMenu {
         } else if (number == 4) {
             new Choice4().run(scanner,properties);
         } else if (number == 5) {
-            new Choice5().run();
+            new Choice5().run(properties);
         } else if (number == 6) {
             new Choice6().run(scanner);
         } else if (number == 7) {
