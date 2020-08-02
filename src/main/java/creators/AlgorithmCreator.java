@@ -8,16 +8,20 @@ import java.util.*;
 
 
 public class AlgorithmCreator {
-    private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
-    private TreeMap<Integer, TreeMap<Integer, Boolean>> algorithmFinished = new TreeMap<>();
+    private final TreeMap<Integer, TreeMap<Integer, Boolean>> algorithmFinished = new TreeMap<>();
+    private final TreeMap<Integer, Number> listOfNumbers;
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final Properties properties;
 
-    public AlgorithmCreator() throws IOException, ClassNotFoundException {
+    public AlgorithmCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, TreeMap<Integer, Number> listOfNumbers, Properties properties) {
+        this.lotteryNumbers = lotteryNumbers;
+        this.listOfNumbers = listOfNumbers;
+        this.properties = properties;
     }
 
     public void createAlgorithm() {
         TreeMap<Integer, TreeMap<Integer, TreeMap<Boolean, Integer>>> algorithm = new TreeMap<>();
-        for (int i = 1; i <= 47; i++) {
+        for (int i = 1; i <= Integer.parseInt(properties.getProperty("range")); i++) {
             TreeMap<Integer, TreeMap<Boolean, Integer>> algForNumber = new TreeMap<>();
             TreeMap<Integer, Integer> afterNumbers = listOfNumbers.get(i).getDependency().getAfterNumbers();
             int finalI = i;
@@ -104,6 +108,6 @@ public class AlgorithmCreator {
     }
 
     private void saveObject() throws IOException {
-        FileService.saveObject(algorithmFinished, "AlgorithmFile");
+        FileService.saveObject(algorithmFinished, properties.getProperty("algorithmFile"));
     }
 }

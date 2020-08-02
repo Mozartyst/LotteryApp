@@ -12,8 +12,8 @@ import java.util.Collections;
 import java.util.TreeMap;
 
 public class AlgorithmCreator1 {
-    private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
+    private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("IrishLottery/ListOfNumbers");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("IrishLottery/IrishNumbersForAlgorithm");
     private TreeMap<Integer, TreeMap<CombinationNumbers, Boolean>> algorithmFinished = new TreeMap<>();
 
     public AlgorithmCreator1() throws IOException, ClassNotFoundException {
@@ -111,7 +111,7 @@ public class AlgorithmCreator1 {
     }
 
     private void saveObject() throws IOException {
-        FileService.saveObject(algorithmFinished, "AlgorithmFile1");
+        FileService.saveObject(algorithmFinished, "IrishLottery/AlgorithmFile1");
     }
 }
 

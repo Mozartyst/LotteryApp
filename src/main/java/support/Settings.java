@@ -1,49 +1,70 @@
 package support;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Settings implements Serializable {
-    long irishLastUpdate;
-    long irishNextLottery;
-    long euroLastUpdate;
-    long euroNextLottery;
+    LocalDateTime irishLastUpdate;
+    LocalDateTime irishNextUpdate;
+    LocalDateTime euroLastUpdate;
+    LocalDateTime euroNextUpdate;
+    LocalDateTime polishLastUpdate;
+    LocalDateTime polishNextUpdate;
 
-    public Settings(long irishLastUpdate, long irishNextLottery, long euroLastUpdate, long euroNextLottery) {
+    public Settings(LocalDateTime irishLastUpdate, LocalDateTime irishNextUpdate, LocalDateTime euroLastUpdate, LocalDateTime euroNextUpdate, LocalDateTime polishLastUpdate, LocalDateTime polishNextUpdate) {
         this.irishLastUpdate = irishLastUpdate;
-        this.irishNextLottery = irishNextLottery;
+        this.irishNextUpdate = irishNextUpdate;
         this.euroLastUpdate = euroLastUpdate;
-        this.euroNextLottery = euroNextLottery;
+        this.euroNextUpdate = euroNextUpdate;
+        this.polishLastUpdate = polishLastUpdate;
+        this.polishNextUpdate = polishNextUpdate;
     }
 
-    public long getIrishLastUpdate() {
+    public LocalDateTime getIrishLastUpdate() {
         return irishLastUpdate;
     }
 
-    public void setIrishLastUpdate(long irishLastUpdate) {
+    public void setIrishLastUpdate(LocalDateTime irishLastUpdate) {
         this.irishLastUpdate = irishLastUpdate;
     }
 
-    public long getIrishNextUpdate() {
-        return irishNextLottery;
+    public LocalDateTime getIrishNextUpdate() {
+        return irishNextUpdate;
     }
 
-    public void setIrishNextUpdate(long nextLottery) {
-        this.irishNextLottery = nextLottery;
+    public void setIrishNextUpdate(LocalDateTime irishNextUpdate) {
+        this.irishNextUpdate = irishNextUpdate;
     }
 
-    public long getEuroLastUpdate() {
+    public LocalDateTime getEuroLastUpdate() {
         return euroLastUpdate;
     }
 
-    public void setEuroLastUpdate(long euroLastUpdate) {
+    public void setEuroLastUpdate(LocalDateTime euroLastUpdate) {
         this.euroLastUpdate = euroLastUpdate;
     }
 
-    public long getEuroNextUpdate() {
-        return euroNextLottery;
+    public LocalDateTime getEuroNextUpdate() {
+        return euroNextUpdate;
     }
 
-    public void setEuroNextUpdate(long euroNextLottery) {
-        this.euroNextLottery = euroNextLottery;
+    public void setEuroNextUpdate(LocalDateTime euroNextUpdate) {
+        this.euroNextUpdate = euroNextUpdate;
+    }
+
+    public LocalDateTime getPolishLastUpdate() {
+        return polishLastUpdate;
+    }
+
+    public void setPolishLastUpdate(LocalDateTime polishLastUpdate) {
+        this.polishLastUpdate = polishLastUpdate;
+    }
+
+    public LocalDateTime getPolishNextUpdate() {
+        return polishNextUpdate;
+    }
+
+    public void setPolishNextUpdate(LocalDateTime polishNextUpdate) {
+        this.polishNextUpdate = polishNextUpdate;
     }
 }

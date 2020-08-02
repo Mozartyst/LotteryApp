@@ -6,16 +6,21 @@ import entity.Number;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 public class DuetCreator {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
     private TreeMap<CombinationNumbers, ArrayList<Integer>> collectionPairsAndIndexes = new TreeMap<>();
     private TreeMap<CombinationNumbers, ArrayList<Integer>> collectionTripleAndIndexes = new TreeMap<>();
-    private TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
     private TreeMap<Integer, TreeMap<CombinationNumbers, Duet>> afterDuetForNumbers = new TreeMap<>();
+    private final TreeMap<Integer, Number> listOfNumbers;
+    private final Properties properties;
 
-    public DuetCreator() throws IOException, ClassNotFoundException {
+    public DuetCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, TreeMap<Integer, Number> listOfNumbers, Properties properties) throws IOException, ClassNotFoundException {
+        this.lotteryNumbers = lotteryNumbers;
+        this.listOfNumbers = listOfNumbers;
+        this.properties = properties;
     }
 
     public void createDuets() throws IOException {
@@ -59,10 +64,10 @@ public class DuetCreator {
             }
         }
         createDuetsForNumbers();
-        FileService.saveObject(listOfNumbers, "ListOfNumbers");
+        FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
     }
 
-    private void createDuetsForNumbers(){
+    private void createDuetsForNumbers() {
         collectionPairsAndIndexes.forEach((x, y) -> {
             final Duet[] duet = {new Duet(x)};
             y.forEach((index) -> {

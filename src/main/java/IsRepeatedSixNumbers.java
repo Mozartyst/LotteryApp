@@ -3,7 +3,6 @@ import support.Auxiliary;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class IsRepeatedSixNumbers {
@@ -11,10 +10,10 @@ public class IsRepeatedSixNumbers {
     private static ArrayList<ArrayList<Integer>> fullList = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ArrayList<ArrayList<Integer>> lotteryNumbers = Auxiliary.returnReversedListLotteryNumbers(FileService.loadObject("FullLotteryNumbersFile"));
+        ArrayList<ArrayList<Integer>> lotteryNumbers = Auxiliary.returnReversedListLotteryNumbers(FileService.loadObject("PolishLottery/FullPolishNumbersFile"));
         for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
             for (ArrayList<Integer> nextWeeklyNumbers : lotteryNumbers) {
-                if (lotteryNumbers.indexOf(nextWeeklyNumbers) < lotteryNumbers.indexOf(weeklyNumbers)) {
+                if (lotteryNumbers.indexOf(nextWeeklyNumbers) <= lotteryNumbers.indexOf(weeklyNumbers)) {
                     continue;
                 }
                 ArrayList<Integer> printList = new ArrayList<>();
@@ -169,7 +168,7 @@ public class IsRepeatedSixNumbers {
     public static void print() {
         fullList.forEach((x) -> {
 
-            if (x.size() == 5) {
+            if (x.size() == 2) {
                 System.out.println(counter + " " + x);
                 counter++;
             }

@@ -1,17 +1,20 @@
 package creators;
 
 import dataSupport.FileService;
-import entity.ObjectForFileService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 public class NANCreator {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
     private TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = new TreeMap<>();
+    private final Properties properties;
 
-    public NANCreator() throws IOException, ClassNotFoundException {
+    public NANCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, Properties properties) {
+        this.lotteryNumbers = lotteryNumbers;
+        this.properties = properties;
     }
 
     public void createNAN() {
@@ -50,6 +53,6 @@ public class NANCreator {
         listOfNumbersAfterNumbers.put(previousNumber, numbersForNumber);
     }
     private synchronized void saveMulti() throws IOException {
-        FileService.saveObject(listOfNumbersAfterNumbers, "NumbersAfterNumbers");
+        FileService.saveObject(listOfNumbersAfterNumbers, properties.getProperty("afterNumber"));
     }
 }

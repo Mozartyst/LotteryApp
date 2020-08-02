@@ -6,20 +6,30 @@ import entity.MultiCombinationKeys;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class ComboKeyGenerator implements Runnable {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
-    private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationNumbers = FileService.loadObject("CombinationNumbers");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationNumbers;
     private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey;
     private final int start;
     private final int end;
+    private final Properties properties;
 
-    public ComboKeyGenerator(int start, int end, ArrayList<MultiCombinationKeys> afterMultiCombinationKey) throws IOException, ClassNotFoundException {
+    public ComboKeyGenerator(ArrayList<ArrayList<Integer>> lotteryNumbers
+            , TreeMap<Integer, ArrayList<CombinationNumbers>> combinationNumbers
+            , int start
+            , int end
+            , ArrayList<MultiCombinationKeys> afterMultiCombinationKey
+            , Properties properties) {
+        this.lotteryNumbers = lotteryNumbers;
+        this.combinationNumbers = combinationNumbers;
         this.start = start;
         this.end = end;
         this.afterMultiCombinationKey = afterMultiCombinationKey;
+        this.properties = properties;
     }
 
 
@@ -73,7 +83,7 @@ public class ComboKeyGenerator implements Runnable {
 
 
     private synchronized void saveMulti() throws IOException {
-        FileService.saveObject(afterMultiCombinationKey, "AfterMultiCombinationNumbers");
+        FileService.saveObject(afterMultiCombinationKey, properties.getProperty("afterMulti"));
     }
 
     private synchronized void addToAfterMulti(MultiCombinationKeys multi, Integer index) {

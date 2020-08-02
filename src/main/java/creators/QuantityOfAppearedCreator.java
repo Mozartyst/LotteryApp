@@ -4,13 +4,17 @@ import dataSupport.FileService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 public class QuantityOfAppearedCreator {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
-    private TreeMap<Integer, TreeMap<Integer, Integer>> quantityOfAppearedNumbers = new TreeMap<>();
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers; //FullIrishLottery
+    private final Properties properties;
+    private final TreeMap<Integer, TreeMap<Integer, Integer>> quantityOfAppearedNumbers = new TreeMap<>();
 
-    public QuantityOfAppearedCreator() throws IOException, ClassNotFoundException {
+    public QuantityOfAppearedCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, Properties properties) {
+        this.lotteryNumbers = lotteryNumbers;
+        this.properties = properties;
     }
 
     public void create() {
@@ -18,7 +22,7 @@ public class QuantityOfAppearedCreator {
             TreeMap<Integer, Integer> numbers = new TreeMap<>();
             if (i < lotteryNumbers.size() - 1) {
                 TreeMap<Integer, Integer> integerIntegerTreeMap = quantityOfAppearedNumbers.get(i+1);
-                integerIntegerTreeMap.forEach((number, value) -> numbers.put(number, value));
+                integerIntegerTreeMap.forEach(numbers::put);
             }
             ArrayList<Integer> weekNumbers = lotteryNumbers.get(i);
             for (Integer number : weekNumbers) {
@@ -31,7 +35,7 @@ public class QuantityOfAppearedCreator {
             quantityOfAppearedNumbers.put(i,numbers);
         }
         try {
-            FileService.saveObject(quantityOfAppearedNumbers,"QuantityOfAppearedNumbers");
+            FileService.saveObject(quantityOfAppearedNumbers, properties.getProperty("quantityOfAppeared"));
         } catch (IOException e) {
             e.printStackTrace();
         }

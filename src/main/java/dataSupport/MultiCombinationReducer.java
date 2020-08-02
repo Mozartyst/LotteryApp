@@ -1,7 +1,6 @@
 package dataSupport;
 
 import entity.MultiCombinationKeys;
-import entity.ObjectForFileService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +29,6 @@ public class MultiCombinationReducer {
         afterMultiCombinationKey.removeIf(Objects::isNull);
         afterMultiCombinationKey.removeIf(multiCombinationKeys -> multiCombinationKeys.getWhatNumbers().size() == 0);
 
-        FileService.saveObject(afterMultiCombinationKey, "ReducedMulti");
+        FileService.saveObject(afterMultiCombinationKey, "IrishLottery/ReducedMulti");
     }
 }

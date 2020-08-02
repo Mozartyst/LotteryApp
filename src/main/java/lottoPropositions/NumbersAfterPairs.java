@@ -1,20 +1,19 @@
 package lottoPropositions;
 
 
-import dataSupport.FileService;
 import entity.CombinationNumbers;
-import support.Auxiliary;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumbersAfterPairs {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers;
-    private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs = FileService.loadObject("NumbersAfterPairs");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs; //IrishLottery/NumbersAfterPairs
 
-    public NumbersAfterPairs(ArrayList<ArrayList<Integer>> lotteryNumbers) throws IOException, ClassNotFoundException {
+    public NumbersAfterPairs(ArrayList<ArrayList<Integer>> lotteryNumbers, TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs) {
         this.lotteryNumbers = lotteryNumbers;
+        this.listOfNumbersAfterPairs = listOfNumbersAfterPairs;
     }
 
     public TreeMap<Integer, Integer> getPropositionNumbersAfterPairs(int index) {

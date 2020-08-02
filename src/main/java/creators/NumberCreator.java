@@ -7,17 +7,21 @@ import support.Auxiliary;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 public class NumberCreator {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
-    private TreeMap<Integer, Number> listOfNumbers = new TreeMap<>();
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final Properties properties;
+    private final TreeMap<Integer, Number> listOfNumbers = new TreeMap<>();
 
-    public NumberCreator() throws IOException, ClassNotFoundException {
+    public NumberCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, Properties properties) {
+        this.lotteryNumbers = lotteryNumbers;
+        this.properties = properties;
     }
 
     public void createNumbers() throws IOException {
-        for (int i = 1; i < 48; i++) {
+        for (int i = 1; i <= Integer.parseInt(properties.getProperty("range")); i++) {
             Dependency dependency = new Dependency();
             Number number = new Number(i);
             listOfNumbers.put(i, number);
@@ -28,7 +32,7 @@ public class NumberCreator {
             listOfNumbers.get(i).setOccurred(valueOfAppeared(i));
         }
 
-        FileService.saveObject(listOfNumbers, "ListOfNumbers");
+        FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
     }
 
     private TreeMap<Integer, Integer> NumberAfterNumbers(Integer forNumber) {

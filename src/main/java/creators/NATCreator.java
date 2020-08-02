@@ -2,17 +2,20 @@ package creators;
 
 import dataSupport.FileService;
 import entity.CombinationNumbers;
-import entity.ObjectForFileService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 public class NATCreator {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
-    private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = new TreeMap<>();
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final Properties properties;
+    private final TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = new TreeMap<>();
 
-    public NATCreator() throws IOException, ClassNotFoundException {
+    public NATCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, Properties properties) {
+        this.lotteryNumbers = lotteryNumbers;
+        this.properties = properties;
     }
 
 
@@ -62,6 +65,6 @@ public class NATCreator {
         listOfNumbersAfterTriple.put(combinationNumbers, numbersForNumber);
     }
     private synchronized void saveMulti() throws IOException {
-        FileService.saveObject(listOfNumbersAfterTriple, "NumbersAfterTriple");
+        FileService.saveObject(listOfNumbersAfterTriple, properties.getProperty("afterTriple"));
     }
 }

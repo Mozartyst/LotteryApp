@@ -6,18 +6,19 @@ import entity.MultiCombinationKeys;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class NumbersAfterMultiCombinations {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers;
-    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject("ReducedMulti");
 
-    public NumbersAfterMultiCombinations(ArrayList<ArrayList<Integer>> lotteryNumbers) throws IOException, ClassNotFoundException {
+    public NumbersAfterMultiCombinations(ArrayList<ArrayList<Integer>> lotteryNumbers){
         this.lotteryNumbers = lotteryNumbers;
     }
 
-    public TreeMap<Integer, Integer> getProposition(int index) {
+    public TreeMap<Integer, Integer> getProposition(int index, Properties properties) throws IOException, ClassNotFoundException {
+        ArrayList<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject(properties.getProperty("reducedMulti"));
         TreeMap<Integer, Integer> proposition = new TreeMap<>();
         ArrayList<CombinationNumbers> combinationNumbersArrayList = new ArrayList<>();
         ArrayList<MultiCombinationKeys> multiCombinationKeys = new ArrayList<>();
@@ -61,13 +62,13 @@ public class NumbersAfterMultiCombinations {
             if (afterMultiCombinationKey.contains(combination)) {
                 TreeMap<Integer, Integer> whatNumbers = afterMultiCombinationKey.get(afterMultiCombinationKey.indexOf(combination)).getWhatNumbers();
                 whatNumbers.forEach((key, value) -> {
-//                    if (combination.getKeys().length > 1 && combination.getKeys().length < 3) {
+                    if (combination.getKeys().length > 1) {
                         if (proposition.containsKey(key)) {
                             proposition.replace(key, proposition.get(key) + value);
                         } else {
                             proposition.put(key, value);
                         }
-//                    }
+                    }
                 });
             }
         });

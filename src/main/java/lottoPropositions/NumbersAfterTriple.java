@@ -2,7 +2,6 @@ package lottoPropositions;
 
 
 import dataSupport.FileService;
-import support.Auxiliary;
 import entity.CombinationNumbers;
 
 import java.io.IOException;
@@ -11,7 +10,7 @@ import java.util.TreeMap;
 
 public class NumbersAfterTriple {
     private ArrayList<ArrayList<Integer>> lotteryNumbers;
-    private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = FileService.loadObject("NumbersAfterTriple");
+    private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = FileService.loadObject("IrishLottery/NumbersAfterTriple");
 
     public NumbersAfterTriple(ArrayList<ArrayList<Integer>> lotteryNumbers) throws IOException, ClassNotFoundException {
         this.lotteryNumbers = lotteryNumbers;

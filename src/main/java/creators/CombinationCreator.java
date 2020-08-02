@@ -2,17 +2,20 @@ package creators;
 
 import dataSupport.FileService;
 import entity.CombinationNumbers;
-import entity.ObjectForFileService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 public class CombinationCreator {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LotteryNumbersForAlgorithm");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
     private final TreeMap<Integer, ArrayList<CombinationNumbers>> combinationMap = new TreeMap<>();
+    private final Properties properties;
 
-    public CombinationCreator() throws IOException, ClassNotFoundException {
+    public CombinationCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, Properties properties){
+        this.lotteryNumbers = lotteryNumbers;
+        this.properties = properties;
     }
 
     public void createAllCombinationNumbers() throws IOException {
@@ -69,7 +72,7 @@ public class CombinationCreator {
     }
 
     private void saveMulti() throws IOException {
-        FileService.saveObject(combinationMap, "CombinationNumbers");
+        FileService.saveObject(combinationMap, properties.getProperty("combinationNumbers"));
     }
     private void addToMap(ArrayList<CombinationNumbers> combinationNumbersArrayList){
         combinationNumbersArrayList.forEach((combination)->{

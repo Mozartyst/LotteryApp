@@ -1,9 +1,4 @@
-import algorithm.Algorithm;
-import creators.AlgorithmCreator1;
-import creators.PropositionReducerCreator;
-import creators.QuantityOfAppearedCreator;
 import dataSupport.FileService;
-import lottoPropositions.Proposition;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,8 +18,11 @@ public class TesterMain {
 //        thread2.start();
 //        thread3.start();
 
-        TreeMap<Integer, ArrayList<Double>> results = FileService.loadObject("Results");
-        System.out.println(results);
+        TreeMap<Integer, ArrayList<Double>> results = FileService.loadObject("IrishLottery/Results");
+        results.forEach((number,result)->{
+        System.out.println(number + " = " + result);
+
+        });
     }
 }
 

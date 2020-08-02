@@ -1,17 +1,16 @@
 package support;
 
-import dataSupport.FileService;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Statistic {
-    ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
-    TreeMap<Integer, Integer> howOftenNumbersAppeared = returnHowOftenNumbersAppeared(lotteryNumbers);
-    TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = returnDistanceBetweenNumbers(lotteryNumbers);
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers; //FullIrishNumbersFile
+    //TreeMap<Integer, Integer> howOftenNumbersAppeared = returnHowOftenNumbersAppeared(lotteryNumbers);
+    //TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = returnDistanceBetweenNumbers(lotteryNumbers);
 
-    public Statistic() throws IOException, ClassNotFoundException {
+    public Statistic(ArrayList<ArrayList<Integer>> lotteryNumbers) {
+        this.lotteryNumbers = lotteryNumbers;
     }
 
     private TreeMap<Integer, Integer> returnHowOftenNumbersAppeared(ArrayList<ArrayList<Integer>> lotteryNumbers) {
@@ -35,7 +34,7 @@ public class Statistic {
         for (ArrayList<Integer> weekNumbers : lotteryNumbers) {
             for (Object number : weekNumbers) {
                 ArrayList<Integer> distanceList = new ArrayList<>();
-                if (lotteryNumbers.indexOf(weekNumbers) == 0){
+                if (lotteryNumbers.indexOf(weekNumbers) == 0) {
                     distanceList.add(0);
                     distanceBetweenNumbers.put((Integer) number, distanceList);
                     continue;
@@ -53,10 +52,8 @@ public class Statistic {
         }
         return distanceBetweenNumbers;
     }
-    public Integer howOftenNumbersAppeared(int forNumber){
-        return howOftenNumbersAppeared.get(forNumber);
-    }
-    public ArrayList<Integer> distanceBetweenNumbers(int forNumber){
-        return distanceBetweenNumbers.get(forNumber);
-    }
+    //public Integer howOftenNumbersAppeared(int forNumber){
+    //return howOftenNumbersAppeared.get(forNumber);
 }
+//public ArrayList<Integer> distanceBetweenNumbers(int forNumber){
+// return distanceBetweenNumbers.get(forNumber);

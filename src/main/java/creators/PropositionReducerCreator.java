@@ -1,32 +1,39 @@
 package creators;
 
 import dataSupport.FileService;
+import lombok.SneakyThrows;
 import lottoPropositions.Proposition;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class PropositionReducerCreator implements Runnable {
     private final TreeMap<Integer, ArrayList<Double>> results;
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LastYearLotteryNumbersFile");
-    private final TreeMap<Integer, TreeMap<Integer, Integer>> appearedNumbers = FileService.loadObject("QuantityOfAppearedNumbers");
     private final int start;
     private final int end;
+    private final Properties properties;
+    private final TreeMap<Integer, TreeMap<Integer, Integer>> appearedNumbers; // IrishLottery/QuantityOfAppearedNumbers
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers; // lastYearNumbers
 
-    public PropositionReducerCreator(int start, int end, TreeMap<Integer, ArrayList<Double>> results) throws IOException, ClassNotFoundException {
+    public PropositionReducerCreator(int start, int end, TreeMap<Integer, ArrayList<Double>> results, Properties properties, TreeMap<Integer, TreeMap<Integer, Integer>> appearedNumbers, ArrayList<ArrayList<Integer>> lotteryNumbers) throws IOException, ClassNotFoundException {
         this.start = start;
         this.end = end;
         this.results = results;
+        this.properties = properties;
+        this.appearedNumbers = appearedNumbers;
+        this.lotteryNumbers = lotteryNumbers;
     }
 
+    @SneakyThrows
     @Override
     public void run() {
         for (int i = start; i >= end; i--) {
             TreeSet<Integer> tempPropositionList = null;
             try {
-                tempPropositionList = new Proposition(i).forMultiCombination();
+                tempPropositionList = new Proposition(i).forMultiCombination(properties);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -34,7 +41,7 @@ public class PropositionReducerCreator implements Runnable {
             for (Integer number : weeklyNumbers) {
                 if (tempPropositionList.contains(number)) {
                     Integer appearedValue = appearedNumbers.get(i).get(number);
-                    addResult(number, (appearedValue / (double)((i - 1) * 100)));
+                    addResult(number, (appearedValue / (double) ((i - 1) * 100)));
                 } else if (tempPropositionList.contains(number + 1)) {
 
                 } else if (tempPropositionList.contains(number - 1)) {
@@ -62,6 +69,6 @@ public class PropositionReducerCreator implements Runnable {
     }
 
     private synchronized void save() throws IOException {
-        FileService.saveObject(results, "Results");
+        FileService.saveObject(results, properties.getProperty("results"));
     }
 }

@@ -4,6 +4,7 @@ import dataSupport.FileService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -15,10 +16,10 @@ public class Proposition {
         this.index = index;
     }
 
-    public TreeSet<Integer> forMultiCombination() throws IOException, ClassNotFoundException {
-        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
-        TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = FileService.loadObject("AlgorithmFile");
-        TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index);
+    public TreeSet<Integer> forMultiCombination(Properties properties) throws IOException, ClassNotFoundException {
+        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = FileService.loadObject(properties.getProperty("algorithmFile"));
+        TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index,properties);
 
         multiProposition.forEach((number, value) -> {
             if (algorithm.containsKey(number)) {

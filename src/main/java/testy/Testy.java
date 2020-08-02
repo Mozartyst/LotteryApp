@@ -1,19 +1,24 @@
 package testy;
 
+import algorithm.Algorithm;
 import dataSupport.FileService;
+import entity.CombinationNumbers;
 import lottoPropositions.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Testy {
-    private ArrayList<ArrayList<Integer>> lotteryNumber = FileService.loadObject("LastYearLotteryNumbersFile");
+    private ArrayList<ArrayList<Integer>> lotteryNumber = FileService.loadObject("IrishLottery/LastYearLotteryNumbersFile");
     private NumbersAfterDuet duet = new NumbersAfterDuet();
     private NumbersAfterSlant slant = new NumbersAfterSlant();
+    private Properties properties;
 
-    public Testy() throws IOException, ClassNotFoundException {
+    public Testy(Properties properties) throws IOException, ClassNotFoundException {
+        this.properties = properties;
     }
 
     public void skutecznoscDuet() {
@@ -55,6 +60,7 @@ public class Testy {
     }
 
     public void skutecznoscNumbersAfterNumber() throws IOException, ClassNotFoundException {
+        TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = FileService.loadObject(properties.getProperty("afterNumber"));
         ArrayList<Integer> listaTraf = new ArrayList();
         int licznik = 0;
         int iloscTrafien = 0;
@@ -64,7 +70,7 @@ public class Testy {
         boolean trafionyWeek = false;
         for (int i = (lotteryNumber.size() - 1); i > 0; i--) {
             int traf = 0;
-            TreeMap<Integer, Integer> propositionNumbers = new NumbersAfterNumber(lotteryNumber)
+            TreeMap<Integer, Integer> propositionNumbers = new NumbersAfterNumber(listOfNumbersAfterNumbers, lotteryNumber)
                     .getPropositionNumbersAfterNumber(i);
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
@@ -94,6 +100,7 @@ public class Testy {
     }
 
     public void skutecznoscNumbersAfterPairs() throws IOException, ClassNotFoundException {
+        TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs = FileService.loadObject(properties.getProperty("afterPairs"));
         ArrayList<Integer> listaTraf = new ArrayList();
         int licznik = 0;
         int iloscTrafien = 0;
@@ -103,7 +110,7 @@ public class Testy {
         boolean trafionyWeek = false;
         for (int i = (lotteryNumber.size() - 1); i > 0; i--) {
             int traf = 0;
-            TreeMap<Integer, Integer> propositionNumbers = new NumbersAfterPairs(lotteryNumber)
+            TreeMap<Integer, Integer> propositionNumbers = new NumbersAfterPairs(lotteryNumber, listOfNumbersAfterPairs)
                     .getPropositionNumbersAfterPairs(i);
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
@@ -222,7 +229,7 @@ public class Testy {
         for (int i = (lotteryNumber.size() - 4); i > 0; i--) {
             int traf = 0;
             TreeMap<Integer, Integer> propositionNumbers = new NumbersAfterMultiCombinations(lotteryNumber)
-                    .getProposition(i);
+                    .getProposition(i,properties);
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
                 iloscPropozycji += 1;
@@ -257,7 +264,7 @@ public class Testy {
         boolean trafionyWeek = false;
         for (int i = (lotteryNumber.size() - 4); i > 0; i--) {
             int traf = 0;
-            TreeSet<Integer> propositionNumbers = new Proposition(i).forMultiCombination();
+            TreeSet<Integer> propositionNumbers = new Algorithm().getPropositionList(i, properties);
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
                 iloscPropozycji += 1;

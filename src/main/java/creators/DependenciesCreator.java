@@ -4,18 +4,24 @@ import entity.*;
 import dataSupport.FileService;
 import entity.Number;
 import support.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 public class DependenciesCreator {
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAN = new TreeMap<>();
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAP = new TreeMap<>();
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAT = new TreeMap<>();
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("FullLotteryNumbersFile");
-    private final TreeMap<Integer, Number> listOfNumbers = FileService.loadObject("ListOfNumbers");
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final Properties properties;
+    private final TreeMap<Integer, Number> listOfNumbers;
 
-    public DependenciesCreator() throws IOException, ClassNotFoundException {
+    public DependenciesCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, TreeMap<Integer, Number> listOfNumbers, Properties properties) {
+        this.lotteryNumbers = lotteryNumbers;
+        this.listOfNumbers = listOfNumbers;
+        this.properties = properties;
     }
 
     public void createDependencies() throws IOException {
@@ -187,6 +193,6 @@ public class DependenciesCreator {
             dependency.setIsOverAndUnderAverageNAT(favoriteOverAndUnder);
             number.setDependency(dependency);
         }
-        FileService.saveObject(listOfNumbers, "ListOfNumbers");
+        FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
     }
 }
