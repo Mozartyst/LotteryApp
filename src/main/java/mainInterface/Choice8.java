@@ -1,5 +1,6 @@
 package mainInterface;
 
+import dataSupport.FileService;
 import testy.Testy;
 
 import java.io.IOException;
@@ -22,7 +23,8 @@ public class Choice8 {
         System.out.println("10 -");
         System.out.println("11 - NAMultiCombination");
         int choice = scanner.nextInt();
-        Testy testy = new Testy(properties);
+        ArrayList<ArrayList<Integer>> lotteryNumber = FileService.loadObject(properties.getProperty("lastYearNumbers"));
+        Testy testy = new Testy(lotteryNumber, properties);
         if (choice == 1) {
             testy.skutecznoscNumbersAfterNumber();
         } else if (choice == 2) {

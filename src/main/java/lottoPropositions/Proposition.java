@@ -21,6 +21,10 @@ public class Proposition {
         TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = FileService.loadObject(properties.getProperty("algorithmFile"));
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index,properties);
 
+        lotteryNumbers.get(index).forEach((number)->{
+            System.out.println(number + " " + new NumbersAppearTogether().numbersThatAppearTogether(lotteryNumbers,number));
+        });
+
         multiProposition.forEach((number, value) -> {
             if (algorithm.containsKey(number)) {
                 algorithm.get(number).forEach((x,y)->{

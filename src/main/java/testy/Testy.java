@@ -12,13 +12,14 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Testy {
-    private ArrayList<ArrayList<Integer>> lotteryNumber = FileService.loadObject("IrishLottery/LastYearLotteryNumbersFile");
-    private NumbersAfterDuet duet = new NumbersAfterDuet();
-    private NumbersAfterSlant slant = new NumbersAfterSlant();
-    private Properties properties;
+    private final NumbersAfterDuet duet = new NumbersAfterDuet();
+    private final NumbersAfterSlant slant = new NumbersAfterSlant();
+    private final ArrayList<ArrayList<Integer>> lotteryNumber;
+    private final Properties properties;
 
-    public Testy(Properties properties) throws IOException, ClassNotFoundException {
+    public Testy(ArrayList<ArrayList<Integer>> lotteryNumber, Properties properties) {
         this.properties = properties;
+        this.lotteryNumber = lotteryNumber;
     }
 
     public void skutecznoscDuet() {
@@ -61,7 +62,7 @@ public class Testy {
 
     public void skutecznoscNumbersAfterNumber() throws IOException, ClassNotFoundException {
         TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = FileService.loadObject(properties.getProperty("afterNumber"));
-        ArrayList<Integer> listaTraf = new ArrayList();
+        ArrayList<Integer> listaTraf = new ArrayList<>();
         int licznik = 0;
         int iloscTrafien = 0;
         int iloscPropozycji = 0;
@@ -101,7 +102,7 @@ public class Testy {
 
     public void skutecznoscNumbersAfterPairs() throws IOException, ClassNotFoundException {
         TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs = FileService.loadObject(properties.getProperty("afterPairs"));
-        ArrayList<Integer> listaTraf = new ArrayList();
+        ArrayList<Integer> listaTraf = new ArrayList<>();
         int licznik = 0;
         int iloscTrafien = 0;
         int iloscPropozycji = 0;
