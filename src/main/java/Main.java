@@ -1,4 +1,4 @@
-import dataSupport.LotteryUpdate;
+import update.LotteryUpdate;
 import mainInterface.LotteryChoice;
 import mainInterface.MainMenu;
 

@@ -3,7 +3,6 @@ package mainInterface;
 import creators.*;
 import dataSupport.FileService;
 import downloader.LotteryDownloader;
-import entity.CombinationNumbers;
 import entity.MultiCombinationKeys;
 import entity.Number;
 

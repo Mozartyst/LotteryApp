@@ -1,4 +1,5 @@
 import dataSupport.FileService;
+import update.TimeSet;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,11 +19,12 @@ public class TesterMain {
 //        thread2.start();
 //        thread3.start();
 
-        TreeMap<Integer, ArrayList<Double>> results = FileService.loadObject("IrishLottery/Results");
-        results.forEach((number,result)->{
-        System.out.println(number + " = " + result);
-
-        });
+//        TreeMap<Integer, ArrayList<Double>> results = FileService.loadObject("IrishLottery/Results");
+//        results.forEach((number,result)->{
+//        System.out.println(number + " = " + result);
+//
+//        });
+        new TimeSet().setNewDate();
     }
 }
 

@@ -25,7 +25,7 @@ public class Choice6 {
         int eight = scanner.nextInt();
         System.out.println("Input second number to third list:");
         int ninth = scanner.nextInt();
-        ArrayList<ArrayList<Integer>> arrayLists = new EachWithEveryOne(first, second, third, fourth, fifth, sixth, seventh, eight, ninth).returnTriple();
+        ArrayList<ArrayList<Integer>> arrayLists = new EachWithEveryOne(first, second, third, fourth, fifth, sixth, seventh, eight, ninth).getList();
         arrayLists.forEach((x) -> System.out.println(x));
     }
 }

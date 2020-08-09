@@ -13,7 +13,7 @@ public class EachWithEveryOne {
         this.third = new Integer[]{seventh, eight, ninth};
     }
 
-    public ArrayList<ArrayList<Integer>> returnTriple() {
+    public ArrayList<ArrayList<Integer>> getList() {
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
         for (Integer first : first) {
             for (Integer second : second) {

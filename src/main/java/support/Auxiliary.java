@@ -9,10 +9,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Auxiliary {
 
-    public static Integer returnAverage(Collection<Integer> distanceList) {
+    public static Integer returnAverage(Collection<Integer> integerCollection) {
         AtomicReference<Integer> total = new AtomicReference<>(0);
-        distanceList.forEach((x) -> total.updateAndGet(v -> v + x));
-        return total.get() / distanceList.size();
+        integerCollection.forEach((x) -> total.updateAndGet(v -> v + x));
+        return total.get() / integerCollection.size();
     }
 
     public static ArrayList<Integer> changeNumbersOverAndUnder(ArrayList<Integer> propositionForNextGame) {

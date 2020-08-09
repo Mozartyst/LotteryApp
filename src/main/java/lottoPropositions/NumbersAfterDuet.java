@@ -6,6 +6,7 @@ import support.Auxiliary;
 import java.util.ArrayList;
 
 public class NumbersAfterDuet {
+
     public ArrayList<Integer> returnNumbersAfterDuet(ArrayList<ArrayList<Integer>> lotteryNumbers, int index) {
         ArrayList<Integer> propositionForNextGame = new ArrayList<>();
         ArrayList<Integer> lastGameNumbers = lotteryNumbers.get(index);

@@ -1,31 +1,16 @@
 package support;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class Statistic {
     private final ArrayList<ArrayList<Integer>> lotteryNumbers; //FullIrishNumbersFile
-    //TreeMap<Integer, Integer> howOftenNumbersAppeared = returnHowOftenNumbersAppeared(lotteryNumbers);
     //TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = returnDistanceBetweenNumbers(lotteryNumbers);
 
     public Statistic(ArrayList<ArrayList<Integer>> lotteryNumbers) {
         this.lotteryNumbers = lotteryNumbers;
     }
 
-    private TreeMap<Integer, Integer> returnHowOftenNumbersAppeared(ArrayList<ArrayList<Integer>> lotteryNumbers) {
-        TreeMap<Integer, Integer> howOftenNumbersAppeared = new TreeMap<>();
-        for (ArrayList<Integer> weekNumbers : lotteryNumbers) {
-            for (Object numbers : weekNumbers) {
-                if (howOftenNumbersAppeared.containsKey(numbers)) {
-                    howOftenNumbersAppeared.replace((Integer) numbers, howOftenNumbersAppeared.get(numbers) + 1);
-                } else {
-                    howOftenNumbersAppeared.put((Integer) numbers, 1);
-                }
-            }
-        }
-        return howOftenNumbersAppeared;
-    }
 
     private TreeMap<Integer, ArrayList<Integer>> returnDistanceBetweenNumbers(ArrayList<ArrayList<Integer>> lotteryNumbers) {
         TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = new TreeMap<>();
@@ -52,8 +37,4 @@ public class Statistic {
         }
         return distanceBetweenNumbers;
     }
-    //public Integer howOftenNumbersAppeared(int forNumber){
-    //return howOftenNumbersAppeared.get(forNumber);
 }
-//public ArrayList<Integer> distanceBetweenNumbers(int forNumber){
-// return distanceBetweenNumbers.get(forNumber);

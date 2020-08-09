@@ -106,7 +106,7 @@ public class Algorithm implements Serializable {
                 } else {
                     proposition.add(betNumber + 2);
                 }
-            } else if (betNumber == Integer.parseInt(properties.getProperty("range"))-1){
+            } else if (betNumber == (Integer.parseInt(properties.getProperty("range"))-1)){
                 try {
                     twoUnder = (float) listOfNumbers.get(betNumber - 2).getOccurred() / multiProposition.get(betNumber - 2);
                 } catch (Exception e) {

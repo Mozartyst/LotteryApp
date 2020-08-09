@@ -1,9 +1,9 @@
-package support;
+package update;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Settings implements Serializable {
+public class UpdateSettings implements Serializable {
     LocalDateTime irishLastUpdate;
     LocalDateTime irishNextUpdate;
     LocalDateTime euroLastUpdate;
@@ -11,7 +11,7 @@ public class Settings implements Serializable {
     LocalDateTime polishLastUpdate;
     LocalDateTime polishNextUpdate;
 
-    public Settings(LocalDateTime irishLastUpdate, LocalDateTime irishNextUpdate, LocalDateTime euroLastUpdate, LocalDateTime euroNextUpdate, LocalDateTime polishLastUpdate, LocalDateTime polishNextUpdate) {
+    public UpdateSettings(LocalDateTime irishLastUpdate, LocalDateTime irishNextUpdate, LocalDateTime euroLastUpdate, LocalDateTime euroNextUpdate, LocalDateTime polishLastUpdate, LocalDateTime polishNextUpdate) {
         this.irishLastUpdate = irishLastUpdate;
         this.irishNextUpdate = irishNextUpdate;
         this.euroLastUpdate = euroLastUpdate;

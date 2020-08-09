@@ -1,23 +1,23 @@
 package lottoPropositions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class NumbersAppearTogether {
 
 
-    public HashMap<Integer, Integer> numbersThatAppearTogether(ArrayList<ArrayList<Integer>> lotteryNumbers, Integer forNumber) {
-        HashMap<Integer, Integer> pairsForNumber = new HashMap<>();
+    public TreeMap<Integer, Integer> getMapWithNumbers(ArrayList<ArrayList<Integer>> lotteryNumbers, Integer forNumber) {
+        TreeMap<Integer, Integer> pairsForNumber = new TreeMap<>();
 
-        for (ArrayList weekNumbers : lotteryNumbers) {
-            for (Object o : weekNumbers) {
-                if (o == forNumber) {
-                    for (Object t : weekNumbers) {
-                        if (t != o) {
+        for (ArrayList<Integer> weekNumbers : lotteryNumbers) {
+            for (Integer o : weekNumbers) {
+                if (o.equals(forNumber)) {
+                    for (Integer t : weekNumbers) {
+                        if (!t.equals(o)) {
                             if (pairsForNumber.containsKey(t)) {
-                                pairsForNumber.replace((Integer) t, pairsForNumber.get(t) + 1);
+                                pairsForNumber.replace(t, pairsForNumber.get(t) + 1);
                             } else {
-                                pairsForNumber.put((Integer) t, 1);
+                                pairsForNumber.put(t, 1);
                             }
                         }
                     }

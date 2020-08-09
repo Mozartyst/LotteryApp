@@ -3,10 +3,7 @@ package lottoPropositions;
 import dataSupport.FileService;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Proposition {
     Integer index;
@@ -19,16 +16,12 @@ public class Proposition {
     public TreeSet<Integer> forMultiCombination(Properties properties) throws IOException, ClassNotFoundException {
         ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = FileService.loadObject(properties.getProperty("algorithmFile"));
-        TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index,properties);
-
-        lotteryNumbers.get(index).forEach((number)->{
-            System.out.println(number + " " + new NumbersAppearTogether().numbersThatAppearTogether(lotteryNumbers,number));
-        });
+        TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index, properties);
 
         multiProposition.forEach((number, value) -> {
             if (algorithm.containsKey(number)) {
-                algorithm.get(number).forEach((x,y)->{
-                    if (lotteryNumbers.get(index).contains(x)){
+                algorithm.get(number).forEach((x, y) -> {
+                    if (lotteryNumbers.get(index).contains(x)) {
                         propositionList.add(number);
                     }
                 });
