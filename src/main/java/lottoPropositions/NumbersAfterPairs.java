@@ -2,16 +2,17 @@ package lottoPropositions;
 
 
 import entity.CombinationNumbers;
+import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumbersAfterPairs {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final ArrayList<OneDraw> lotteryNumbers;
     private final TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs; //IrishLottery/NumbersAfterPairs
 
-    public NumbersAfterPairs(ArrayList<ArrayList<Integer>> lotteryNumbers, TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs) {
+    public NumbersAfterPairs(ArrayList<OneDraw> lotteryNumbers, TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterPairs) {
         this.lotteryNumbers = lotteryNumbers;
         this.listOfNumbersAfterPairs = listOfNumbersAfterPairs;
     }
@@ -20,8 +21,8 @@ public class NumbersAfterPairs {
         TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersForWeek = new TreeMap<>();
         TreeMap<Integer, Integer> propositionNumbers = new TreeMap<>();
 
-        for (Integer firstNumber : lotteryNumbers.get(index)) {
-            for (Integer secondNumber : lotteryNumbers.get(index)) {
+        for (Integer firstNumber : lotteryNumbers.get(index).getDrawNumbers()) {
+            for (Integer secondNumber : lotteryNumbers.get(index).getDrawNumbers()) {
                 if (firstNumber >= secondNumber)
                     continue;
                 CombinationNumbers keyPairs = new CombinationNumbers(firstNumber, secondNumber);

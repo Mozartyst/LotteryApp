@@ -8,32 +8,32 @@ import java.util.function.Consumer;
 
 public class CombinationNumbers implements Comparable<CombinationNumbers>, Serializable, Iterable<Integer> {
     private final ArrayList<Integer> listOfIndexesWhereAppeared = new ArrayList<>();
-    private Integer[] number;
+    private final Integer[] numbers;
 
     public CombinationNumbers(Integer firstNumber) {
-        this.number = new Integer[1];
-        this.number[0] = firstNumber;
+        this.numbers = new Integer[1];
+        this.numbers[0] = firstNumber;
     }
 
     public CombinationNumbers(Integer firstNumber, Integer secondNumber) {
-        this.number = new Integer[2];
-        this.number[0] = firstNumber;
-        this.number[1] = secondNumber;
+        this.numbers = new Integer[2];
+        this.numbers[0] = firstNumber;
+        this.numbers[1] = secondNumber;
     }
 
     public CombinationNumbers(Integer firstNumber, Integer secondNumber, Integer thirdNumber) {
-        this.number = new Integer[3];
-        this.number[0] = firstNumber;
-        this.number[1] = secondNumber;
-        this.number[2] = thirdNumber;
+        this.numbers = new Integer[3];
+        this.numbers[0] = firstNumber;
+        this.numbers[1] = secondNumber;
+        this.numbers[2] = thirdNumber;
     }
 
     public CombinationNumbers(Integer firstNumber, Integer secondNumber, Integer thirdNumber, Integer fourthNumber) {
-        this.number = new Integer[4];
-        this.number[0] = firstNumber;
-        this.number[1] = secondNumber;
-        this.number[2] = thirdNumber;
-        this.number[3] = fourthNumber;
+        this.numbers = new Integer[4];
+        this.numbers[0] = firstNumber;
+        this.numbers[1] = secondNumber;
+        this.numbers[2] = thirdNumber;
+        this.numbers[3] = fourthNumber;
     }
 
     public ArrayList<Integer> getListOfIndexesWhereAppeared() {
@@ -44,28 +44,24 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
         this.listOfIndexesWhereAppeared.add(index);
     }
 
-    public Integer[] getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer[] number) {
-        this.number = number;
+    public Integer[] getNumbers() {
+        return numbers;
     }
 
     public Integer getFirstNumber() {
-        return number[0];
+        return numbers[0];
     }
 
     public Integer getSecondNumber() {
-        return number[1];
+        return numbers[1];
     }
 
     public Integer getThirdNumber() {
-        return number[2];
+        return numbers[2];
     }
 
     public Integer getFourthNumber() {
-        return number[3];
+        return numbers[3];
     }
 
     public boolean containsIndex(Integer index) {
@@ -77,16 +73,16 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CombinationNumbers integers = (CombinationNumbers) o;
-        if (getNumber().length == 1 && integers.getNumber().length == 1) {
+        if (getNumbers().length == 1 && integers.getNumbers().length == 1) {
             return getFirstNumber().equals(integers.getFirstNumber());
-        } else if (getNumber().length == 2 && integers.getNumber().length == 2) {
+        } else if (getNumbers().length == 2 && integers.getNumbers().length == 2) {
             return getFirstNumber().equals(integers.getFirstNumber())
                     && getSecondNumber().equals(integers.getSecondNumber());
-        } else if (getNumber().length == 3 && integers.getNumber().length == 3) {
+        } else if (getNumbers().length == 3 && integers.getNumbers().length == 3) {
             return getFirstNumber().equals(integers.getFirstNumber())
                     && getSecondNumber().equals(integers.getSecondNumber())
                     && getThirdNumber().equals(integers.getThirdNumber());
-        } else if (getNumber().length == 4 && integers.getNumber().length == 4) {
+        } else if (getNumbers().length == 4 && integers.getNumbers().length == 4) {
             return getFirstNumber().equals(integers.getFirstNumber())
                     && getSecondNumber().equals(integers.getSecondNumber())
                     && getThirdNumber().equals(integers.getThirdNumber())
@@ -96,11 +92,11 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
 
     @Override
     public int hashCode() {
-        if (getNumber().length == 1) {
+        if (getNumbers().length == 1) {
             return Objects.hash(getFirstNumber());
-        } else if (getNumber().length == 2) {
+        } else if (getNumbers().length == 2) {
             return Objects.hash(getFirstNumber(), getSecondNumber());
-        } else if (getNumber().length == 3) {
+        } else if (getNumbers().length == 3) {
             return Objects.hash(getFirstNumber(), getSecondNumber(), getThirdNumber());
         } else {
             return Objects.hash(getFirstNumber(), getSecondNumber(), getThirdNumber(), getFourthNumber());
@@ -109,77 +105,77 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
 
     @Override
     public int compareTo(CombinationNumbers o) {
-        if (number.length == 1) {
-            if (number[0].compareTo(o.number[0]) == 0)
-                if (o.getNumber().length > 1)
+        if (numbers.length == 1) {
+            if (numbers[0].compareTo(o.numbers[0]) == 0)
+                if (o.getNumbers().length > 1)
                     return -1;
                 else return 0;
-            else return number[0].compareTo(o.number[0]);
-        } else if (number.length == 2) {
-            if (number[0].compareTo(o.number[0]) == 0)
-                if (o.getNumber().length > 1)
-                    if (number[1].compareTo(o.number[1]) == 0)
-                        if (o.getNumber().length > 2)
+            else return numbers[0].compareTo(o.numbers[0]);
+        } else if (numbers.length == 2) {
+            if (numbers[0].compareTo(o.numbers[0]) == 0)
+                if (o.getNumbers().length > 1)
+                    if (numbers[1].compareTo(o.numbers[1]) == 0)
+                        if (o.getNumbers().length > 2)
                             return -1;
                         else return 0;
-                    else return number[1].compareTo(o.number[1]);
+                    else return numbers[1].compareTo(o.numbers[1]);
                 else return 1;
-            else return number[0].compareTo(o.number[0]);
-        } else if (number.length == 3) {
-            if (number[0].compareTo(o.number[0]) == 0)
-                if (o.getNumber().length > 1)
-                    if (number[1].compareTo(o.number[1]) == 0)
-                        if (o.getNumber().length > 2)
-                            if (number[2].compareTo(o.number[2]) == 0)
-                                if (o.getNumber().length > 3)
+            else return numbers[0].compareTo(o.numbers[0]);
+        } else if (numbers.length == 3) {
+            if (numbers[0].compareTo(o.numbers[0]) == 0)
+                if (o.getNumbers().length > 1)
+                    if (numbers[1].compareTo(o.numbers[1]) == 0)
+                        if (o.getNumbers().length > 2)
+                            if (numbers[2].compareTo(o.numbers[2]) == 0)
+                                if (o.getNumbers().length > 3)
                                     return -1;
                                 else return 0;
-                            else return number[2].compareTo(o.number[2]);
+                            else return numbers[2].compareTo(o.numbers[2]);
                         else return 1;
-                    else return number[1].compareTo(o.number[1]);
+                    else return numbers[1].compareTo(o.numbers[1]);
                 else return 1;
-            else return number[0].compareTo(o.number[0]);
+            else return numbers[0].compareTo(o.numbers[0]);
         } else {
-            if (number[0].compareTo(o.number[0]) == 0)
-                if (o.getNumber().length > 1)
-                    if (number[1].compareTo(o.number[1]) == 0)
-                        if (o.getNumber().length > 2)
-                            if (number[2].compareTo(o.number[2]) == 0)
-                                if (o.getNumber().length > 3)
-                                    if (number[3].compareTo(o.number[3]) == 0)
+            if (numbers[0].compareTo(o.numbers[0]) == 0)
+                if (o.getNumbers().length > 1)
+                    if (numbers[1].compareTo(o.numbers[1]) == 0)
+                        if (o.getNumbers().length > 2)
+                            if (numbers[2].compareTo(o.numbers[2]) == 0)
+                                if (o.getNumbers().length > 3)
+                                    if (numbers[3].compareTo(o.numbers[3]) == 0)
                                         return 0;
-                                    else return number[3].compareTo(o.number[3]);
+                                    else return numbers[3].compareTo(o.numbers[3]);
                                 else return 1;
-                            else return number[2].compareTo(o.number[2]);
+                            else return numbers[2].compareTo(o.numbers[2]);
                         else return 1;
-                    else return number[1].compareTo(o.number[1]);
+                    else return numbers[1].compareTo(o.numbers[1]);
                 else return 1;
-            else return number[0].compareTo(o.number[0]);
+            else return numbers[0].compareTo(o.numbers[0]);
         }
     }
 
     @Override
     public String toString() {
-        if (number.length == 1) {
+        if (numbers.length == 1) {
             return "Key{" +
-                    number[0] +
+                    numbers[0] +
                     '}';
-        } else if (number.length == 2) {
+        } else if (numbers.length == 2) {
             return "Key{" +
-                    number[0] +
-                    "," + number[1] +
+                    numbers[0] +
+                    "," + numbers[1] +
                     '}';
-        } else if (number.length == 3) {
+        } else if (numbers.length == 3) {
             return "Key{" +
-                    number[0] +
-                    "," + number[1] +
-                    "," + number[2] +
+                    numbers[0] +
+                    "," + numbers[1] +
+                    "," + numbers[2] +
                     '}';
         } else return "Key{" +
-                number[0] +
-                "," + number[1] +
-                "," + number[2] +
-                "," + number[3] +
+                numbers[0] +
+                "," + numbers[1] +
+                "," + numbers[2] +
+                "," + numbers[3] +
                 '}';
     }
 
@@ -187,7 +183,7 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
     public Iterator<Integer> iterator() {
         return new Iterator<Integer>() {
 
-            Integer[] list = getNumber();
+            Integer[] list = getNumbers();
             int actual = 0;
 
             @Override

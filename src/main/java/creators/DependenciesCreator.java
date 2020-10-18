@@ -14,20 +14,20 @@ public class DependenciesCreator {
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAN = new TreeMap<>();
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAP = new TreeMap<>();
     private final TreeMap<Integer, ArrayList<TreeMap<Integer, Boolean>>> dependenciesNAT = new TreeMap<>();
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final ArrayList<OneDraw> lotteryNumbers;
     private final Properties properties;
     private final TreeMap<Integer, Number> listOfNumbers;
 
-    public DependenciesCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, TreeMap<Integer, Number> listOfNumbers, Properties properties) {
+    public DependenciesCreator(ArrayList<OneDraw> lotteryNumbers, TreeMap<Integer, Number> listOfNumbers, Properties properties) {
         this.lotteryNumbers = lotteryNumbers;
         this.listOfNumbers = listOfNumbers;
         this.properties = properties;
     }
 
     public void createDependencies() throws IOException {
-        for (int i = lotteryNumbers.size() - 1; i > 0; i--) {
-            ArrayList<Integer> numbersForCreateDependency = lotteryNumbers.get(i);
-            ArrayList<Integer> numbersForBeingChecking = lotteryNumbers.get(i - 1);
+        for (int i = 0; i < lotteryNumbers.size()-1; i++) {
+            ArrayList<Integer> numbersForCreateDependency = lotteryNumbers.get(i).getDrawNumbers();
+            ArrayList<Integer> numbersForBeingChecking = lotteryNumbers.get(i + 1).getDrawNumbers();
 
 
             // Single Number
@@ -133,9 +133,7 @@ public class DependenciesCreator {
             ArrayList<Integer> isOverAndUnder = new ArrayList<>();
             ArrayList<TreeMap<Integer, Boolean>> isOverAverageAndHowMuch = this.dependenciesNAN.get(i);
             for (TreeMap<Integer, Boolean> integerBooleanTreeMap : isOverAverageAndHowMuch) {
-                integerBooleanTreeMap.forEach((x, y) -> {
-                    isOverAndUnder.add(x);
-                });
+                integerBooleanTreeMap.forEach((x, y) -> isOverAndUnder.add(x));
             }
 
             TreeMap<Integer, Integer> favoriteOverAndUnder = new TreeMap<>();
@@ -146,18 +144,16 @@ public class DependenciesCreator {
             });
 
             Number number = listOfNumbers.get(i);
-            Dependency dependency = number.getDependency();
-            dependency.setIsOverAndUnderAverageNAN(favoriteOverAndUnder);
-            number.setDependency(dependency);
+            Dependencies dependencies = number.getDependency();
+            dependencies.setIsOverAndUnderAverageNAN(favoriteOverAndUnder);
+            number.setDependency(dependencies);
         }
 
         for (int i = 1; i < 48; i++) {
             ArrayList<Integer> isOverAndUnder = new ArrayList<>();
             ArrayList<TreeMap<Integer, Boolean>> isOverAverageAndHowMuch = this.dependenciesNAP.get(i);
             for (TreeMap<Integer, Boolean> integerBooleanTreeMap : isOverAverageAndHowMuch) {
-                integerBooleanTreeMap.forEach((x, y) -> {
-                    isOverAndUnder.add(x);
-                });
+                integerBooleanTreeMap.forEach((x, y) -> isOverAndUnder.add(x));
             }
 
             TreeMap<Integer, Integer> favoriteOverAndUnder = new TreeMap<>();
@@ -168,17 +164,15 @@ public class DependenciesCreator {
             });
 
             Number number = listOfNumbers.get(i);
-            Dependency dependency = number.getDependency();
-            dependency.setIsOverAndUnderAverageNAP(favoriteOverAndUnder);
-            number.setDependency(dependency);
+            Dependencies dependencies = number.getDependency();
+            dependencies.setIsOverAndUnderAverageNAP(favoriteOverAndUnder);
+            number.setDependency(dependencies);
         }
         for (int i = 1; i < 48; i++) {
             ArrayList<Integer> isOverAndUnder = new ArrayList<>();
             ArrayList<TreeMap<Integer, Boolean>> isOverAverageAndHowMuch = this.dependenciesNAT.get(i);
             for (TreeMap<Integer, Boolean> integerBooleanTreeMap : isOverAverageAndHowMuch) {
-                integerBooleanTreeMap.forEach((x, y) -> {
-                    isOverAndUnder.add(x);
-                });
+                integerBooleanTreeMap.forEach((x, y) -> isOverAndUnder.add(x));
             }
 
             TreeMap<Integer, Integer> favoriteOverAndUnder = new TreeMap<>();
@@ -189,9 +183,9 @@ public class DependenciesCreator {
             });
 
             Number number = listOfNumbers.get(i);
-            Dependency dependency = number.getDependency();
-            dependency.setIsOverAndUnderAverageNAT(favoriteOverAndUnder);
-            number.setDependency(dependency);
+            Dependencies dependencies = number.getDependency();
+            dependencies.setIsOverAndUnderAverageNAT(favoriteOverAndUnder);
+            number.setDependency(dependencies);
         }
         FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
     }

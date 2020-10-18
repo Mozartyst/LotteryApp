@@ -2,6 +2,7 @@ package creators;
 
 import dataSupport.FileService;
 import entity.Number;
+import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.*;
@@ -10,10 +11,10 @@ import java.util.*;
 public class AlgorithmCreator {
     private final TreeMap<Integer, TreeMap<Integer, Boolean>> algorithmFinished = new TreeMap<>();
     private final TreeMap<Integer, Number> listOfNumbers;
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final ArrayList<OneDraw> lotteryNumbers;
     private final Properties properties;
 
-    public AlgorithmCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, TreeMap<Integer, Number> listOfNumbers, Properties properties) {
+    public AlgorithmCreator(ArrayList<OneDraw> lotteryNumbers, TreeMap<Integer, Number> listOfNumbers, Properties properties) {
         this.lotteryNumbers = lotteryNumbers;
         this.listOfNumbers = listOfNumbers;
         this.properties = properties;
@@ -26,13 +27,13 @@ public class AlgorithmCreator {
             TreeMap<Integer, Integer> afterNumbers = listOfNumbers.get(i).getDependency().getAfterNumbers();
             int finalI = i;
             afterNumbers.forEach((number, value) -> {
-                for (ArrayList<Integer> weekNumbers : lotteryNumbers) {
+                for (OneDraw weekNumbers : lotteryNumbers) {
                     int index = lotteryNumbers.indexOf(weekNumbers);
-                    if (index == 0) {
+                    if (index == lotteryNumbers.size()-1) {
                         continue;
                     }
-                    ArrayList<Integer> nextLottery = lotteryNumbers.get(index - 1);
-                    if (weekNumbers.contains(number)) {
+                    ArrayList<Integer> nextLottery = lotteryNumbers.get(index + 1).getDrawNumbers();
+                    if (weekNumbers.getDrawNumbers().contains(number)) {
                         if (nextLottery.contains(finalI)) {
                             if (algForNumber.containsKey(number)) {
                                 TreeMap<Boolean, Integer> booleanIntegerTreeMap = algForNumber.get(number);

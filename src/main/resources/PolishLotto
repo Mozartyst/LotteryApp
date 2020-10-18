@@ -1,9 +1,6 @@
-url=http://megalotto.pl/wyniki/lotto/losowania-z-roku-
-className=numbers_in_list
-drawNumbers=6
+url=https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Lotto&index=0&size=50&sort=drawDate&order=DESC
 lotteryNumbers=PolishLottery/FullPolishNumbersFile
 listOfNumbers=PolishLottery/PolishListOfNumbers
-numbersForAlgorithm=PolishLottery/PolishNumbersForAlgorithm
 lastYearNumbers=PolishLottery/LastYearLotteryNumbersFile
 algorithmFile=PolishLottery/AlgorithmFile
 reducedMulti=PolishLottery/ReducedMulti
@@ -14,6 +11,7 @@ afterPairs=PolishLottery/NumbersAfterPairs
 afterTriple=PolishLottery/NumbersAfterTriple
 quantityOfAppeared=PolishLottery/QuantityOfAppearedNumbers
 results=Results
+drawNumbers=6
 yearFrom=2015
 yearTo=2020
 range=49

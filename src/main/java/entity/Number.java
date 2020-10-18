@@ -3,10 +3,9 @@ package entity;
 import java.io.Serializable;
 
 public class Number implements Serializable {
-    private int value;
+    private final int value;
     private Integer occurred;
-    private Boolean isHot;
-    private Dependency dependency;
+    private Dependencies dependencies;
 
 
     public Number(int value) {
@@ -25,20 +24,12 @@ public class Number implements Serializable {
         this.occurred = occurred;
     }
 
-    public Boolean isHot() {
-        return isHot;
+    public Dependencies getDependency() {
+        return dependencies;
     }
 
-    public void setHot(Boolean hot) {
-        isHot = hot;
-    }
-
-    public Dependency getDependency() {
-        return dependency;
-    }
-
-    public void setDependency(Dependency dependency) {
-        this.dependency = dependency;
+    public void setDependency(Dependencies dependencies) {
+        this.dependencies = dependencies;
     }
 
 

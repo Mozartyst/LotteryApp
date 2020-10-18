@@ -7,7 +7,7 @@ import java.util.TreeMap;
 public class Duet implements Comparable<Duet>, Serializable {
     private final CombinationNumbers combinationNumbers;
     private boolean isRepeated;
-    private Integer occurred;
+    private Integer numberOfOccurred;
     private boolean isWin;
     private Integer numberOfWinnings;
     private TreeMap<Integer, Integer> goUp;
@@ -26,14 +26,18 @@ public class Duet implements Comparable<Duet>, Serializable {
         return isRepeated;
     }
 
-    public Integer getOccurred() {
-        return occurred;
+    public Integer getNumberOfOccurred() {
+        return numberOfOccurred;
     }
 
-    public void setOccurred(Integer occurred) {
-        this.occurred = occurred;
-        if (occurred > 1 && !isRepeated) {
-            isRepeated = true;
+    public void addOccurrence(Integer occurred) {
+        if (this.numberOfOccurred == null) {
+            this.numberOfOccurred = occurred;
+        } else {
+            this.numberOfOccurred = this.numberOfOccurred + occurred;
+            if (this.numberOfOccurred > 1 && !isRepeated) {
+                isRepeated = true;
+            }
         }
     }
 
@@ -45,10 +49,14 @@ public class Duet implements Comparable<Duet>, Serializable {
         return numberOfWinnings;
     }
 
-    public void setNumberOfWinnings(Integer numberOfWinnings) {
-        this.numberOfWinnings = numberOfWinnings;
-        if (numberOfWinnings > 0 && !isWin) {
-            isWin = true;
+    public void addNumberOfWinnings(Integer numberOfWinnings) {
+        if (this.numberOfWinnings == null) {
+            this.numberOfWinnings = numberOfWinnings;
+        } else {
+            this.numberOfWinnings = this.numberOfWinnings + numberOfWinnings;
+            if (numberOfWinnings > 0 && !isWin) {
+                isWin = true;
+            }
         }
     }
 

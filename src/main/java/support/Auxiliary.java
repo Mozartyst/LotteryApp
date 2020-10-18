@@ -1,6 +1,7 @@
 package support;
 
 import entity.CombinationNumbers;
+import entity.OneDraw;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,17 +41,15 @@ public class Auxiliary {
         ArrayList<CombinationNumbers> combinationNumbersArrayList = new ArrayList<>();
         for (Integer firstNumber : weeklyNumbers) {
             for (Integer secondNumber : weeklyNumbers) {
-                if (secondNumber <= firstNumber) {
-                    continue;
-                }
-                CombinationNumbers keyPairs = new CombinationNumbers(firstNumber, secondNumber);
-                combinationNumbersArrayList.add(keyPairs);
-                for (Integer thirdNumber : weeklyNumbers) {
-                    if (thirdNumber <= secondNumber) {
-                        continue;
+                if (firstNumber < secondNumber) {
+                    CombinationNumbers keyPairs = new CombinationNumbers(firstNumber, secondNumber);
+                    combinationNumbersArrayList.add(keyPairs);
+                    for (Integer thirdNumber : weeklyNumbers) {
+                        if (secondNumber < thirdNumber) {
+                            CombinationNumbers keyTriple = new CombinationNumbers(firstNumber, secondNumber, thirdNumber);
+                            combinationNumbersArrayList.add(keyTriple);
+                        }
                     }
-                    CombinationNumbers keyTriple = new CombinationNumbers(firstNumber,secondNumber,thirdNumber);
-                    combinationNumbersArrayList.add(keyTriple);
                 }
             }
         }
@@ -98,17 +97,26 @@ public class Auxiliary {
         propositionList.forEach((x, y) -> {
             if (x < 46) {
                 if (propositionList.containsKey(x) && propositionList.containsKey(x + 1) && propositionList.containsKey(x + 2)) {
-                        if (y > propositionList.get(x + 1) && propositionList.get(x + 1) < propositionList.get(x + 2)) {
-                            compressedList.put(x + 1, propositionList.get(x + 1));
-                        }
+                    if (y > propositionList.get(x + 1) && propositionList.get(x + 1) < propositionList.get(x + 2)) {
+                        compressedList.put(x + 1, propositionList.get(x + 1));
+                    }
                 }
             }
         });
         return compressedList;
     }
-    public static ArrayList<ArrayList<Integer>> returnReversedListLotteryNumbers(ArrayList<ArrayList<Integer>> lotteryNumbers){
+
+    public static ArrayList<ArrayList<Integer>> returnReversedListLotteryNumbers(ArrayList<ArrayList<Integer>> lotteryNumbers) {
         ArrayList<ArrayList<Integer>> reversedLotteryNumbersList = new ArrayList<>();
-        for (int index = lotteryNumbers.size()-1; index >= 0 ; index--) {
+        for (int index = lotteryNumbers.size() - 1; index >= 0; index--) {
+            reversedLotteryNumbersList.add(lotteryNumbers.get(index));
+        }
+        return reversedLotteryNumbersList;
+    }
+
+    public static ArrayList<OneDraw> returnReversedOneDraws(ArrayList<OneDraw> lotteryNumbers) {
+        ArrayList<OneDraw> reversedLotteryNumbersList = new ArrayList<>();
+        for (int index = lotteryNumbers.size() - 1; index >= 0; index--) {
             reversedLotteryNumbersList.add(lotteryNumbers.get(index));
         }
         return reversedLotteryNumbersList;
@@ -123,10 +131,11 @@ public class Auxiliary {
         });
         return listOfNumber;
     }
-    public static boolean RepeatedReducer(Integer first, Integer second, Integer third, Integer fourth, Integer fifth, Integer sixth,ArrayList<ArrayList<Integer>> lotteryNumbers){
 
-        for (ArrayList<Integer> weeklyNumbers: lotteryNumbers) {
-            if (weeklyNumbers.contains(fifth)){
+    public static boolean RepeatedReducer(Integer first, Integer second, Integer third, Integer fourth, Integer fifth, Integer sixth, ArrayList<ArrayList<Integer>> lotteryNumbers) {
+
+        for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
+            if (weeklyNumbers.contains(fifth)) {
 
             }
         }

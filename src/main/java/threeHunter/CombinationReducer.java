@@ -14,7 +14,7 @@ public class CombinationReducer {
         fullCombinationNumbers.forEach((com) -> {
             boolean isUnique = true;
             for (int i = 0; i <= 2; i++) {
-                if (com.getNumber()[i].equals(number1) || com.getNumber()[i].equals(number2) || com.getNumber()[i].equals(number3)) {
+                if (com.getNumbers()[i].equals(number1) || com.getNumbers()[i].equals(number2) || com.getNumbers()[i].equals(number3)) {
                     isUnique = false;
                 }
             }

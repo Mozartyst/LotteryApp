@@ -2,7 +2,11 @@ package update;
 
 import dataSupport.FileService;
 import downloader.LotteryDownloader;
+import downloader.LotteryDrawsJSONDownloader;
+import downloader.LotteryDrawsXMLDownloader;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.DayOfWeek;
@@ -12,14 +16,14 @@ import java.time.ZoneOffset;
 import java.util.Properties;
 
 public class LotteryUpdate {
-    public void run() throws IOException, ClassNotFoundException {
+    public void run() throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
         UpdateSettings updateSettings = FileService.loadObject("Settings");
         LocalDateTime localDateTime = LocalDateTime.now();
 
         if (updateSettings.getIrishNextUpdate().compareTo(localDateTime) < 0) {
             Properties properties = new Properties();
             properties.load(new FileInputStream("src/main/resources/IrishLotto"));
-            FileService.saveObject(new LotteryDownloader().getNumbers(2016, 2020, properties), "IrishLottery/FullIrishNumbersFile");
+            new LotteryDrawsXMLDownloader(properties);
             if (localDateTime.getDayOfWeek() == DayOfWeek.MONDAY) {
                 setIrishLastUpdate(updateSettings, setLastTime(localDateTime, 2));
                 setIrishNextUpdate(updateSettings, setNextTime(updateSettings.getIrishLastUpdate(), 4));
@@ -47,7 +51,7 @@ public class LotteryUpdate {
         if (updateSettings.getEuroNextUpdate().compareTo(localDateTime) < 0) {
             Properties properties = new Properties();
             properties.load(new FileInputStream("src/main/resources/EuroLotto"));
-            FileService.saveObject(new LotteryDownloader().getNumbers(2015, 2020, properties), "EuroLottery/FullEuroNumbersFile");
+            new LotteryDrawsXMLDownloader(properties);
             if (localDateTime.getDayOfWeek() == DayOfWeek.MONDAY) {
                 setEuroLastUpdate(updateSettings, setLastTime(localDateTime, 3));
                 setEuroNextUpdate(updateSettings, setNextTime(updateSettings.getEuroLastUpdate(), 4));
@@ -74,7 +78,7 @@ public class LotteryUpdate {
         if (updateSettings.getPolishNextUpdate().compareTo(localDateTime) < 0) {
             Properties properties = new Properties();
             properties.load(new FileInputStream("src/main/resources/PolishLotto"));
-            FileService.saveObject(new LotteryDownloader().getNumbers(2015, 2020,properties), "PolishLottery/FullPolishNumbersFile");
+            new LotteryDrawsJSONDownloader(properties);
             if (localDateTime.getDayOfWeek() == DayOfWeek.MONDAY) {
                 setPolishLastUpdate(updateSettings, setLastTime(localDateTime, 2));
                 setPolishNextUpdate(updateSettings, setNextTime(updateSettings.getPolishLastUpdate(), 3));

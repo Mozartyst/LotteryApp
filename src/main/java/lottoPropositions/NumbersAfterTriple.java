@@ -3,16 +3,17 @@ package lottoPropositions;
 
 import dataSupport.FileService;
 import entity.CombinationNumbers;
+import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumbersAfterTriple {
-    private ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private ArrayList<OneDraw> lotteryNumbers;
     private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = FileService.loadObject("IrishLottery/NumbersAfterTriple");
 
-    public NumbersAfterTriple(ArrayList<ArrayList<Integer>> lotteryNumbers) throws IOException, ClassNotFoundException {
+    public NumbersAfterTriple(ArrayList<OneDraw> lotteryNumbers) throws IOException, ClassNotFoundException {
         this.lotteryNumbers = lotteryNumbers;
     }
 
@@ -21,12 +22,12 @@ public class NumbersAfterTriple {
         TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersForWeek = new TreeMap<>();
         TreeMap<Integer, Integer> propositionNumbers = new TreeMap<>();
 
-        for (Integer firstNumber : lotteryNumbers.get(index)) {
-            for (Integer secondNumber : lotteryNumbers.get(index)) {
+        for (Integer firstNumber : lotteryNumbers.get(index).getDrawNumbers()) {
+            for (Integer secondNumber : lotteryNumbers.get(index).getDrawNumbers()) {
                 if ((int) firstNumber >= (int) secondNumber) {
                     continue;
                 }
-                for (Integer thirdNumber : lotteryNumbers.get(index)) {
+                for (Integer thirdNumber : lotteryNumbers.get(index).getDrawNumbers()) {
                     if (secondNumber >= thirdNumber) {
                         continue;
                     }

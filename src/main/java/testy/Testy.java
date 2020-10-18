@@ -3,6 +3,8 @@ package testy;
 import algorithm.Algorithm;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
+import entity.Number;
+import entity.OneDraw;
 import lottoPropositions.*;
 
 import java.io.IOException;
@@ -14,10 +16,10 @@ import java.util.TreeSet;
 public class Testy {
     private final NumbersAfterDuet duet = new NumbersAfterDuet();
     private final NumbersAfterSlant slant = new NumbersAfterSlant();
-    private final ArrayList<ArrayList<Integer>> lotteryNumber;
+    private final ArrayList<OneDraw> lotteryNumber;
     private final Properties properties;
 
-    public Testy(ArrayList<ArrayList<Integer>> lotteryNumber, Properties properties) {
+    public Testy(ArrayList<OneDraw> lotteryNumber, Properties properties) {
         this.properties = properties;
         this.lotteryNumber = lotteryNumber;
     }
@@ -27,7 +29,7 @@ public class Testy {
         int iloscPropozycji = 0;
         for (int i = (lotteryNumber.size()) - 2; i > 0; i--) {
             ArrayList propositionNumbers = duet.returnNumbersAfterDuet(lotteryNumber, i);
-            ArrayList<Integer> listOfNumbers = lotteryNumber.get(i - 1);
+            ArrayList<Integer> listOfNumbers = lotteryNumber.get(i - 1).getDrawNumbers();
             for (Object o : propositionNumbers) {
                 if (listOfNumbers.contains(o)) {
                     iloscTrafien += 1;
@@ -47,7 +49,7 @@ public class Testy {
         int iloscPropozycji = 0;
         for (int i = (lotteryNumber.size()) - 3; i > 0; i--) {
             ArrayList propositionNumbers = slant.returnNextSlantNumber(lotteryNumber, i);
-            ArrayList<Integer> listOfNumbers = lotteryNumber.get(i - 1);
+            ArrayList<Integer> listOfNumbers = lotteryNumber.get(i - 1).getDrawNumbers();
             for (Object o : propositionNumbers) {
                 if (listOfNumbers.contains(o)) {
                     iloscTrafien += 1;
@@ -76,7 +78,7 @@ public class Testy {
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
                 iloscPropozycji += 1;
-                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
+                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1).getDrawNumbers();
                 for (Object o : listOfNumbersNext) {
                     if (propositionNumbers.containsKey(o)) {
                         traf += 1;
@@ -116,7 +118,7 @@ public class Testy {
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
                 iloscPropozycji += 1;
-                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
+                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1).getDrawNumbers();
                 for (Object o : listOfNumbersNext) {
                     if (propositionNumbers.containsKey(o)) {
                         iloscTrafien += 1;
@@ -148,7 +150,7 @@ public class Testy {
         int trafionychLosowan = 0;
         int iloscLiczbtypowanych = 0;
         boolean trafionyWeek = false;
-        for (ArrayList<Integer> week : lotteryNumber) {
+        for (OneDraw week : lotteryNumber) {
             int i = lotteryNumber.indexOf(week);
             if (i == 0) {
                 continue;
@@ -158,7 +160,7 @@ public class Testy {
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
                 iloscPropozycji += 1;
-                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
+                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1).getDrawNumbers();
                 for (Object o : listOfNumbersNext) {
                     if (propositionNumbers.containsKey(o)) {
                         iloscTrafien += 1;
@@ -189,14 +191,14 @@ public class Testy {
         int trafionychLosowan = 0;
         int iloscLiczbtypowanych = 0;
         boolean trafionyWeek = false;
-        for (ArrayList<Integer> week : lotteryNumber) {
+        for (OneDraw week : lotteryNumber) {
             int i = lotteryNumber.indexOf(week);
             if (i == 0) {
                 continue;
             }
             int traf = 0;
             iloscPropozycji += 1;
-            ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
+            ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1).getDrawNumbers();
             for (Object o : listOfNumbersNext) {
                 if (randomList.contains(o)) {
                     iloscTrafien += 1;
@@ -234,7 +236,7 @@ public class Testy {
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
                 iloscPropozycji += 1;
-                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
+                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1).getDrawNumbers();
                 for (Integer o : listOfNumbersNext) {
                     if (propositionNumbers.containsKey(o)) {
                         iloscTrafien += 1;
@@ -257,6 +259,7 @@ public class Testy {
         System.out.println("-" + iloscLiczbtypowanych + " ilość liczb typowanych" + " / " + iloscLiczbtypowanych / (lotteryNumber.size()-4) + " średnio na losowanie");
     }
     public void skutecznoscAlgorithm() throws IOException, ClassNotFoundException {
+        TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
         ArrayList<Integer> listaTraf = new ArrayList<>();
         int iloscTrafien = 0;
         int iloscPropozycji = 0;
@@ -265,11 +268,11 @@ public class Testy {
         boolean trafionyWeek = false;
         for (int i = (lotteryNumber.size() - 4); i > 0; i--) {
             int traf = 0;
-            TreeSet<Integer> propositionNumbers = new Algorithm().getPropositionList(i, properties);
+            TreeSet<Integer> propositionNumbers = new Algorithm().getPropositionList(i, properties, lotteryNumber,listOfNumbers);
             if (propositionNumbers.size() != 0) {
                 iloscLiczbtypowanych += propositionNumbers.size();
                 iloscPropozycji += 1;
-                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1);
+                ArrayList<Integer> listOfNumbersNext = lotteryNumber.get(i - 1).getDrawNumbers();
                 for (Integer o : listOfNumbersNext) {
                     if (propositionNumbers.contains(o)) {
                         iloscTrafien += 1;

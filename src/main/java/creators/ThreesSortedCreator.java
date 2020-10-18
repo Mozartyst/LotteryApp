@@ -13,7 +13,7 @@ public class ThreesSortedCreator {
         TreeMap<Integer, ArrayList<CombinationNumbers>> sortedListByNumber = new TreeMap<>();
         allThreesInLottery.forEach((com, val) -> {
             for (int i = 0; i <=2 ; i++) {
-                Integer number = com.getNumber()[i];
+                Integer number = com.getNumbers()[i];
                 if (sortedListByNumber.containsKey(number)){
                     sortedListByNumber.get(number).add(com);
                 }else {

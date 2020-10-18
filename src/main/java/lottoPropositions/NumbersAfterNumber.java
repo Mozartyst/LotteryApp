@@ -1,14 +1,16 @@
 package lottoPropositions;
 
+import entity.OneDraw;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumbersAfterNumber {
     private final TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers; //IrishLottery/NumbersAfterNumbers
-    private ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private ArrayList<OneDraw> lotteryNumbers;
 
-    public NumbersAfterNumber(TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers, ArrayList<ArrayList<Integer>> lotteryNumbers) {
+    public NumbersAfterNumber(TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers, ArrayList<OneDraw> lotteryNumbers) {
         this.listOfNumbersAfterNumbers = listOfNumbersAfterNumbers;
         this.lotteryNumbers = lotteryNumbers;
     }
@@ -18,7 +20,7 @@ public class NumbersAfterNumber {
         TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersForWeek = new TreeMap<>();
         TreeMap<Integer, Integer> propositionNumbers = new TreeMap<>();
 
-        for (Integer number : lotteryNumbers.get(index)) {
+        for (Integer number : lotteryNumbers.get(index).getDrawNumbers()) {
             listOfNumbersForWeek.put(number, listOfNumbersAfterNumbers.get(number));
         }
 

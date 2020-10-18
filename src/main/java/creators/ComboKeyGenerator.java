@@ -3,6 +3,7 @@ package creators;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationKeys;
+import entity.OneDraw;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
@@ -12,13 +13,13 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class ComboKeyGenerator implements Runnable {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final ArrayList<OneDraw> lotteryNumbers;
     private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey;
     private final int start;
     private final int end;
     private final Properties properties;
 
-    public ComboKeyGenerator(ArrayList<ArrayList<Integer>> lotteryNumbers
+    public ComboKeyGenerator(ArrayList<OneDraw> lotteryNumbers
             , ArrayList<MultiCombinationKeys> afterMultiCombinationKey
             , int start
             , int end
@@ -38,6 +39,7 @@ public class ComboKeyGenerator implements Runnable {
         for (int i = start; i <= end; i++) {
             int finalIndex = i;
             System.out.println(finalIndex);
+//            combinationNumbersArrayList.removeIf(con -> con.getListOfIndexesWhereAppeared().size() == 1);
             TreeSet<CombinationNumbers> combinationNumbersForFirst = new TreeSet<>(combinationNumbers.get(finalIndex));
             TreeSet<CombinationNumbers> combinationNumbersForSecond = new TreeSet<>(combinationNumbers.get(finalIndex + 1));
             TreeSet<CombinationNumbers> combinationNumbersForThird = new TreeSet<>(combinationNumbers.get(finalIndex + 2));
@@ -49,13 +51,13 @@ public class ComboKeyGenerator implements Runnable {
                 addToAfterMulti(firstMulti, finalIndex);
 
                 combinationNumbersForSecond.forEach((secondKey) -> {
-                    if (firstKey.getNumber().length == secondKey.getNumber().length) {
+                    if (firstKey.getNumbers().length == secondKey.getNumbers().length) {
                         MultiCombinationKeys secondMulti = new MultiCombinationKeys(firstKey, secondKey);
                         addToAfterMulti(secondMulti, finalIndex);
                     }
 
                     combinationNumbersForThird.forEach((thirdKey) -> {
-                        if (firstKey.getNumber().length == thirdKey.getNumber().length) {
+                        if (firstKey.getNumbers().length == thirdKey.getNumbers().length) {
                             MultiCombinationKeys thirdMulti = new MultiCombinationKeys(firstKey, secondKey, thirdKey);
                             addToAfterMulti(thirdMulti, finalIndex);
                         }
@@ -88,11 +90,11 @@ public class ComboKeyGenerator implements Runnable {
     private void addToAfterMulti(MultiCombinationKeys multi, Integer index) {
         if (afterMultiCombinationKey.contains(multi)) {
             multi = afterMultiCombinationKey.get(afterMultiCombinationKey.indexOf(multi));
-            for (Integer number : lotteryNumbers.get(index - 1)) {
+            for (Integer number : lotteryNumbers.get(index + 1).getDrawNumbers()) {
                 multi.setWhatNumbers(number, 1);
             }
         } else {
-            for (Integer number : lotteryNumbers.get(index - 1)) {
+            for (Integer number : lotteryNumbers.get(index + 1).getDrawNumbers()) {
                 multi.setWhatNumbers(number, 1);
             }
             synchronized (afterMultiCombinationKey) {

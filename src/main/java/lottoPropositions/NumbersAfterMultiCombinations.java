@@ -3,6 +3,7 @@ package lottoPropositions;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationKeys;
+import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,9 +12,9 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class NumbersAfterMultiCombinations {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final ArrayList<OneDraw> lotteryNumbers;
 
-    public NumbersAfterMultiCombinations(ArrayList<ArrayList<Integer>> lotteryNumbers){
+    public NumbersAfterMultiCombinations(ArrayList<OneDraw> lotteryNumbers) {
         this.lotteryNumbers = lotteryNumbers;
     }
 
@@ -22,40 +23,39 @@ public class NumbersAfterMultiCombinations {
         TreeMap<Integer, Integer> proposition = new TreeMap<>();
         ArrayList<CombinationNumbers> combinationNumbersArrayList = new ArrayList<>();
         ArrayList<MultiCombinationKeys> multiCombinationKeys = new ArrayList<>();
-        for (int i = index; i < index + 4; i++) {
+        for (int i = lotteryNumbers.size() - 1 - index; i > 4; i--) {
 
-            if (i + 4 < lotteryNumbers.size()) {
-                ArrayList<Integer> gamesNumbers = lotteryNumbers.get(i);
+            ArrayList<Integer> gamesNumbers = lotteryNumbers.get(i).getDrawNumbers();
 //FIRST
-                for (Integer firstNumber : gamesNumbers) {
-                    CombinationNumbers keySingle = new CombinationNumbers(firstNumber);
-                    addCombinationNumbers(keySingle, i, combinationNumbersArrayList);
+            for (Integer firstNumber : gamesNumbers) {
+                CombinationNumbers keySingle = new CombinationNumbers(firstNumber);
+                addCombinationNumbers(keySingle, i, combinationNumbersArrayList);
 //SECOND
-                    for (Integer secondNumber : gamesNumbers) {
-                        if (secondNumber <= firstNumber) {
+                for (Integer secondNumber : gamesNumbers) {
+                    if (secondNumber <= firstNumber) {
+                        continue;
+                    }
+                    CombinationNumbers keyDouble = new CombinationNumbers(firstNumber, secondNumber);
+                    addCombinationNumbers(keyDouble, i, combinationNumbersArrayList);
+//THIRD
+                    for (Integer thirdNumber : gamesNumbers) {
+                        if (thirdNumber <= secondNumber) {
                             continue;
                         }
-                        CombinationNumbers keyDouble = new CombinationNumbers(firstNumber, secondNumber);
-                        addCombinationNumbers(keyDouble, i, combinationNumbersArrayList);
-//THIRD
-                        for (Integer thirdNumber : gamesNumbers) {
-                            if (thirdNumber <= secondNumber) {
+                        CombinationNumbers keyTriple = new CombinationNumbers(firstNumber, secondNumber, thirdNumber);
+                        addCombinationNumbers(keyTriple, i, combinationNumbersArrayList);
+//FOURTH
+                        for (Integer fourthNumber : gamesNumbers) {
+                            if (fourthNumber <= thirdNumber) {
                                 continue;
                             }
-                            CombinationNumbers keyTriple = new CombinationNumbers(firstNumber, secondNumber, thirdNumber);
-                            addCombinationNumbers(keyTriple, i, combinationNumbersArrayList);
-//FOURTH
-                            for (Integer fourthNumber : gamesNumbers) {
-                                if (fourthNumber <= thirdNumber) {
-                                    continue;
-                                }
-                                CombinationNumbers keyQuadruple = new CombinationNumbers(firstNumber, secondNumber, thirdNumber, fourthNumber);
-                                addCombinationNumbers(keyQuadruple, i, combinationNumbersArrayList);
-                            }
+                            CombinationNumbers keyQuadruple = new CombinationNumbers(firstNumber, secondNumber, thirdNumber, fourthNumber);
+                            addCombinationNumbers(keyQuadruple, i, combinationNumbersArrayList);
                         }
                     }
                 }
             }
+
         }
         createAfterCombination(combinationNumbersArrayList, multiCombinationKeys, index);
         multiCombinationKeys.forEach((combination) -> {
@@ -106,14 +106,14 @@ public class NumbersAfterMultiCombinations {
             multiCombinationKeys.add(firstMulti);
 
             combinationNumbersTreeSetForSecond.forEach((secondKey) -> {
-                if (firstKey.getNumber().length == secondKey.getNumber().length) {
+                if (firstKey.getNumbers().length == secondKey.getNumbers().length) {
                     MultiCombinationKeys secondMulti = new MultiCombinationKeys(firstKey, secondKey);
                     multiCombinationKeys.add(secondMulti);
 
                 }
 
                 combinationNumbersTreeSetForThird.forEach((thirdKey) -> {
-                    if (firstKey.getNumber().length == thirdKey.getNumber().length) {
+                    if (firstKey.getNumbers().length == thirdKey.getNumbers().length) {
                         MultiCombinationKeys thirdMulti = new MultiCombinationKeys(firstKey, secondKey, thirdKey);
                         multiCombinationKeys.add(thirdMulti);
 

@@ -37,9 +37,9 @@ public class BestThreesFinder implements Runnable {
                 for (CombinationNumbers com3 : combinationNumbers2) {
                     if (com3.compareTo(com2) > 0) {
                             MultiCombinationKeys multiKeys = new MultiCombinationKeys(
-                                    new CombinationNumbers(com1.getNumber()[0], com2.getNumber()[0], com3.getNumber()[0]),
-                                    new CombinationNumbers(com1.getNumber()[1], com2.getNumber()[1], com3.getNumber()[1]),
-                                    new CombinationNumbers(com1.getNumber()[2], com2.getNumber()[2], com3.getNumber()[2]));
+                                    new CombinationNumbers(com1.getNumbers()[0], com2.getNumbers()[0], com3.getNumbers()[0]),
+                                    new CombinationNumbers(com1.getNumbers()[1], com2.getNumbers()[1], com3.getNumbers()[1]),
+                                    new CombinationNumbers(com1.getNumbers()[2], com2.getNumbers()[2], com3.getNumbers()[2]));
                             int i = new ThreesChecker().howManyAppeared(multiKeys, lotteryNumbers);
                             if (i >= 40) {
                                 multiCombinationKeys.add(multiKeys);

@@ -17,9 +17,9 @@ public class ThreesChecker {
             for (int i = 0; i <= 2; i++) {
                 for (int j = 0; j <= 2; j++) {
                     for (int k = 0; k <= 2; k++) {
-                        Integer firstNumber = firstKey.getNumber()[i];
-                        Integer secondNumber = secondKey.getNumber()[j];
-                        Integer thirdNumber = thirdKey.getNumber()[k];
+                        Integer firstNumber = firstKey.getNumbers()[i];
+                        Integer secondNumber = secondKey.getNumbers()[j];
+                        Integer thirdNumber = thirdKey.getNumbers()[k];
                         if (weekNumbers.contains(firstNumber)
                                 && weekNumbers.contains(secondNumber)
                                 && weekNumbers.contains(thirdNumber)) {

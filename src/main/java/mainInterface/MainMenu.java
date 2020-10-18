@@ -25,7 +25,7 @@ public class MainMenu {
         } else if (number == 2) {
             new Choice2().run(scanner,properties);
         } else if (number == 3) {
-            new Choice3().run();
+            new Choice3().run(properties);
         } else if (number == 4) {
             new Choice4().run(scanner,properties);
         } else if (number == 5) {

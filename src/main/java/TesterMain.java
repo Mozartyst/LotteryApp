@@ -1,4 +1,5 @@
 import dataSupport.FileService;
+import lottoPropositions.NumbersAppearClose;
 import update.TimeSet;
 
 import java.io.IOException;
@@ -8,7 +9,7 @@ import java.util.TreeMap;
 public class TesterMain {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-//        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("LastYearLotteryNumbersFile");
+        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("IrishLottery/IrishNumbersForAlgorithm");
 //        TreeMap<Integer, ArrayList<Double>> results = new TreeMap<>();
 //        Thread thread = new Thread(new PropositionReducerCreator(lotteryNumbers.size(),35,results));
 //        Thread thread1 = new Thread(new PropositionReducerCreator(34,25,results));
@@ -24,7 +25,7 @@ public class TesterMain {
 //        System.out.println(number + " = " + result);
 //
 //        });
-        new TimeSet().setNewDate();
+
     }
 }
 

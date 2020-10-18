@@ -1,6 +1,7 @@
 package creators;
 
 import dataSupport.FileService;
+import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,28 +9,28 @@ import java.util.Properties;
 import java.util.TreeMap;
 
 public class NANCreator {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final ArrayList<OneDraw> lotteryNumbers;
     private TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = new TreeMap<>();
     private final Properties properties;
 
-    public NANCreator(ArrayList<ArrayList<Integer>> lotteryNumbers, Properties properties) {
+    public NANCreator(ArrayList<OneDraw> lotteryNumbers, Properties properties) {
         this.lotteryNumbers = lotteryNumbers;
         this.properties = properties;
     }
 
     public void createNAN() {
-        for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
+        for (OneDraw weeklyNumbers : lotteryNumbers) {
             int index = lotteryNumbers.indexOf(weeklyNumbers);
 
-            if (index + 1 < lotteryNumbers.size()) {
-                ArrayList<Integer> previousWeeklyNumbers = lotteryNumbers.get(index + 1);
+            if (index > 0) {
+                ArrayList<Integer> previousWeeklyNumbers = lotteryNumbers.get(index - 1).getDrawNumbers();
                 for (Integer previousNumber : previousWeeklyNumbers) {
                     if (!listOfNumbersAfterNumbers.containsKey(previousNumber)) {
                         TreeMap<Integer, Integer> numbersForNumber = new TreeMap<>();
-                        putNumbersToList(weeklyNumbers, previousNumber, numbersForNumber);
+                        putNumbersToList(weeklyNumbers.getDrawNumbers(), previousNumber, numbersForNumber);
                     } else {
                         TreeMap<Integer, Integer> numbersForNumber = listOfNumbersAfterNumbers.get(previousNumber);
-                        putNumbersToList(weeklyNumbers, previousNumber, numbersForNumber);
+                        putNumbersToList(weeklyNumbers.getDrawNumbers(), previousNumber, numbersForNumber);
                     }
                 }
             }
@@ -52,6 +53,7 @@ public class NANCreator {
         }
         listOfNumbersAfterNumbers.put(previousNumber, numbersForNumber);
     }
+
     private synchronized void saveMulti() throws IOException {
         FileService.saveObject(listOfNumbersAfterNumbers, properties.getProperty("afterNumber"));
     }

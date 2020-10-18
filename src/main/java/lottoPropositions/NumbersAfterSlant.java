@@ -1,18 +1,19 @@
 package lottoPropositions;
 
 
+import entity.OneDraw;
 import support.Auxiliary;
 
 import java.util.ArrayList;
 
 public class NumbersAfterSlant {
-    public ArrayList<Integer> returnNextSlantNumber(ArrayList<ArrayList<Integer>> lotteryNumbers, int index) {
+    public ArrayList<Integer> returnNextSlantNumber(ArrayList<OneDraw> lotteryNumbers, int index) {
         Auxiliary auxiliary = new Auxiliary();
         ArrayList<Integer> propositionForNextGame = new ArrayList<>();
         int propositionOfNumber;
-        ArrayList<Integer> lastGameNumbers = lotteryNumbers.get(index);
-        ArrayList<Integer> oneGamesBeforeNumbers = lotteryNumbers.get(index+1);
-        ArrayList<Integer> twoGamesBeforeNumbers = lotteryNumbers.get(index+2);
+        ArrayList<Integer> lastGameNumbers = lotteryNumbers.get(index).getDrawNumbers();
+        ArrayList<Integer> oneGamesBeforeNumbers = lotteryNumbers.get(index+1).getDrawNumbers();
+        ArrayList<Integer> twoGamesBeforeNumbers = lotteryNumbers.get(index+2).getDrawNumbers();
         for (Object number : lastGameNumbers) {
             for (Object number2 : oneGamesBeforeNumbers) {
 

@@ -63,8 +63,8 @@ public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, S
         String id = "";
         for (int i = 0; i < getKeys().length; i++) {
             id = id + "/";
-            for (int j = 0; j < getKeys()[i].getNumber().length; j++) {
-                id = id + getKeys()[i].getNumber()[j] + ",";
+            for (int j = 0; j < getKeys()[i].getNumbers().length; j++) {
+                id = id + getKeys()[i].getNumbers()[j] + ",";
             }
         }
         return id;

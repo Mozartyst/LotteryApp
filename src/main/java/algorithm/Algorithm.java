@@ -2,6 +2,7 @@ package algorithm;
 
 import dataSupport.FileService;
 import entity.Number;
+import entity.OneDraw;
 import lottoPropositions.NumbersAfterMultiCombinations;
 import lottoPropositions.Proposition;
 
@@ -16,9 +17,11 @@ public class Algorithm implements Serializable {
 
     private final TreeSet<Integer> proposition = new TreeSet<>();
 
-    public TreeSet<Integer> getPropositionList(Integer index, Properties properties) throws IOException, ClassNotFoundException {
-        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject(properties.getProperty("lastYearNumbers"));
-        TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
+    public TreeSet<Integer> getPropositionList(Integer index
+            , Properties properties
+            , ArrayList<OneDraw> lotteryNumbers
+            , TreeMap<Integer, Number> listOfNumbers) throws IOException, ClassNotFoundException {
+
         TreeSet<Integer> propositions = new Proposition(index).forMultiCombination(properties);
         System.out.println(propositions);
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index, properties);
@@ -106,7 +109,7 @@ public class Algorithm implements Serializable {
                 } else {
                     proposition.add(betNumber + 2);
                 }
-            } else if (betNumber == (Integer.parseInt(properties.getProperty("range"))-1)){
+            } else if (betNumber == (Integer.parseInt(properties.getProperty("range")) - 1)) {
                 try {
                     twoUnder = (float) listOfNumbers.get(betNumber - 2).getOccurred() / multiProposition.get(betNumber - 2);
                 } catch (Exception e) {

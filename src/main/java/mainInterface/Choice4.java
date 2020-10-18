@@ -5,6 +5,7 @@ import dataSupport.FileService;
 import downloader.LotteryDownloader;
 import entity.MultiCombinationKeys;
 import entity.Number;
+import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,8 +16,11 @@ import java.util.TreeMap;
 public class Choice4 {
 
     public void run(Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
-        ArrayList<ArrayList<Integer>> lotteryNumbersForAlgorithm = FileService.loadObject(properties.getProperty("numbersForAlgorithm"));
-        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        ArrayList<OneDraw> lotteryNumbersForAlgorithm = new ArrayList<>();
+        for (int i = 0; i < lotteryNumbers.size()-50; i++) {
+            lotteryNumbersForAlgorithm.add(lotteryNumbers.get(i));
+        }
 
         System.out.println("Select number of creator: ");
         System.out.println("1 - Numbers and Dependency Creator");
@@ -42,12 +46,7 @@ public class Choice4 {
                 e.printStackTrace();
             }
         } else if (creatorChoice == 2) {
-            try {
-                TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
-                new DuetCreator(lotteryNumbers, listOfNumbers, properties).createDuets();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new DuetCreator(lotteryNumbers, properties).createDuets();
         } else if (creatorChoice == 3) {
             TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
             new AlgorithmCreator(lotteryNumbersForAlgorithm, listOfNumbers, properties).createAlgorithm();

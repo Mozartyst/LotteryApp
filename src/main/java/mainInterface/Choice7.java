@@ -1,6 +1,7 @@
 package mainInterface;
 
 import dataSupport.FileService;
+import entity.OneDraw;
 import lottoPropositions.Proposition;
 
 import java.io.IOException;
@@ -13,9 +14,9 @@ public class Choice7 {
         System.out.println("Input index:");
         int index = scanner.nextInt();
         System.out.println(new Proposition(index).forMultiCombination(properties));
-        if (index != 0) {
-            ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
-            System.out.println(lotteryNumbers.get(index - 1));
+            ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        if (index < lotteryNumbers.size()-2) {
+            System.out.println(lotteryNumbers.get(index + 1));
         }
     }
 }
