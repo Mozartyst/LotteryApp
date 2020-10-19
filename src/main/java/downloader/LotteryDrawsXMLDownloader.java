@@ -29,24 +29,25 @@ public class LotteryDrawsXMLDownloader {
         document.getDocumentElement().normalize();
 
         NodeList drawResult = document.getElementsByTagName("DrawResult");
-        Element el = (Element) drawResult.item(drawResult.getLength() - 1);
+        Element el = (Element) drawResult.item(0);
         int drawNumber = Integer.parseInt(el.getElementsByTagName("DrawNumber").item(0).getTextContent());
         int lastDraw = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawNumber();
         int missedDraws = drawNumber - lastDraw;
         if (missedDraws > 0) {
-            for (int i = drawResult.getLength() - missedDraws; i < drawResult.getLength(); i++) {
+            for (int i = -1 + missedDraws; i >= 0; i--) {
                 Element element = (Element) drawResult.item(i);
                 OneDraw oneDraw = new OneDraw();
-                oneDraw.setDrawNumber(drawNumber);
+                oneDraw.setDrawNumber(Integer.parseInt(element.getElementsByTagName("DrawNumber").item(0).getTextContent()));
                 oneDraw.setDrawDate(LocalDateTime.parse(element.getElementsByTagName("DrawDate").item(0).getTextContent().substring(0, 19)));
                 NodeList number = element.getElementsByTagName("Number");
                 ArrayList<Integer> drawnNumbers = new ArrayList<>();
                 ArrayList<Integer> bonusBall = new ArrayList<>();
 
                 for (int j = 0; j < number.getLength(); j++) {
-                    if (j <= 5) {
+                    if (j < Integer.parseInt(properties.getProperty("drawNumbers"))) {
                         drawnNumbers.add(Integer.parseInt(number.item(j).getTextContent()));
-                    } else if (j == 6) {
+                    } else if (j == Integer.parseInt(properties.getProperty("drawNumbers"))
+                            || j == Integer.parseInt(properties.getProperty("drawNumbers")) + 1) {
                         bonusBall.add(Integer.parseInt(number.item(j).getTextContent()));
                     }
                 }

@@ -7,13 +7,13 @@ import java.util.Scanner;
 public class MainMenu {
     public void showMenu(Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
         System.out.println("Select number:");
-        System.out.println("1 - Save LotteryNumber for Algorithm");
+        System.out.println("1 - Run by first time");
         System.out.println("2 - Algorithm proposition");
-        System.out.println("3 - ");
+        System.out.println("3 - Proposition");
         System.out.println("4 - Creators");
         System.out.println("5 - Reducer for file MultiCombination");
         System.out.println("6 - EachWithEveryOne");
-        System.out.println("7 - Proposition");
+        System.out.println("7 - ");
         System.out.println("8 - Tests");
         System.out.println("9 - NAMultiCombination");
         System.out.println("10 -NAT");
@@ -21,11 +21,11 @@ public class MainMenu {
 
         int number = scanner.nextInt();
         if (number == 1) {
-            new Choice1().run(properties);
+            new Choice1().run();
         } else if (number == 2) {
             new Choice2().run(scanner,properties);
         } else if (number == 3) {
-            new Choice3().run(properties);
+            new Choice3().run(scanner,properties);
         } else if (number == 4) {
             new Choice4().run(scanner,properties);
         } else if (number == 5) {

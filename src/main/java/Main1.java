@@ -14,9 +14,11 @@ import java.util.Properties;
 public class Main1 {
     public static void main(String[] args) throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException, ParseException {
         Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/PolishLotto"));
+        properties.load(new FileInputStream("src/main/resources/EuroLotto"));
 //        new LotteryDrawsXMLDownloader(properties);
+//        new LotteryDrawsJSONDownloader(properties);
+//        new DownEuro().getNumbers(2015,2020);
 //        new DownPolish(properties);
-        new LotteryDrawsJSONDownloader(properties);
+//        new Down().getNumbers(2016,2020);
     }
 }

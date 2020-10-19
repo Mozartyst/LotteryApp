@@ -2,7 +2,6 @@ package mainInterface;
 
 import creators.*;
 import dataSupport.FileService;
-import downloader.LotteryDownloader;
 import entity.MultiCombinationKeys;
 import entity.Number;
 import entity.OneDraw;
@@ -31,7 +30,7 @@ public class Choice4 {
         System.out.println("6 - NAN Creator");
         System.out.println("7 - NAP Creator");
         System.out.println("8 - NAT Creator");
-        System.out.println("9 - Last Year Lottery Numbers Creator");
+        System.out.println("9 - ");
         int creatorChoice = scanner.nextInt();
         if (creatorChoice == 1) {
             try {
@@ -73,8 +72,7 @@ public class Choice4 {
         } else if (creatorChoice == 8) {
             new NATCreator(lotteryNumbersForAlgorithm, properties).createNAT();
         } else if (creatorChoice == 9) {
-            ArrayList<ArrayList<Integer>> lastYear = new LotteryDownloader().getNumbers(2020, 2020, properties);
-            FileService.saveObject(lastYear, properties.getProperty("lastYearNumbers"));
+
         }
     }
 }

@@ -1,7 +1,6 @@
 url=https://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws=50&drawType=Lotto
 lotteryNumbers=IrishLottery/FullIrishDraws
 listOfNumbers=IrishLottery/ListOfNumbers
-lastYearNumbers=IrishLottery/LastYearLotteryNumbersFile
 algorithmFile=IrishLottery/AlgorithmFile
 reducedMulti=IrishLottery/ReducedMulti
 combinationNumbers=IrishLottery/CombinationNumbers
@@ -12,6 +11,4 @@ afterTriple=IrishLottery/NumbersAfterTriple
 quantityOfAppeared=IrishLottery/QuantityOfAppearedNumbers
 results=Results
 drawNumbers=6
-yearFrom=2016
-yearTo=2020
 range=47

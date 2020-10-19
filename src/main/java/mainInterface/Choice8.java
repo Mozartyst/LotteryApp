@@ -24,8 +24,12 @@ public class Choice8 {
         System.out.println("10 -");
         System.out.println("11 - NAMultiCombination");
         int choice = scanner.nextInt();
-        ArrayList<OneDraw> lotteryNumber = FileService.loadObject(properties.getProperty("lastYearNumbers"));
-        Testy testy = new Testy(lotteryNumber, properties);
+        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        ArrayList<OneDraw> lastFiftyDraws = new ArrayList<>();
+        for (int i = lotteryNumbers.size()-50; i < lotteryNumbers.size(); i++) {
+            lastFiftyDraws.add(lotteryNumbers.get(i));
+        }
+        Testy testy = new Testy(lastFiftyDraws, properties);
         if (choice == 1) {
             testy.skutecznoscNumbersAfterNumber();
         } else if (choice == 2) {

@@ -1,7 +1,6 @@
 package update;
 
 import dataSupport.FileService;
-import downloader.LotteryDownloader;
 import downloader.LotteryDrawsJSONDownloader;
 import downloader.LotteryDrawsXMLDownloader;
 import org.xml.sax.SAXException;

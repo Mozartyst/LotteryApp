@@ -1,7 +1,6 @@
 url=https://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws=50&drawType=EuroMillions
 lotteryNumbers=EuroLottery/FullEuroDraws
 listOfNumbers=EuroLottery/EuroListOfNumbers
-lastYearNumbers=EuroLottery/LastYearLotteryNumbersFile
 algorithmFile=EuroLottery/AlgorithmFile
 reducedMulti=EuroLottery/ReducedMulti
 combinationNumbers=EuroLottery/CombinationNumbers
@@ -12,6 +11,4 @@ afterTriple=EuroLottery/NumbersAfterTriple
 quantityOfAppeared=EuroLottery/QuantityOfAppearedNumbers
 results=Results
 drawNumbers=5
-yearFrom=2015
-yearTo=2020
 range=50

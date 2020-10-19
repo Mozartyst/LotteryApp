@@ -16,8 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class DownPolish {
-    public DownPolish(Properties properties) throws IOException {
+public class DownloadPolish {
+    public DownloadPolish(Properties properties) throws IOException {
         ArrayList<OneDraw> lotteryNumbers = new ArrayList<>();
         URL url = new URL("https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Lotto&index=0&size=908&sort=drawDate&order=DESC");
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

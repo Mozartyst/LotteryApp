@@ -1,7 +1,6 @@
 url=https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Lotto&index=0&size=50&sort=drawDate&order=DESC
-lotteryNumbers=PolishLottery/FullPolishNumbersFile
+lotteryNumbers=PolishLottery/FullPolishDraws
 listOfNumbers=PolishLottery/PolishListOfNumbers
-lastYearNumbers=PolishLottery/LastYearLotteryNumbersFile
 algorithmFile=PolishLottery/AlgorithmFile
 reducedMulti=PolishLottery/ReducedMulti
 combinationNumbers=PolishLottery/CombinationNumbers
@@ -12,6 +11,4 @@ afterTriple=PolishLottery/NumbersAfterTriple
 quantityOfAppeared=PolishLottery/QuantityOfAppearedNumbers
 results=Results
 drawNumbers=6
-yearFrom=2015
-yearTo=2020
 range=49
