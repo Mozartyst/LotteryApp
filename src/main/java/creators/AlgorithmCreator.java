@@ -35,33 +35,33 @@ public class AlgorithmCreator {
                     ArrayList<Integer> nextLottery = lotteryNumbers.get(index + 1).getDrawNumbers();
                     if (weekNumbers.getDrawNumbers().contains(number)) {
                         if (nextLottery.contains(finalI)) {
+                            TreeMap<Boolean, Integer> booleanIntegerTreeMap;
                             if (algForNumber.containsKey(number)) {
-                                TreeMap<Boolean, Integer> booleanIntegerTreeMap = algForNumber.get(number);
+                                booleanIntegerTreeMap = algForNumber.get(number);
                                 if (booleanIntegerTreeMap.containsKey(true)) {
                                     booleanIntegerTreeMap.put(true, booleanIntegerTreeMap.get(true) + 1);
                                 } else {
                                     booleanIntegerTreeMap.put(true, 1);
                                 }
-                                algForNumber.put(number, booleanIntegerTreeMap);
                             } else {
-                                TreeMap<Boolean, Integer> booleanIntegerTreeMap = new TreeMap<>();
+                                booleanIntegerTreeMap = new TreeMap<>();
                                 booleanIntegerTreeMap.put(true, 1);
-                                algForNumber.put(number, booleanIntegerTreeMap);
                             }
+                            algForNumber.put(number, booleanIntegerTreeMap);
                         } else {
+                            TreeMap<Boolean, Integer> booleanIntegerTreeMap;
                             if (algForNumber.containsKey(number)) {
-                                TreeMap<Boolean, Integer> booleanIntegerTreeMap = algForNumber.get(number);
+                                booleanIntegerTreeMap = algForNumber.get(number);
                                 if (booleanIntegerTreeMap.containsKey(false)) {
                                     booleanIntegerTreeMap.put(false, booleanIntegerTreeMap.get(false) + 1);
                                 } else {
                                     booleanIntegerTreeMap.put(false, 1);
                                 }
-                                algForNumber.put(number, booleanIntegerTreeMap);
                             } else {
-                                TreeMap<Boolean, Integer> booleanIntegerTreeMap = new TreeMap<>();
+                                booleanIntegerTreeMap = new TreeMap<>();
                                 booleanIntegerTreeMap.put(false, 1);
-                                algForNumber.put(number, booleanIntegerTreeMap);
                             }
+                            algForNumber.put(number, booleanIntegerTreeMap);
                         }
                     }
                 }
@@ -96,11 +96,10 @@ public class AlgorithmCreator {
 
             Integer first = values.get(0);
             Integer second = values.get(1);
-            Integer third = values.get(2);
 
 
             tempMap.forEach((x, y) -> {
-                if (y == first || y == second) {
+                if (y.equals(first) || y.equals(second)) {
                     algorithmFinal.put(x, true);
                 }
             });

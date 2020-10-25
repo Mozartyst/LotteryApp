@@ -106,14 +106,6 @@ public class Auxiliary {
         return compressedList;
     }
 
-    public static ArrayList<ArrayList<Integer>> returnReversedListLotteryNumbers(ArrayList<ArrayList<Integer>> lotteryNumbers) {
-        ArrayList<ArrayList<Integer>> reversedLotteryNumbersList = new ArrayList<>();
-        for (int index = lotteryNumbers.size() - 1; index >= 0; index--) {
-            reversedLotteryNumbersList.add(lotteryNumbers.get(index));
-        }
-        return reversedLotteryNumbersList;
-    }
-
     public static ArrayList<OneDraw> returnReversedOneDraws(ArrayList<OneDraw> lotteryNumbers) {
         ArrayList<OneDraw> reversedLotteryNumbersList = new ArrayList<>();
         for (int index = lotteryNumbers.size() - 1; index >= 0; index--) {
@@ -130,16 +122,5 @@ public class Auxiliary {
             if (y.size() == 0) listOfNumber.remove(x);
         });
         return listOfNumber;
-    }
-
-    public static boolean RepeatedReducer(Integer first, Integer second, Integer third, Integer fourth, Integer fifth, Integer sixth, ArrayList<ArrayList<Integer>> lotteryNumbers) {
-
-        for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
-            if (weeklyNumbers.contains(fifth)) {
-
-            }
-        }
-
-        return true;
     }
 }

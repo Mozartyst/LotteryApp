@@ -183,7 +183,7 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
     public Iterator<Integer> iterator() {
         return new Iterator<Integer>() {
 
-            Integer[] list = getNumbers();
+            final Integer[] list = getNumbers();
             int actual = 0;
 
             @Override

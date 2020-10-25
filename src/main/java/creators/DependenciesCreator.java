@@ -127,7 +127,7 @@ public class DependenciesCreator {
             }
         }
         /*
-        SUMUJE DEPENDENCJE
+        ADDING UP DEPENDENCIES
          */
         for (int i = 1; i < 48; i++) {
             ArrayList<Integer> isOverAndUnder = new ArrayList<>();

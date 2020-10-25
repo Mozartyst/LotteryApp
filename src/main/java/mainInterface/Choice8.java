@@ -18,11 +18,8 @@ public class Choice8 {
         System.out.println("4 - Duet");
         System.out.println("5 - Slant");
         System.out.println("6 - Algorithm");
-        System.out.println("7 - ");
-        System.out.println("8 - Random");
-        System.out.println("9 - ");
-        System.out.println("10 -");
-        System.out.println("11 - NAMultiCombination");
+        System.out.println("7 - Random");
+        System.out.println("8 - NAMultiCombination");
         int choice = scanner.nextInt();
         ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         ArrayList<OneDraw> lastFiftyDraws = new ArrayList<>();
@@ -43,7 +40,6 @@ public class Choice8 {
         } else if (choice == 6) {
             testy.skutecznoscAlgorithm();
         } else if (choice == 7) {
-        } else if (choice == 8) {
             System.out.println("Input 6 numbers:");
             ArrayList<Integer> arrayList = new ArrayList<>();
             for (int i = 0; i < 6; i++) {
@@ -51,9 +47,7 @@ public class Choice8 {
                 arrayList.add(random);
             }
             testy.skutecznoscLiczbRandomowych(arrayList);
-        } else if (choice == 9) {
-        } else if (choice == 10) {
-        } else if (choice == 11) {
+        } else if (choice == 8) {
             testy.skutecznoscMultiCombination();
         }
     }

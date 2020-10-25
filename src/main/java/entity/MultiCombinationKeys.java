@@ -60,14 +60,14 @@ public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, S
     }
 
     public String createIdForDB() {
-        String id = "";
+        StringBuilder id = new StringBuilder();
         for (int i = 0; i < getKeys().length; i++) {
-            id = id + "/";
+            id.append("/");
             for (int j = 0; j < getKeys()[i].getNumbers().length; j++) {
-                id = id + getKeys()[i].getNumbers()[j] + ",";
+                id.append(getKeys()[i].getNumbers()[j]).append(",");
             }
         }
-        return id;
+        return id.toString();
     }
 
     @Override
@@ -185,7 +185,7 @@ public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, S
     public Iterator<CombinationNumbers> iterator() {
         return new Iterator<CombinationNumbers>() {
 
-            CombinationNumbers[] list = getKeys();
+            final CombinationNumbers[] list = getKeys();
             int actual = 0;
 
             @Override

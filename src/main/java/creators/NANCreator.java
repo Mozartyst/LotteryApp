@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 public class NANCreator {
     private final ArrayList<OneDraw> lotteryNumbers;
-    private TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = new TreeMap<>();
+    private final TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers = new TreeMap<>();
     private final Properties properties;
 
     public NANCreator(ArrayList<OneDraw> lotteryNumbers, Properties properties) {
@@ -25,13 +25,13 @@ public class NANCreator {
             if (index > 0) {
                 ArrayList<Integer> previousWeeklyNumbers = lotteryNumbers.get(index - 1).getDrawNumbers();
                 for (Integer previousNumber : previousWeeklyNumbers) {
+                    TreeMap<Integer, Integer> numbersForNumber;
                     if (!listOfNumbersAfterNumbers.containsKey(previousNumber)) {
-                        TreeMap<Integer, Integer> numbersForNumber = new TreeMap<>();
-                        putNumbersToList(weeklyNumbers.getDrawNumbers(), previousNumber, numbersForNumber);
+                        numbersForNumber = new TreeMap<>();
                     } else {
-                        TreeMap<Integer, Integer> numbersForNumber = listOfNumbersAfterNumbers.get(previousNumber);
-                        putNumbersToList(weeklyNumbers.getDrawNumbers(), previousNumber, numbersForNumber);
+                        numbersForNumber = listOfNumbersAfterNumbers.get(previousNumber);
                     }
+                    putNumbersToList(weeklyNumbers.getDrawNumbers(), previousNumber, numbersForNumber);
                 }
             }
         }

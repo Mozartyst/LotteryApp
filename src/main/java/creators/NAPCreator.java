@@ -29,13 +29,13 @@ public class NAPCreator {
                     for (Integer secondNumber : previousWeeklyNumbers) {
                         if (!firstNumber.equals(secondNumber) && firstNumber < secondNumber) {
                             CombinationNumbers keyPairs = new CombinationNumbers(firstNumber, secondNumber);
+                            TreeMap<Integer, Integer> numbersForNumber;
                             if (!listOfNumbersAfterPairs.containsKey(keyPairs)) {
-                                TreeMap<Integer, Integer> numbersForNumber = new TreeMap<>();
-                                putNumbersToList(weeklyNumbers.getDrawNumbers(), keyPairs, numbersForNumber);
+                                numbersForNumber = new TreeMap<>();
                             } else {
-                                TreeMap<Integer, Integer> numbersForNumber = listOfNumbersAfterPairs.get(keyPairs);
-                                putNumbersToList(weeklyNumbers.getDrawNumbers(), keyPairs, numbersForNumber);
+                                numbersForNumber = listOfNumbersAfterPairs.get(keyPairs);
                             }
+                            putNumbersToList(weeklyNumbers.getDrawNumbers(), keyPairs, numbersForNumber);
                         }
                     }
                 }

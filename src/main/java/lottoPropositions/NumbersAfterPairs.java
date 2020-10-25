@@ -4,7 +4,6 @@ package lottoPropositions;
 import entity.CombinationNumbers;
 import entity.OneDraw;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 

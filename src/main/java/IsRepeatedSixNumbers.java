@@ -1,4 +1,5 @@
 import dataSupport.FileService;
+import entity.OneDraw;
 import support.Auxiliary;
 
 import java.io.IOException;
@@ -10,77 +11,77 @@ public class IsRepeatedSixNumbers {
     private static ArrayList<ArrayList<Integer>> fullList = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ArrayList<ArrayList<Integer>> lotteryNumbers = Auxiliary.returnReversedListLotteryNumbers(FileService.loadObject("PolishLottery/FullPolishNumbersFile"));
-        for (ArrayList<Integer> weeklyNumbers : lotteryNumbers) {
-            for (ArrayList<Integer> nextWeeklyNumbers : lotteryNumbers) {
+        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject("IrishLottery/FullIrishDraws");
+        for (OneDraw weeklyNumbers : lotteryNumbers) {
+            for (OneDraw nextWeeklyNumbers : lotteryNumbers) {
                 if (lotteryNumbers.indexOf(nextWeeklyNumbers) <= lotteryNumbers.indexOf(weeklyNumbers)) {
                     continue;
                 }
                 ArrayList<Integer> printList = new ArrayList<>();
-                int first = nextWeeklyNumbers.get(0);
-                int second = nextWeeklyNumbers.get(1);
-                int third = nextWeeklyNumbers.get(2);
-                int fourth = nextWeeklyNumbers.get(3);
-                int fifth = nextWeeklyNumbers.get(4);
-                int sixth = nextWeeklyNumbers.get(5);
-                if (weeklyNumbers.contains(first)) {
+                int first = nextWeeklyNumbers.getDrawNumbers().get(0);
+                int second = nextWeeklyNumbers.getDrawNumbers().get(1);
+                int third = nextWeeklyNumbers.getDrawNumbers().get(2);
+                int fourth = nextWeeklyNumbers.getDrawNumbers().get(3);
+                int fifth = nextWeeklyNumbers.getDrawNumbers().get(4);
+                int sixth = nextWeeklyNumbers.getDrawNumbers().get(5);
+                if (weeklyNumbers.getDrawNumbers().contains(first)) {
                     printList.add(first);
-                    if (weeklyNumbers.contains(second)) {
+                    if (weeklyNumbers.getDrawNumbers().contains(second)) {
                         printList.add(second);
-                        if (weeklyNumbers.contains(third)) {
+                        if (weeklyNumbers.getDrawNumbers().contains(third)) {
                             printList.add(third);
-                            if (weeklyNumbers.contains(fourth)) {
+                            if (weeklyNumbers.getDrawNumbers().contains(fourth)) {
                                 printList.add(fourth);
-                                if (weeklyNumbers.contains(fifth)) {
+                                if (weeklyNumbers.getDrawNumbers().contains(fifth)) {
                                     printList.add(fifth);
-                                    if (weeklyNumbers.contains(sixth)) {
+                                    if (weeklyNumbers.getDrawNumbers().contains(sixth)) {
                                         printList.add(sixth);
                                     }
                                 }
                             }
                         }
-                    } else if (weeklyNumbers.contains(third)) {
+                    } else if (weeklyNumbers.getDrawNumbers().contains(third)) {
                         printList.add(third);
-                        if (weeklyNumbers.contains(fourth)) {
+                        if (weeklyNumbers.getDrawNumbers().contains(fourth)) {
                             printList.add(fourth);
-                            if (weeklyNumbers.contains(fifth)) {
+                            if (weeklyNumbers.getDrawNumbers().contains(fifth)) {
                                 printList.add(fifth);
-                                if (weeklyNumbers.contains(sixth)) {
+                                if (weeklyNumbers.getDrawNumbers().contains(sixth)) {
                                     printList.add(sixth);
                                 }
                             }
                         }
                     }
-                } else if (weeklyNumbers.contains(second)) {
+                } else if (weeklyNumbers.getDrawNumbers().contains(second)) {
                     printList.add(second);
-                    if (weeklyNumbers.contains(third)) {
+                    if (weeklyNumbers.getDrawNumbers().contains(third)) {
                         printList.add(third);
-                        if (weeklyNumbers.contains(fourth)) {
+                        if (weeklyNumbers.getDrawNumbers().contains(fourth)) {
                             printList.add(fourth);
-                            if (weeklyNumbers.contains(fifth)) {
+                            if (weeklyNumbers.getDrawNumbers().contains(fifth)) {
                                 printList.add(fifth);
-                                if (weeklyNumbers.contains(sixth)) {
+                                if (weeklyNumbers.getDrawNumbers().contains(sixth)) {
                                     printList.add(sixth);
                                 }
                             }
                         }
                     }
-                } else if (weeklyNumbers.contains(third)) {
+                } else if (weeklyNumbers.getDrawNumbers().contains(third)) {
                     printList.add(third);
-                    if (weeklyNumbers.contains(fourth)) {
+                    if (weeklyNumbers.getDrawNumbers().contains(fourth)) {
                         printList.add(fourth);
-                        if (weeklyNumbers.contains(fifth)) {
+                        if (weeklyNumbers.getDrawNumbers().contains(fifth)) {
                             printList.add(fifth);
-                            if (weeklyNumbers.contains(sixth)) {
+                            if (weeklyNumbers.getDrawNumbers().contains(sixth)) {
                                 printList.add(sixth);
                             }
                         }
                     }
-                } else if (weeklyNumbers.contains(fourth)) {
+                } else if (weeklyNumbers.getDrawNumbers().contains(fourth)) {
                     printList.add(fourth);
-                    if (weeklyNumbers.contains(fifth)) {
+                    if (weeklyNumbers.getDrawNumbers().contains(fifth)) {
                         printList.add(fifth);
-                        if (weeklyNumbers.contains(sixth)) {
+                        if (weeklyNumbers.getDrawNumbers().contains(sixth)) {
                             printList.add(sixth);
                         }
                     }
@@ -168,7 +169,7 @@ public class IsRepeatedSixNumbers {
     public static void print() {
         fullList.forEach((x) -> {
 
-            if (x.size() == 2) {
+            if (x.size() == 3) {
                 System.out.println(counter + " " + x);
                 counter++;
             }

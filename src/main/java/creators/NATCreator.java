@@ -34,13 +34,13 @@ public class NATCreator {
                             if (secondNumber >= thirdNumber)
                                 continue;
                             CombinationNumbers combinationNumbers = new CombinationNumbers(firstNumber, secondNumber, thirdNumber);
+                            TreeMap<Integer, Integer> numbersForNumber;
                             if (!listOfNumbersAfterTriple.containsKey(combinationNumbers)) {
-                                TreeMap<Integer, Integer> numbersForNumber = new TreeMap<>();
-                                putNumbersToList(weeklyNumbers.getDrawNumbers(), combinationNumbers, numbersForNumber);
+                                numbersForNumber = new TreeMap<>();
                             } else {
-                                TreeMap<Integer, Integer> numbersForNumber = listOfNumbersAfterTriple.get(combinationNumbers);
-                                putNumbersToList(weeklyNumbers.getDrawNumbers(), combinationNumbers, numbersForNumber);
+                                numbersForNumber = listOfNumbersAfterTriple.get(combinationNumbers);
                             }
+                            putNumbersToList(weeklyNumbers.getDrawNumbers(), combinationNumbers, numbersForNumber);
                         }
                     }
                 }

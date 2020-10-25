@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class NumbersAfterSlant {
     public ArrayList<Integer> returnNextSlantNumber(ArrayList<OneDraw> lotteryNumbers, int index) {
-        Auxiliary auxiliary = new Auxiliary();
         ArrayList<Integer> propositionForNextGame = new ArrayList<>();
         int propositionOfNumber;
         ArrayList<Integer> lastGameNumbers = lotteryNumbers.get(index).getDrawNumbers();
@@ -30,7 +29,7 @@ public class NumbersAfterSlant {
                 }
             }
         }
-        return auxiliary.changeNumbersOverAndUnder(propositionForNextGame);
+        return Auxiliary.changeNumbersOverAndUnder(propositionForNextGame);
     }
 
 }

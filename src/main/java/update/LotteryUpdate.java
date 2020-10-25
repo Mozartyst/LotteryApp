@@ -109,24 +109,22 @@ public class LotteryUpdate {
 
     private LocalDateTime setLastTime(LocalDateTime localDateTime, int days) {
         long oneDay = 86400000L * days;
-        LocalDateTime updatedTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(LocalDateTime.of(localDateTime.getYear()
+
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(LocalDateTime.of(localDateTime.getYear()
                 , localDateTime.getMonth()
                 , localDateTime.getDayOfMonth()
                 , 20
                 , 30).toInstant(ZoneOffset.UTC).toEpochMilli() - oneDay), ZoneOffset.UTC);
-
-        return updatedTime;
     }
 
     private LocalDateTime setNextTime(LocalDateTime localDateTime, int days) {
         long oneDay = 86400000L * days;
-        LocalDateTime updatedTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(LocalDateTime.of(localDateTime.getYear()
+
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(LocalDateTime.of(localDateTime.getYear()
                 , localDateTime.getMonth()
                 , localDateTime.getDayOfMonth()
                 , 20
                 , 30).toInstant(ZoneOffset.UTC).toEpochMilli() + oneDay), ZoneOffset.UTC);
-
-        return updatedTime;
     }
 
     private void setIrishLastUpdate(UpdateSettings updateSettings, LocalDateTime localDateTime) {

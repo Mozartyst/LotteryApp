@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumbersAfterTriple {
-    private ArrayList<OneDraw> lotteryNumbers;
-    private TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = FileService.loadObject("IrishLottery/NumbersAfterTriple");
+    private final ArrayList<OneDraw> lotteryNumbers;
+    private final TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = FileService.loadObject("IrishLottery/NumbersAfterTriple");
 
     public NumbersAfterTriple(ArrayList<OneDraw> lotteryNumbers) throws IOException, ClassNotFoundException {
         this.lotteryNumbers = lotteryNumbers;
@@ -24,7 +24,7 @@ public class NumbersAfterTriple {
 
         for (Integer firstNumber : lotteryNumbers.get(index).getDrawNumbers()) {
             for (Integer secondNumber : lotteryNumbers.get(index).getDrawNumbers()) {
-                if ((int) firstNumber >= (int) secondNumber) {
+                if (firstNumber >= secondNumber) {
                     continue;
                 }
                 for (Integer thirdNumber : lotteryNumbers.get(index).getDrawNumbers()) {

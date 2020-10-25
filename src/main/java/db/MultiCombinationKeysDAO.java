@@ -42,8 +42,7 @@ public class MultiCombinationKeysDAO {
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                int lastId = generatedKeys.getInt(1);
-                return lastId;
+                return generatedKeys.getInt(1);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -63,12 +62,8 @@ public class MultiCombinationKeysDAO {
                 ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
                 o = objectInputStream.readObject();
             }
-        } catch (SQLException throwables) {
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return o;
     }
@@ -87,12 +82,8 @@ public class MultiCombinationKeysDAO {
                 multiCombinationKeys1 = (MultiCombinationKeys) objectInputStream.readObject();
             }
             connect.createStatement().execute("DELETE FROM compar WHERE ID>=1;");
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException | IOException throwables) {
             throwables.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return multiCombinationKeys1;
     }

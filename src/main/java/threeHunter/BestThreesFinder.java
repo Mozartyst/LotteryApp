@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class BestThreesFinder implements Runnable {
-    private ArrayList<MultiCombinationKeys> multiCombinationKeys = new ArrayList<>();
-    private TreeMap<CombinationNumbers, Integer> allThreesInLottery;
-    private ArrayList<CombinationNumbers> listOfCombinations;
-    private ArrayList<ArrayList<Integer>> lotteryNumbers;
-    private int index;
+    private final ArrayList<MultiCombinationKeys> multiCombinationKeys = new ArrayList<>();
+    private final TreeMap<CombinationNumbers, Integer> allThreesInLottery;
+    private final ArrayList<CombinationNumbers> listOfCombinations;
+    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final int index;
 
-    public BestThreesFinder(TreeMap<CombinationNumbers, Integer> allThreesInLottery, ArrayList<CombinationNumbers> listOfCombinations, ArrayList<ArrayList<Integer>> lotteryNumbers, int index) throws IOException, ClassNotFoundException {
+    public BestThreesFinder(TreeMap<CombinationNumbers, Integer> allThreesInLottery, ArrayList<CombinationNumbers> listOfCombinations, ArrayList<ArrayList<Integer>> lotteryNumbers, int index){
         this.allThreesInLottery = allThreesInLottery;
         this.listOfCombinations = listOfCombinations;
         this.lotteryNumbers = lotteryNumbers;

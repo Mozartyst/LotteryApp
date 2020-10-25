@@ -19,7 +19,11 @@ public class PropositionReducerCreator implements Runnable {
     private final TreeMap<Integer, TreeMap<Integer, Integer>> appearedNumbers; // IrishLottery/QuantityOfAppearedNumbers
     private final ArrayList<OneDraw> lotteryNumbers; // lastYearNumbers
 
-    public PropositionReducerCreator(int start, int end, TreeMap<Integer, ArrayList<Double>> results, Properties properties, TreeMap<Integer, TreeMap<Integer, Integer>> appearedNumbers, ArrayList<OneDraw> lotteryNumbers) throws IOException, ClassNotFoundException {
+    public PropositionReducerCreator(int start, int end, TreeMap<Integer, ArrayList<Double>> results
+            , Properties properties
+            , TreeMap<Integer
+            , TreeMap<Integer, Integer>> appearedNumbers
+            , ArrayList<OneDraw> lotteryNumbers){
         this.start = start;
         this.end = end;
         this.results = results;
@@ -40,15 +44,17 @@ public class PropositionReducerCreator implements Runnable {
             }
             ArrayList<Integer> weeklyNumbers = lotteryNumbers.get(i - 1).getDrawNumbers();
             for (Integer number : weeklyNumbers) {
-                if (tempPropositionList.contains(number)) {
-                    Integer appearedValue = appearedNumbers.get(i).get(number);
-                    addResult(number, (appearedValue / (double) ((i - 1) * 100)));
-                } else if (tempPropositionList.contains(number + 1)) {
+                if (tempPropositionList != null) {
+                    if (tempPropositionList.contains(number)) {
+                        Integer appearedValue = appearedNumbers.get(i).get(number);
+                        addResult(number, (appearedValue / (double) ((i - 1) * 100)));
+                    } else if (tempPropositionList.contains(number + 1)) {
 
-                } else if (tempPropositionList.contains(number - 1)) {
+                    } else if (tempPropositionList.contains(number - 1)) {
 
-                } else {
+                    } else {
 
+                    }
                 }
             }
         }

@@ -3,7 +3,7 @@ package entity;
 import java.io.Serializable;
 
 public class ObjectForFileService<R> implements Serializable {
-    private R object;
+    private final R object;
 
     public ObjectForFileService(R object) {
         this.object = object;

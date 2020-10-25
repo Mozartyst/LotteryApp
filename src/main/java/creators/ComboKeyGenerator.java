@@ -9,7 +9,6 @@ import lombok.SneakyThrows;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class ComboKeyGenerator implements Runnable {
@@ -35,15 +34,27 @@ public class ComboKeyGenerator implements Runnable {
     @SneakyThrows
     @Override
     public void run() {
-        TreeMap<Integer, ArrayList<CombinationNumbers>> combinationNumbers = FileService.loadObject(properties.getProperty("combinationNumbers"));
+//         TODO: 21/10/2020 Problem z listą. Było po Indeksie teraz brak.
+        ArrayList<CombinationNumbers> combinationNumbers = FileService.loadObject(properties.getProperty("combinationNumbers"));
         for (int i = start; i <= end; i++) {
             int finalIndex = i;
             System.out.println(finalIndex);
-//            combinationNumbersArrayList.removeIf(con -> con.getListOfIndexesWhereAppeared().size() == 1);
-            TreeSet<CombinationNumbers> combinationNumbersForFirst = new TreeSet<>(combinationNumbers.get(finalIndex));
-            TreeSet<CombinationNumbers> combinationNumbersForSecond = new TreeSet<>(combinationNumbers.get(finalIndex + 1));
-            TreeSet<CombinationNumbers> combinationNumbersForThird = new TreeSet<>(combinationNumbers.get(finalIndex + 2));
-            TreeSet<CombinationNumbers> combinationNumbersForFourth = new TreeSet<>(combinationNumbers.get(finalIndex + 3));
+            TreeSet<CombinationNumbers> combinationNumbersForFirst = new TreeSet<>();
+            TreeSet<CombinationNumbers> combinationNumbersForSecond = new TreeSet<>();
+            TreeSet<CombinationNumbers> combinationNumbersForThird = new TreeSet<>();
+
+            combinationNumbers.forEach((combination)->{
+                if (combination.containsIndex(finalIndex)){
+                    combinationNumbersForFirst.add(combination);
+                }
+                if (combination.containsIndex(finalIndex + 1)){
+                    combinationNumbersForSecond.add(combination);
+                }
+                if (combination.containsIndex(finalIndex + 2)){
+                    combinationNumbersForThird.add(combination);
+                }
+            });
+
 
             combinationNumbersForFirst.forEach((firstKey) -> {
 

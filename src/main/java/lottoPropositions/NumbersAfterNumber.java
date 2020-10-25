@@ -2,13 +2,12 @@ package lottoPropositions;
 
 import entity.OneDraw;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumbersAfterNumber {
     private final TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers; //IrishLottery/NumbersAfterNumbers
-    private ArrayList<OneDraw> lotteryNumbers;
+    private final ArrayList<OneDraw> lotteryNumbers;
 
     public NumbersAfterNumber(TreeMap<Integer, TreeMap<Integer, Integer>> listOfNumbersAfterNumbers, ArrayList<OneDraw> lotteryNumbers) {
         this.listOfNumbersAfterNumbers = listOfNumbersAfterNumbers;

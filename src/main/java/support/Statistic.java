@@ -1,38 +1,29 @@
 package support;
 
+import entity.OneDraw;
+
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.TreeMap;
 
 public class Statistic {
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers; //FullIrishNumbersFile
-    //TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = returnDistanceBetweenNumbers(lotteryNumbers);
 
-    public Statistic(ArrayList<ArrayList<Integer>> lotteryNumbers) {
-        this.lotteryNumbers = lotteryNumbers;
-    }
-
-
-    private TreeMap<Integer, ArrayList<Integer>> returnDistanceBetweenNumbers(ArrayList<ArrayList<Integer>> lotteryNumbers) {
+    private TreeMap<Integer, ArrayList<Integer>> returnDistanceBetweenNumbers(ArrayList<OneDraw> lotteryNumbers, Properties properties) {
         TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = new TreeMap<>();
-        int[] lastIndex = new int[47];
+        int[] lastIndex = new int[Integer.parseInt(properties.getProperty("range"))];
 
-        for (ArrayList<Integer> weekNumbers : lotteryNumbers) {
-            for (Object number : weekNumbers) {
-                ArrayList<Integer> distanceList = new ArrayList<>();
-                if (lotteryNumbers.indexOf(weekNumbers) == 0) {
-                    distanceList.add(0);
-                    distanceBetweenNumbers.put((Integer) number, distanceList);
-                    continue;
-                }
+        for (OneDraw weekNumbers : lotteryNumbers) {
+            for (Integer number : weekNumbers.getDrawNumbers()) {
+                ArrayList<Integer> distanceList;
                 if (distanceBetweenNumbers.containsKey(number)) {
                     distanceList = distanceBetweenNumbers.get(number);
-                    distanceList.add((lotteryNumbers.indexOf(weekNumbers) - lastIndex[(int) number - 1]) - 1);
-                    distanceBetweenNumbers.replace((Integer) number, distanceList);
+                    distanceList.add((lotteryNumbers.indexOf(weekNumbers) - lastIndex[number - 1]) - 1);
+                    distanceBetweenNumbers.replace(number, distanceList);
                 } else {
-                    distanceList.add((lotteryNumbers.indexOf(weekNumbers) - lastIndex[(int) number - 1]));
-                    distanceBetweenNumbers.put((int) number, distanceList);
+                    distanceList = new ArrayList<>();
+                    distanceBetweenNumbers.put(number, distanceList);
                 }
-                lastIndex[(int) number - 1] = lotteryNumbers.indexOf(weekNumbers);
+                lastIndex[number - 1] = lotteryNumbers.indexOf(weekNumbers);
             }
         }
         return distanceBetweenNumbers;

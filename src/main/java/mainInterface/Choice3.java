@@ -1,23 +1,32 @@
 package mainInterface;
 
 
-import dataSupport.FileService;
-import entity.OneDraw;
-import lottoPropositions.Proposition;
+import support.EachWithEveryOne;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Scanner;
 
 public class Choice3 {
-    public void run(Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
-        System.out.println("Input index:");
-        int index = scanner.nextInt();
-        System.out.println(new Proposition(index).forMultiCombination(properties));
-        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
-        if (index < lotteryNumbers.size() - 2) {
-            System.out.println(lotteryNumbers.get(index + 1));
-        }
+    public void run(Scanner scanner){
+        System.out.println("Input first number to first list:");
+        int first = scanner.nextInt();
+        System.out.println("Input second number to first list:");
+        int second = scanner.nextInt();
+        System.out.println("Input third number to first list:");
+        int third = scanner.nextInt();
+        System.out.println("Input first number to second list:");
+        int fourth = scanner.nextInt();
+        System.out.println("Input second number to second list:");
+        int fifth = scanner.nextInt();
+        System.out.println("Input third number to second list:");
+        int sixth = scanner.nextInt();
+        System.out.println("Input first number to third list:");
+        int seventh = scanner.nextInt();
+        System.out.println("Input second number to third list:");
+        int eight = scanner.nextInt();
+        System.out.println("Input second number to third list:");
+        int ninth = scanner.nextInt();
+        ArrayList<ArrayList<Integer>> arrayLists = new EachWithEveryOne(first, second, third, fourth, fifth, sixth, seventh, eight, ninth).getList();
+        arrayLists.forEach(System.out::println);
     }
 }

@@ -9,15 +9,18 @@ public class FileService {
     public static <R> void saveObject(R object, String fileName) throws IOException {
         ObjectForFileService<R> objectForFileService = new ObjectForFileService<>(object);
         File file = new File("src/main/resources/" + fileName);
-        if (!file.exists()) {
-            file.createNewFile();
+        boolean isFileExist = file.exists();
+        if (isFileExist) {
+            isFileExist = file.createNewFile();
         }
-        ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
-        try {
-            outputStream.writeObject(objectForFileService);
-        } finally {
-            outputStream.flush();
-            outputStream.close();
+        if (isFileExist) {
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+            try {
+                outputStream.writeObject(objectForFileService);
+            } finally {
+                outputStream.flush();
+                outputStream.close();
+            }
         }
     }
 
@@ -30,7 +33,9 @@ public class FileService {
             objectForFileService = (ObjectForFileService<R>) inputStream.readObject();
             object = objectForFileService.getObject();
         } finally {
-            inputStream.close();
+            if (inputStream != null) {
+                inputStream.close();
+            }
         }
         return object;
     }
