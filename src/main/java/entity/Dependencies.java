@@ -14,6 +14,7 @@ public class Dependencies implements Serializable {
     private ArrayList<Duet> afterDuet;//po jakich duetach wystepuje TA liczba
     private Integer averageForNAN;//Średnia wystąpień afterNumber dla TEJ liczby.
     private Integer averageForNAP;//Średnia wystąpień afterPairs dla TEJ liczby.
+    private ArrayList<Integer> distance;
 
     public TreeMap<Integer, Integer> getIsOverAndUnderAverageNAN() {
         return isOverAndUnderAverageNAN;
@@ -97,5 +98,13 @@ public class Dependencies implements Serializable {
 
     public void setAverageForNAP(Integer averageForNAP) {
         this.averageForNAP = averageForNAP;
+    }
+
+    public ArrayList<Integer> getDistance() {
+        return distance;
+    }
+
+    public void setDistance(ArrayList<Integer> distance) {
+        this.distance = distance;
     }
 }

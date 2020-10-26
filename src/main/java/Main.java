@@ -1,3 +1,5 @@
+import dataSupport.FileService;
+import mainInterface.FirstTime;
 import org.xml.sax.SAXException;
 import update.LotteryUpdate;
 import mainInterface.LotteryChoice;
@@ -11,11 +13,16 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
         Scanner scanner = new Scanner(System.in);
-        new LotteryUpdate().run();
+        if (FileService.isFile("IrishLottery/FullIrishDraws")) {
+            new LotteryUpdate().run();
 
-        Properties properties = new LotteryChoice().run(scanner);
-        new MainMenu().showMenu(scanner, properties);
-
+            Properties properties = new LotteryChoice().run(scanner);
+            new MainMenu().showMenu(scanner, properties);
+        } else {
+            System.out.println("The installation is in progress");
+            new FirstTime().run();
+            System.out.println("Installation Finished. Run program again");
+        }
     }
 }
 

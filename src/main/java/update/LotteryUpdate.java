@@ -3,6 +3,7 @@ package update;
 import dataSupport.FileService;
 import downloader.LotteryDrawsJSONDownloader;
 import downloader.LotteryDrawsXMLDownloader;
+import entity.OneDraw;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,109 +13,67 @@ import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class LotteryUpdate {
     public void run() throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
-        UpdateSettings updateSettings = FileService.loadObject("Settings");
         LocalDateTime localDateTime = LocalDateTime.now();
+        Properties properties = new Properties();
+        ArrayList<OneDraw> lotteryNumbers;
+        LocalDateTime lastDrawDate;
 
-        if (updateSettings.getIrishNextUpdate().compareTo(localDateTime) < 0) {
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("src/main/resources/IrishLotto"));
-            new LotteryDrawsXMLDownloader(properties);
-            if (localDateTime.getDayOfWeek() == DayOfWeek.MONDAY) {
-                setIrishLastUpdate(updateSettings, setLastTime(localDateTime, 2));
-                setIrishNextUpdate(updateSettings, setNextTime(updateSettings.getIrishLastUpdate(), 4));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.TUESDAY) {
-                setIrishLastUpdate(updateSettings, setLastTime(localDateTime, 3));
-                setIrishNextUpdate(updateSettings, setNextTime(updateSettings.getIrishLastUpdate(), 4));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
-                setIrishLastUpdate(updateSettings, setLastTime(localDateTime, 0));
-                setIrishNextUpdate(updateSettings, setNextTime(updateSettings.getIrishLastUpdate(), 3));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.THURSDAY) {
-                setIrishLastUpdate(updateSettings, setLastTime(localDateTime, 1));
-                setIrishNextUpdate(updateSettings, setNextTime(updateSettings.getIrishLastUpdate(), 3));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.FRIDAY) {
-                setIrishLastUpdate(updateSettings, setLastTime(localDateTime, 2));
-                setIrishNextUpdate(updateSettings, setNextTime(updateSettings.getIrishLastUpdate(), 3));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.SATURDAY) {
-                setIrishLastUpdate(updateSettings, setLastTime(localDateTime, 0));
-                setIrishNextUpdate(updateSettings, setNextTime(updateSettings.getIrishLastUpdate(), 4));
-            } else {
-                setIrishLastUpdate(updateSettings, setLastTime(localDateTime, 1));
-                setIrishNextUpdate(updateSettings, setNextTime(updateSettings.getIrishLastUpdate(), 4));
+        properties.load(new FileInputStream("src/main/resources/IrishLotto"));
+        lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
+        if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.WEDNESDAY)) {
+            if (setNextTime(lastDrawDate, 3).isBefore(localDateTime)) {
+                new LotteryDrawsXMLDownloader(properties);
+            }
+        } else if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+            if (setNextTime(lastDrawDate, 4).isBefore(localDateTime)) {
+                new LotteryDrawsXMLDownloader(properties);
             }
         }
+        lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
+        printDate("Irish ", lastDrawDate);
 
-        if (updateSettings.getEuroNextUpdate().compareTo(localDateTime) < 0) {
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("src/main/resources/EuroLotto"));
-            new LotteryDrawsXMLDownloader(properties);
-            if (localDateTime.getDayOfWeek() == DayOfWeek.MONDAY) {
-                setEuroLastUpdate(updateSettings, setLastTime(localDateTime, 3));
-                setEuroNextUpdate(updateSettings, setNextTime(updateSettings.getEuroLastUpdate(), 4));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.TUESDAY) {
-                setEuroLastUpdate(updateSettings, setLastTime(localDateTime, 0));
-                setEuroNextUpdate(updateSettings, setNextTime(updateSettings.getEuroLastUpdate(), 3));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
-                setEuroLastUpdate(updateSettings, setLastTime(localDateTime, 1));
-                setEuroNextUpdate(updateSettings, setNextTime(updateSettings.getEuroLastUpdate(), 3));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.THURSDAY) {
-                setEuroLastUpdate(updateSettings, setLastTime(localDateTime, 2));
-                setEuroNextUpdate(updateSettings, setNextTime(updateSettings.getEuroLastUpdate(), 3));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.FRIDAY) {
-                setEuroLastUpdate(updateSettings, setLastTime(localDateTime, 0));
-                setEuroNextUpdate(updateSettings, setNextTime(updateSettings.getEuroLastUpdate(), 4));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.SATURDAY) {
-                setEuroLastUpdate(updateSettings, setLastTime(localDateTime, 1));
-                setEuroNextUpdate(updateSettings, setNextTime(updateSettings.getEuroLastUpdate(), 4));
-            } else {
-                setEuroLastUpdate(updateSettings, setLastTime(localDateTime, 2));
-                setEuroNextUpdate(updateSettings, setNextTime(updateSettings.getEuroLastUpdate(), 4));
+        properties.load(new FileInputStream("src/main/resources/EuroLotto"));
+        lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
+        if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.TUESDAY)) {
+            if (setNextTime(lastDrawDate, 3).isBefore(localDateTime)) {
+                new LotteryDrawsXMLDownloader(properties);
+            }
+        } else if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
+            if (setNextTime(lastDrawDate, 4).isBefore(localDateTime)) {
+                new LotteryDrawsXMLDownloader(properties);
             }
         }
-        if (updateSettings.getPolishNextUpdate().compareTo(localDateTime) < 0) {
-            Properties properties = new Properties();
-            properties.load(new FileInputStream("src/main/resources/PolishLotto"));
-            new LotteryDrawsJSONDownloader(properties);
-            if (localDateTime.getDayOfWeek() == DayOfWeek.MONDAY) {
-                setPolishLastUpdate(updateSettings, setLastTime(localDateTime, 2));
-                setPolishNextUpdate(updateSettings, setNextTime(updateSettings.getPolishLastUpdate(), 3));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.TUESDAY) {
-                setPolishLastUpdate(updateSettings, setLastTime(localDateTime, 0));
-                setPolishNextUpdate(updateSettings, setNextTime(updateSettings.getPolishLastUpdate(), 2));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.WEDNESDAY) {
-                setPolishLastUpdate(updateSettings, setLastTime(localDateTime, 1));
-                setPolishNextUpdate(updateSettings, setNextTime(updateSettings.getPolishLastUpdate(), 2));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.THURSDAY) {
-                setPolishLastUpdate(updateSettings, setLastTime(localDateTime, 0));
-                setPolishNextUpdate(updateSettings, setNextTime(updateSettings.getPolishLastUpdate(), 2));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.FRIDAY) {
-                setPolishLastUpdate(updateSettings, setLastTime(localDateTime, 1));
-                setPolishNextUpdate(updateSettings, setNextTime(updateSettings.getPolishLastUpdate(), 2));
-            } else if (localDateTime.getDayOfWeek() == DayOfWeek.SATURDAY) {
-                setPolishLastUpdate(updateSettings, setLastTime(localDateTime, 0));
-                setPolishNextUpdate(updateSettings, setNextTime(updateSettings.getPolishLastUpdate(), 3));
-            } else {
-                setPolishLastUpdate(updateSettings, setLastTime(localDateTime, 1));
-                setPolishNextUpdate(updateSettings, setNextTime(updateSettings.getPolishLastUpdate(), 3));
+        lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
+        printDate("Euro ", lastDrawDate);
+
+        properties.load(new FileInputStream("src/main/resources/PolishLotto"));
+        lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
+        if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.TUESDAY)) {
+            if (setNextTime(lastDrawDate, 2).isBefore(localDateTime)) {
+                new LotteryDrawsJSONDownloader(properties);
+            }
+        } else if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.THURSDAY)) {
+            if (setNextTime(lastDrawDate, 2).isBefore(localDateTime)) {
+                new LotteryDrawsJSONDownloader(properties);
+            }
+        } else if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
+            if (setNextTime(lastDrawDate, 3).isBefore(localDateTime)) {
+                new LotteryDrawsJSONDownloader(properties);
             }
         }
-        System.out.println("Last IrishLottery update: " + updateSettings.getIrishLastUpdate());
-        System.out.println("Last EuroMillion update: " + updateSettings.getEuroLastUpdate());
-        System.out.println("Last PolishLottery update: " + updateSettings.getPolishLastUpdate());
-        FileService.saveObject(updateSettings, "Settings");
-    }
-
-    private LocalDateTime setLastTime(LocalDateTime localDateTime, int days) {
-        long oneDay = 86400000L * days;
-
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(LocalDateTime.of(localDateTime.getYear()
-                , localDateTime.getMonth()
-                , localDateTime.getDayOfMonth()
-                , 20
-                , 30).toInstant(ZoneOffset.UTC).toEpochMilli() - oneDay), ZoneOffset.UTC);
+        lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
+        printDate("Polish ", lastDrawDate);
     }
 
     private LocalDateTime setNextTime(LocalDateTime localDateTime, int days) {
@@ -123,33 +82,11 @@ public class LotteryUpdate {
         return LocalDateTime.ofInstant(Instant.ofEpochMilli(LocalDateTime.of(localDateTime.getYear()
                 , localDateTime.getMonth()
                 , localDateTime.getDayOfMonth()
-                , 20
-                , 30).toInstant(ZoneOffset.UTC).toEpochMilli() + oneDay), ZoneOffset.UTC);
+                , localDateTime.getHour()
+                , localDateTime.getMinute()).toInstant(ZoneOffset.UTC).toEpochMilli() + oneDay), ZoneOffset.UTC);
     }
-
-    private void setIrishLastUpdate(UpdateSettings updateSettings, LocalDateTime localDateTime) {
-        updateSettings.setIrishLastUpdate(localDateTime);
+    private void printDate(String lotto, LocalDateTime lastUpdateDate){
+        System.out.println(lotto +"last update " + lastUpdateDate);
     }
-
-    private void setEuroLastUpdate(UpdateSettings updateSettings, LocalDateTime localDateTime) {
-        updateSettings.setEuroLastUpdate(localDateTime);
-    }
-
-    private void setPolishLastUpdate(UpdateSettings updateSettings, LocalDateTime localDateTime) {
-        updateSettings.setPolishLastUpdate(localDateTime);
-    }
-
-    private void setIrishNextUpdate(UpdateSettings updateSettings, LocalDateTime localDateTime) {
-        updateSettings.setIrishNextUpdate(localDateTime);
-    }
-
-    private void setEuroNextUpdate(UpdateSettings updateSettings, LocalDateTime localDateTime) {
-        updateSettings.setEuroNextUpdate(localDateTime);
-    }
-
-    private void setPolishNextUpdate(UpdateSettings updateSettings, LocalDateTime localDateTime) {
-        updateSettings.setPolishNextUpdate(localDateTime);
-    }
-
 }
 

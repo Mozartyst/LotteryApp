@@ -22,6 +22,7 @@ public class NumberCreator {
     }
 
     public void createNumbers() throws IOException {
+        TreeMap<Integer, ArrayList<Integer>> distance = returnDistanceBetweenNumbers();
         for (int i = 1; i <= Integer.parseInt(properties.getProperty("range")); i++) {
             Dependencies dependencies = new Dependencies();
             Number number = new Number(i);
@@ -29,10 +30,10 @@ public class NumberCreator {
             dependencies.setAfterNumbers(NumberAfterNumbers(i));
             dependencies.setAfterPairs(NumberAfterPairs(i));
             dependencies.setAfterTriple(NumberAfterTriple(i));
+            dependencies.setDistance(distance.get(i));
             listOfNumbers.get(i).setDependency(dependencies);
             listOfNumbers.get(i).setOccurred(valueOfAppeared(i));
         }
-
         FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
     }
 
@@ -119,5 +120,24 @@ public class NumberCreator {
         }
         return value;
     }
+    private TreeMap<Integer, ArrayList<Integer>> returnDistanceBetweenNumbers() {
+        TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = new TreeMap<>();
+        int[] lastIndex = new int[Integer.parseInt(properties.getProperty("range"))];
 
+        for (OneDraw weekNumbers : lotteryNumbers) {
+            for (Integer number : weekNumbers.getDrawNumbers()) {
+                ArrayList<Integer> distanceList;
+                if (distanceBetweenNumbers.containsKey(number)) {
+                    distanceList = distanceBetweenNumbers.get(number);
+                    distanceList.add((lotteryNumbers.indexOf(weekNumbers) - lastIndex[number - 1]) - 1);
+                    distanceBetweenNumbers.replace(number, distanceList);
+                } else {
+                    distanceList = new ArrayList<>();
+                    distanceBetweenNumbers.put(number, distanceList);
+                }
+                lastIndex[number - 1] = lotteryNumbers.indexOf(weekNumbers);
+            }
+        }
+        return distanceBetweenNumbers;
+    }
 }

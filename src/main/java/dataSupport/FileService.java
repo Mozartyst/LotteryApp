@@ -10,7 +10,7 @@ public class FileService {
         ObjectForFileService<R> objectForFileService = new ObjectForFileService<>(object);
         File file = new File("src/main/resources/" + fileName);
         boolean isFileExist = file.exists();
-        if (isFileExist) {
+        if (!isFileExist) {
             isFileExist = file.createNewFile();
         }
         if (isFileExist) {
@@ -38,5 +38,10 @@ public class FileService {
             }
         }
         return object;
+    }
+
+    public static boolean isFile(String fileName) {
+        File file = new File("src/main/resources/" + fileName);
+        return file.exists();
     }
 }
