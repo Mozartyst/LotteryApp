@@ -1,7 +1,7 @@
 package mainInterface;
 
 import dataSupport.FileService;
-import dataSupport.MultiCombinationReducer;
+import creators.MultiCombinationReducer;
 import entity.MultiCombinationKeys;
 
 import java.io.IOException;

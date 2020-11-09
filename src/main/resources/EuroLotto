@@ -2,13 +2,7 @@ url=https://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws=50&drawT
 lotteryNumbers=EuroLottery/FullEuroDraws
 listOfNumbers=EuroLottery/EuroListOfNumbers
 algorithmFile=EuroLottery/AlgorithmFile
-reducedMulti=EuroLottery/ReducedMulti
-combinationNumbers=EuroLottery/CombinationNumbers
-afterMulti=EuroLottery/AfterMultiCombinationNumbers
-afterNumber=EuroLottery/NumbersAfterNumbers
-afterPairs=EuroLottery/NumbersAfterPairs
-afterTriple=EuroLottery/NumbersAfterTriple
-quantityOfAppeared=EuroLottery/QuantityOfAppearedNumbers
+afterMulti=EuroLottery/NumbersAfterMulti
 results=Results
 drawNumbers=5
 range=50

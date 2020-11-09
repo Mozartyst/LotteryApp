@@ -2,31 +2,70 @@ package mainInterface;
 
 import creators.*;
 import dataSupport.FileService;
-import entity.Number;
+import entity.MultiCombinationKeys;
 import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.TreeMap;
 
 public class Creator {
+    private TreeMap<Integer, HashSet<MultiCombinationKeys>> multiCombinationMap = new TreeMap<>();
+    private ArrayList<MultiCombinationKeys> multiCombinationList = new ArrayList<>();
+
     public void run(Properties properties) throws IOException, ClassNotFoundException {
         ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         ArrayList<OneDraw> lotteryNumbersForAlgorithm = new ArrayList<>();
         for (int i = 0; i < lotteryNumbers.size() - 50; i++) {
             lotteryNumbersForAlgorithm.add(lotteryNumbers.get(i));
         }
-
-        try {
-            new CombinationCreator(lotteryNumbersForAlgorithm, properties).createAllCombinationNumbers();
-        } catch (IOException e) {
-            e.printStackTrace();
+        ThreadGroup threadGroup = new ThreadGroup("Multi");
+        for (int i = 0; i < lotteryNumbersForAlgorithm.size() - 4; i++) {
+            new MultiCombinationCreator(new CombinationCreator(lotteryNumbersForAlgorithm.get(i).getDrawNumbers(), i).getCombinationNumbers()
+                    , new CombinationCreator(lotteryNumbersForAlgorithm.get(i + 1).getDrawNumbers(), i + 1).getCombinationNumbers()
+                    , new CombinationCreator(lotteryNumbersForAlgorithm.get(i + 2).getDrawNumbers(), i + 2).getCombinationNumbers()
+                    , i
+                    , threadGroup
+                    , multiCombinationMap);
         }
+        while (threadGroup.activeCount() > 0) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(threadGroup.activeCount());
+        }
+        HashSet<MultiCombinationKeys> multiCombinationSet = new HashSet<>();
+        multiCombinationMap.forEach((index, multiSet) -> {
+            System.out.println(index);
+            for (MultiCombinationKeys m : multiSet) {
+                if (multiCombinationSet.contains(m)) {
+                    if (m.getKeys().length == 1) {
+                        multiCombinationList.get(multiCombinationList.indexOf(m)).addWhatNumbers(lotteryNumbersForAlgorithm.get(index + 1).getDrawNumbers());
+                    } else if (m.getKeys().length == 2) {
+                        multiCombinationList.get(multiCombinationList.indexOf(m)).addWhatNumbers(lotteryNumbersForAlgorithm.get(index + 2).getDrawNumbers());
+                    } else if (m.getKeys().length == 3) {
+                        multiCombinationList.get(multiCombinationList.indexOf(m)).addWhatNumbers(lotteryNumbersForAlgorithm.get(index + 3).getDrawNumbers());
+                    }
 
-        new NANCreator(lotteryNumbersForAlgorithm, properties).createNAN();
-        new NAPCreator(lotteryNumbers, properties).createNAP();
-        new NATCreator(lotteryNumbersForAlgorithm, properties).createNAT();
+                } else {
+                    if (m.getKeys().length == 1) {
+                        m.addWhatNumbers(lotteryNumbersForAlgorithm.get(index + 1).getDrawNumbers());
+                    } else if (m.getKeys().length == 2) {
+                        m.addWhatNumbers(lotteryNumbersForAlgorithm.get(index + 2).getDrawNumbers());
+                    } else if (m.getKeys().length == 3) {
+                        m.addWhatNumbers(lotteryNumbersForAlgorithm.get(index + 3).getDrawNumbers());
+                    }
+                    multiCombinationList.add(m);
+                    multiCombinationSet.add(m);
+                }
+            }
+        });
+        new MultiCombinationReducer(multiCombinationList,properties).reduceMultiFile();
+
         new DuetCreator(lotteryNumbers, properties).createDuets();
 
         try {
@@ -34,22 +73,11 @@ public class Creator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
-        new AlgorithmCreator(lotteryNumbersForAlgorithm, listOfNumbers, properties).createAlgorithm();
-        try {
-            new DependenciesCreator(lotteryNumbers, listOfNumbers, properties).createDependencies();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        ArrayList<MultiCombinationKeys> afterMultiCombinationKey = new ArrayList<>();
-//        Thread thread1 = new Thread(new ComboKeyGenerator(lotteryNumbersForAlgorithm, afterMultiCombinationKey, 1, 120, properties));
-//        Thread thread2 = new Thread(new ComboKeyGenerator(lotteryNumbersForAlgorithm, afterMultiCombinationKey, 121, 240, properties));
-//        Thread thread3 = new Thread(new ComboKeyGenerator(lotteryNumbersForAlgorithm, afterMultiCombinationKey, 241, 360, properties));
-//        Thread thread4 = new Thread(new ComboKeyGenerator(lotteryNumbersForAlgorithm, afterMultiCombinationKey, 361, lotteryNumbersForAlgorithm.size() - 4, properties));
-//        thread1.start();
-//        thread2.start();
-//        thread3.start();
-//        thread4.start();
-
     }
 }
+
+
+
+//        TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
+//        new AlgorithmCreator(lotteryNumbersForAlgorithm, listOfNumbers, properties).createAlgorithm();
+

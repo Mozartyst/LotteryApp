@@ -10,20 +10,20 @@ public class NumbersAfterSlant {
     public ArrayList<Integer> returnNextSlantNumber(ArrayList<OneDraw> lotteryNumbers, int index) {
         ArrayList<Integer> propositionForNextGame = new ArrayList<>();
         int propositionOfNumber;
-        ArrayList<Integer> lastGameNumbers = lotteryNumbers.get(index).getDrawNumbers();
-        ArrayList<Integer> oneGamesBeforeNumbers = lotteryNumbers.get(index+1).getDrawNumbers();
-        ArrayList<Integer> twoGamesBeforeNumbers = lotteryNumbers.get(index+2).getDrawNumbers();
-        for (Object number : lastGameNumbers) {
-            for (Object number2 : oneGamesBeforeNumbers) {
+        ArrayList<Integer> currentDraw = lotteryNumbers.get(index).getDrawNumbers();
+        ArrayList<Integer> oneDrawBefore = lotteryNumbers.get(index-1).getDrawNumbers();
+        ArrayList<Integer> twoDrawsBefore = lotteryNumbers.get(index-2).getDrawNumbers();
+        for (Integer number : currentDraw) {
+            for (Integer number2 : oneDrawBefore) {
 
-                if ((Integer) number == (Integer) number2 - 1) {
-                    propositionOfNumber = (Integer) number - 1;
-                    if (!twoGamesBeforeNumbers.contains((Integer) number2 + 1)) {
+                if (number.equals(number2 - 1)) {
+                    propositionOfNumber = number - 1;
+                    if (!twoDrawsBefore.contains(number2 + 1)) {
                         propositionForNextGame.add(propositionOfNumber);
                     }
-                } else if ((Integer) number == (Integer) number2 + 1) {
-                    propositionOfNumber = (Integer) number + 1;
-                    if (!twoGamesBeforeNumbers.contains((Integer) number2 - 1)) {
+                } else if (number.equals(number2 + 1)) {
+                    propositionOfNumber = number + 1;
+                    if (!twoDrawsBefore.contains(number2 - 1)) {
                         propositionForNextGame.add(propositionOfNumber);
                     }
                 }

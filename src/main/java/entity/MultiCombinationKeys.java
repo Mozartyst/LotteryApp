@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -27,6 +28,7 @@ public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, S
         this.keys = new CombinationNumbers[]{firstKey, secondKey, thirdKey, fourthKey};
     }
 
+
     public CombinationNumbers[] getKeys() {
         return keys;
     }
@@ -47,11 +49,13 @@ public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, S
         return keys[3];
     }
 
-    public void setWhatNumbers(Integer whatNumber, Integer howMuch) {
-        if (whatNumbers.containsKey(whatNumber)) {
-            whatNumbers.replace(whatNumber, whatNumbers.get(whatNumber) + howMuch);
-        } else {
-            whatNumbers.put(whatNumber, howMuch);
+    public void addWhatNumbers(ArrayList<Integer> drawNumbers) {
+        for (Integer number:drawNumbers) {
+            if (whatNumbers.containsKey(number)) {
+                whatNumbers.replace(number, whatNumbers.get(number) + 1);
+            } else {
+                whatNumbers.put(number, 1);
+            }
         }
     }
 

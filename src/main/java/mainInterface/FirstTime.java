@@ -1,5 +1,6 @@
 package mainInterface;
 
+import dataSupport.FileService;
 import downloader.DownloadEuro;
 import downloader.DownloadIrish;
 import downloader.DownloadPolish;
@@ -18,11 +19,23 @@ public class FirstTime {
         euroProp.load(new FileInputStream("src/main/resources/EuroLotto"));
         Properties polishProp = new Properties();
         polishProp.load(new FileInputStream("src/main/resources/PolishLotto"));
-        new DownloadIrish().getNumbers(irishProp, 2016, 2020);
-        new DownloadEuro().getNumbers(euroProp, 2015, 2020);
-        new DownloadPolish(polishProp);
-        new Creator().run(irishProp);
-        new Creator().run(euroProp);
-        new Creator().run(polishProp);
+        if (!FileService.isFile(irishProp.getProperty("lotteryNumbers"))) {
+            new DownloadIrish().getNumbers(irishProp, 2016, 2020);
+        }
+        if (!FileService.isFile(euroProp.getProperty("lotteryNumbers"))) {
+            new DownloadEuro().getNumbers(euroProp, 2015, 2020);
+        }
+        if (!FileService.isFile(polishProp.getProperty("lotteryNumbers"))) {
+            new DownloadPolish(polishProp);
+        }
+        if (!FileService.isFile(irishProp.getProperty("afterMulti"))) {
+            new Creator().run(irishProp);
+        }
+        if (!FileService.isFile(euroProp.getProperty("afterMulti"))) {
+            new Creator().run(euroProp);
+        }
+        if (!FileService.isFile(polishProp.getProperty("afterMulti"))) {
+            new Creator().run(polishProp);
+        }
     }
 }

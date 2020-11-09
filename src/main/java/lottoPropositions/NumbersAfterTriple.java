@@ -1,20 +1,19 @@
 package lottoPropositions;
 
 
-import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.OneDraw;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class NumbersAfterTriple {
     private final ArrayList<OneDraw> lotteryNumbers;
-    private final TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = FileService.loadObject("IrishLottery/NumbersAfterTriple");
+    private final TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple;
 
-    public NumbersAfterTriple(ArrayList<OneDraw> lotteryNumbers) throws IOException, ClassNotFoundException {
+    public NumbersAfterTriple(ArrayList<OneDraw> lotteryNumbers, TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple){
         this.lotteryNumbers = lotteryNumbers;
+        this.listOfNumbersAfterTriple = listOfNumbersAfterTriple;
     }
 
 
