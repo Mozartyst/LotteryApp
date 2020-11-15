@@ -3,6 +3,7 @@ package threeHunter;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationKeys;
+import entity.OneDraw;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
@@ -13,10 +14,10 @@ public class BestThreesFinder implements Runnable {
     private final ArrayList<MultiCombinationKeys> multiCombinationKeys = new ArrayList<>();
     private final TreeMap<CombinationNumbers, Integer> allThreesInLottery;
     private final ArrayList<CombinationNumbers> listOfCombinations;
-    private final ArrayList<ArrayList<Integer>> lotteryNumbers;
+    private final ArrayList<OneDraw> lotteryNumbers;
     private final int index;
 
-    public BestThreesFinder(TreeMap<CombinationNumbers, Integer> allThreesInLottery, ArrayList<CombinationNumbers> listOfCombinations, ArrayList<ArrayList<Integer>> lotteryNumbers, int index){
+    public BestThreesFinder(TreeMap<CombinationNumbers, Integer> allThreesInLottery, ArrayList<CombinationNumbers> listOfCombinations, ArrayList<OneDraw> lotteryNumbers, int index){
         this.allThreesInLottery = allThreesInLottery;
         this.listOfCombinations = listOfCombinations;
         this.lotteryNumbers = lotteryNumbers;

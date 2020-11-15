@@ -1,5 +1,6 @@
 import dataSupport.FileService;
 import entity.CombinationNumbers;
+import entity.OneDraw;
 import threeHunter.BestThreesFinder;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class MainThreesFinder {
                 listOfCombinations.add(com);
             }
         });
-        ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject("IrishLottery/FullIrishNumbersFile");
+        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject("IrishLottery/FullIrishNumbersFile");
         Thread thread1 = new Thread(new BestThreesFinder(allThreesInLottery, listOfCombinations, lotteryNumbers, 0));
         Thread thread2 = new Thread(new BestThreesFinder(allThreesInLottery, listOfCombinations, lotteryNumbers, 1));
         Thread thread3 = new Thread(new BestThreesFinder(allThreesInLottery, listOfCombinations, lotteryNumbers, 2));

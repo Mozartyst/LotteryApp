@@ -154,6 +154,10 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
         }
     }
 
+    public boolean containsNumber(Integer number) {
+        return numbers[0].equals(number) || numbers[1].equals(number) || numbers[2].equals(number);
+    }
+
     @Override
     public String toString() {
         if (numbers.length == 1) {

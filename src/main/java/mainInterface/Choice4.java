@@ -18,7 +18,7 @@ public class Choice4 {
         System.out.println(lotteryNumbersFile);
         if (index > 0) {
             ArrayList<ArrayList<Integer>> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
-            System.out.println(lotteryNumbers.get(index - 1));
+            System.out.println(lotteryNumbers.get(lotteryNumbers.size() - index));
         }
     }
 }

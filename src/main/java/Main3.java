@@ -1,31 +1,38 @@
 import dataSupport.FileService;
+import entity.CombinationNumbers;
 import entity.MultiCombinationKeys;
+import entity.OneDraw;
+import threeHunter.ThreesChecker;
+import threeHunter.ThreesCreator;
+import threeHunter.ThreesFinder;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class Main3 {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ArrayList<MultiCombinationKeys> newMulti = new ArrayList<>();
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("src/main/resources/IrishLotto"));
-        ArrayList<MultiCombinationKeys> multiCombinationKeys = FileService.loadObject(properties.getProperty("afterMulti"));
-        for (MultiCombinationKeys m : multiCombinationKeys) {
-            System.out.println(multiCombinationKeys.indexOf(m));
-//            new Thread(() -> {
-//                if (newMulti.contains(m)) {
-//                    synchronized (newMulti) {
-//                        newMulti.get(newMulti.indexOf(m)).addWhatNumbers(new ArrayList<>(m.getWhatNumbers().firstKey()));
-//                    }
-//                } else {
-//                    synchronized (newMulti) {
-//                        newMulti.add(m);
-//                    }
-//                }
-//            });
+    public static void main(String[] args) throws IOException, ClassNotFoundException{
+        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject("IrishLottery/FullIrishDraws");
+        ArrayList<MultiCombinationKeys> multiCombinationList = new ArrayList<>();
+        TreeMap<CombinationNumbers, Integer> allThreesCombination = new ThreesCreator(FileService.loadObject("IrishLottery/FullIrishDraws")).get();
+        Set<CombinationNumbers> combinationNumbers = allThreesCombination.keySet();
+        ThreadGroup threadGroup = new ThreadGroup("Multi");
+        new ThreesFinder(allThreesCombination, combinationNumbers, multiCombinationList, threadGroup);
+        while (threadGroup.activeCount() > 0) {
+            try {
+                System.out.println(threadGroup.activeCount());
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        System.out.println(newMulti);
+        System.out.println("***********************************************");
+        for (MultiCombinationKeys m : multiCombinationList) {
+            int i = new ThreesChecker().howManyAppeared(m, lotteryNumbers);
+            if (i > 40) {
+                System.out.println(m + " " + i);
+            }
+        }
     }
 }

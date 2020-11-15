@@ -24,9 +24,9 @@ public class NumbersAfterMultiCombinations {
 
 
         createAfterCombination(multiCombinationKeys
+                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-3).getDrawNumbers())
                 , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-2).getDrawNumbers())
-                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-1).getDrawNumbers())
-                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index).getDrawNumbers()));
+                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-1).getDrawNumbers()));
         multiCombinationKeys.forEach((combination) -> {
             if (afterMultiCombinationKey.contains(combination)) {
                 TreeMap<Integer, Integer> whatNumbers = afterMultiCombinationKey.get(afterMultiCombinationKey.indexOf(combination)).getWhatNumbers();
