@@ -87,7 +87,7 @@ public class DownloadEuro {
             }
         }
         try {
-            FileService.saveObject(Auxiliary.returnReversedOneDraws(listOfNumbers), "EuroLottery/FullEuroDraws");
+            FileService.saveObject(Auxiliary.returnReversedOneDraws(listOfNumbers), properties.getProperty("lotteryNumbers"));
         } catch (IOException e) {
             e.printStackTrace();
         }

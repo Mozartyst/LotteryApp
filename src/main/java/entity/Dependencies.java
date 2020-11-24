@@ -4,16 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Dependencies implements Serializable {
-    private ArrayList<MultiCombinationKeys> afterMulti;
+    private ArrayList<MultiCombinationNumber> afterMulti;
     private ArrayList<Duet> afterDuet;
     private ArrayList<Integer> distance;
 
 
-    public ArrayList<MultiCombinationKeys> getAfterMulti() {
+    public ArrayList<MultiCombinationNumber> getAfterMulti() {
         return afterMulti;
     }
 
-    public void setAfterMulti(ArrayList<MultiCombinationKeys> afterMulti) {
+    public void setAfterMulti(ArrayList<MultiCombinationNumber> afterMulti) {
         this.afterMulti = afterMulti;
     }
 

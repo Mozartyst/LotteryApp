@@ -2,12 +2,13 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.function.Consumer;
 
 public class CombinationNumbers implements Comparable<CombinationNumbers>, Serializable, Iterable<Integer> {
-    private final ArrayList<Integer> listOfIndexesWhereAppeared = new ArrayList<>();
+    private final ArrayList<Integer> indexesWhereAppeared = new ArrayList<>();
     private final Integer[] numbers;
 
     public CombinationNumbers(Integer firstNumber) {
@@ -19,6 +20,7 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
         this.numbers = new Integer[2];
         this.numbers[0] = firstNumber;
         this.numbers[1] = secondNumber;
+        Arrays.sort(numbers);
     }
 
     public CombinationNumbers(Integer firstNumber, Integer secondNumber, Integer thirdNumber) {
@@ -26,6 +28,7 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
         this.numbers[0] = firstNumber;
         this.numbers[1] = secondNumber;
         this.numbers[2] = thirdNumber;
+        Arrays.sort(numbers);
     }
 
     public CombinationNumbers(Integer firstNumber, Integer secondNumber, Integer thirdNumber, Integer fourthNumber) {
@@ -34,14 +37,15 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
         this.numbers[1] = secondNumber;
         this.numbers[2] = thirdNumber;
         this.numbers[3] = fourthNumber;
+        Arrays.sort(numbers);
     }
 
-    public ArrayList<Integer> getListOfIndexesWhereAppeared() {
-        return listOfIndexesWhereAppeared;
+    public ArrayList<Integer> getIndexesWhereAppeared() {
+        return indexesWhereAppeared;
     }
 
     public void addIndexToList(Integer index) {
-        this.listOfIndexesWhereAppeared.add(index);
+        this.indexesWhereAppeared.add(index);
     }
 
     public Integer[] getNumbers() {
@@ -65,7 +69,7 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
     }
 
     public boolean containsIndex(Integer index) {
-        return listOfIndexesWhereAppeared.contains(index);
+        return indexesWhereAppeared.contains(index);
     }
 
     @Override
@@ -197,9 +201,9 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
 
             @Override
             public Integer next() {
-                int zwrot = list[actual];
+                int sendBack = list[actual];
                 actual++;
-                return zwrot;
+                return sendBack;
             }
 
         };

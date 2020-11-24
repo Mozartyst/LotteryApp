@@ -1,7 +1,7 @@
 package db;
 
 import dataSupport.ObjectStreamMaker;
-import entity.MultiCombinationKeys;
+import entity.MultiCombinationNumber;
 
 import java.io.*;
 import java.sql.*;
@@ -68,9 +68,9 @@ public class MultiCombinationKeysDAO {
         return o;
     }
 
-    public MultiCombinationKeys getObjectByCompareObjects(MultiCombinationKeys multiCombinationKeys) {
+    public MultiCombinationNumber getObjectByCompareObjects(MultiCombinationNumber multiCombinationKeys) {
         addObject(multiCombinationKeys, "compar");
-            MultiCombinationKeys multiCombinationKeys1 = null;
+            MultiCombinationNumber multiCombinationKeys1 = null;
         try {
             PreparedStatement preparedStatement = connect.prepareStatement("SELECT MultiCombinationKeys FROM multiCombination WHERE multiCombination.MultiCombinationKeys = (SELECT MultiCombinationKeys FROM compar WHERE ID=1);");
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -79,7 +79,7 @@ public class MultiCombinationKeysDAO {
 
                 ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes1);
                 ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-                multiCombinationKeys1 = (MultiCombinationKeys) objectInputStream.readObject();
+                multiCombinationKeys1 = (MultiCombinationNumber) objectInputStream.readObject();
             }
             connect.createStatement().execute("DELETE FROM compar WHERE ID>=1;");
         } catch (SQLException | ClassNotFoundException | IOException throwables) {

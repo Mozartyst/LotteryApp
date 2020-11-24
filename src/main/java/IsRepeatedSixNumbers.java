@@ -11,7 +11,7 @@ public class IsRepeatedSixNumbers {
     private static ArrayList<ArrayList<Integer>> fullList = new ArrayList<>();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject("IrishLottery/FullIrishDraws");
+        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject("IrishLottery/FullDrawsList");
         for (OneDraw weeklyNumbers : lotteryNumbers) {
             for (OneDraw nextWeeklyNumbers : lotteryNumbers) {
                 if (lotteryNumbers.indexOf(nextWeeklyNumbers) <= lotteryNumbers.indexOf(weeklyNumbers)) {
@@ -169,7 +169,7 @@ public class IsRepeatedSixNumbers {
     public static void print() {
         fullList.forEach((x) -> {
 
-            if (x.size() == 3) {
+            if (x.size() == 4) {
                 System.out.println(counter + " " + x);
                 counter++;
             }

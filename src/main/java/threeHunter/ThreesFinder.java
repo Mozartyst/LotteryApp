@@ -1,29 +1,31 @@
 package threeHunter;
 
 import entity.CombinationNumbers;
-import entity.MultiCombinationKeys;
+import entity.MultiCombinationNumber;
 
 import java.util.*;
 
 public class ThreesFinder implements Runnable {
-    private final TreeMap<CombinationNumbers, Integer> allThreesCombinations;
     private final Set<CombinationNumbers> combinationNumbers;
-    private final ArrayList<MultiCombinationKeys> multiCombinationList;
+    private final Set<CombinationNumbers> combinationForFirst;
+    private final ArrayList<MultiCombinationNumber> multiCombinationList;
+    private final Properties properties;
 
-    public ThreesFinder(TreeMap<CombinationNumbers, Integer> allThreesCombinations
-            , Set<CombinationNumbers> combinationNumbers
-            , ArrayList<MultiCombinationKeys> multiCombinationList
-            , ThreadGroup threadGroup) {
-        this.allThreesCombinations = allThreesCombinations;
+    public ThreesFinder(Set<CombinationNumbers> combinationNumbers
+            , Set<CombinationNumbers> combinationForFirst
+            , ArrayList<MultiCombinationNumber> multiCombinationList
+            , ThreadGroup threadGroup, Properties properties) {
         this.combinationNumbers = combinationNumbers;
+        this.combinationForFirst = combinationForFirst;
         this.multiCombinationList = multiCombinationList;
+        this.properties = properties;
         Thread t = new Thread(threadGroup, this);
         t.start();
     }
 
     @Override
     public void run() {
-        for (CombinationNumbers com : combinationNumbers) {
+        for (CombinationNumbers com : combinationForFirst) {
             Integer[] numbers = com.getNumbers();
             for (CombinationNumbers com1 : combinationNumbers) {
                 Integer[] numbers1 = com1.getNumbers();
@@ -53,16 +55,16 @@ public class ThreesFinder implements Runnable {
                                 list.add(number2);
                                 list.add(number3);
                                 Collections.sort(list);
-                                value += add(allThreesCombinations, list.get(0), list.get(1), list.get(2));
+                                value += add(combinationNumbers, list.get(0), list.get(1), list.get(2));
                             }
                         }
                     }
-                    if (value > 47) {
+                    if (value > Integer.parseInt(properties.getProperty("value"))) {
                         synchronized (multiCombinationList) {
-                            MultiCombinationKeys multiCombinationKeys = new MultiCombinationKeys(
-                                    new CombinationNumbers(numbers[0], numbers1[0], numbers2[0])
-                                    , new CombinationNumbers(numbers[1], numbers1[1], numbers2[1])
-                                    , new CombinationNumbers(numbers[2], numbers1[2], numbers2[2]));
+                            MultiCombinationNumber multiCombinationKeys = new MultiCombinationNumber(
+                                    new int[]{numbers[0], numbers1[0], numbers2[0]}
+                                    , new int[]{numbers[1], numbers1[1], numbers2[1]}
+                                    , new int[]{numbers[2], numbers1[2], numbers2[2]});
                             multiCombinationList.add(multiCombinationKeys);
                             System.out.println(multiCombinationKeys + " " + value);
                         }
@@ -72,14 +74,20 @@ public class ThreesFinder implements Runnable {
         }
     }
 
-    private int add(TreeMap<CombinationNumbers, Integer> integerArrayListTreeMap
+    private int add(Set<CombinationNumbers> combinationNumbers1
             , Integer first
             , Integer second
             , Integer third) {
 
-        Integer integer = integerArrayListTreeMap.get(new CombinationNumbers(first, second, third));
-        if (integer == null) {
-            return 0;
-        } else return integer;
+        CombinationNumbers combinationNumbers = new CombinationNumbers(first, second, third);
+        int size = 0;
+        if (combinationNumbers1.contains(combinationNumbers)) {
+            for (CombinationNumbers com : combinationNumbers1) {
+                if (com.equals(combinationNumbers)) {
+                    size = com.getIndexesWhereAppeared().size();
+                }
+            }
+        }
+        return size;
     }
 }

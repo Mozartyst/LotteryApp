@@ -1,8 +1,10 @@
 url=https://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws=50&drawType=Lotto
-lotteryNumbers=IrishLottery/FullIrishDraws
+lotteryNumbers=IrishLottery/FullDrawsList
 listOfNumbers=IrishLottery/ListOfNumbers
 algorithmFile=IrishLottery/AlgorithmFile
 afterMulti=IrishLottery/NumbersAfterMulti
+threes=IrishLottery/MultiThrees
 results=Results
 drawNumbers=6
 range=47
+value=27

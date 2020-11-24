@@ -1,8 +1,10 @@
 url=https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Lotto&index=0&size=50&sort=drawDate&order=DESC
-lotteryNumbers=PolishLottery/FullPolishDraws
-listOfNumbers=PolishLottery/PolishListOfNumbers
+lotteryNumbers=PolishLottery/FullDrawsList
+listOfNumbers=PolishLottery/ListOfNumbers
 algorithmFile=PolishLottery/AlgorithmFile
 afterMulti=PolishLottery/NumbersAfterMulti
+threes=PolishLottery/MultiThrees
 results=Results
 drawNumbers=6
 range=49
+value=27

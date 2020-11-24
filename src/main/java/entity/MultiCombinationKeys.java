@@ -1,16 +1,13 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, Serializable, Iterable<CombinationNumbers> {
 
     private final CombinationNumbers[] keys;
-    private final TreeMap<Integer, Integer> whatNumbers = new TreeMap<>();
+    private final TreeMap<Integer, Set<Integer>> numbersAfter = new TreeMap<>();
 
     public MultiCombinationKeys(CombinationNumbers firstKey) {
         this.keys = new CombinationNumbers[]{firstKey};
@@ -18,14 +15,17 @@ public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, S
 
     public MultiCombinationKeys(CombinationNumbers firstKey, CombinationNumbers secondKey) {
         this.keys = new CombinationNumbers[]{firstKey, secondKey};
+        Arrays.sort(keys);
     }
 
     public MultiCombinationKeys(CombinationNumbers firstKey, CombinationNumbers secondKey, CombinationNumbers thirdKey) {
         this.keys = new CombinationNumbers[]{firstKey, secondKey, thirdKey};
+        Arrays.sort(keys);
     }
 
     public MultiCombinationKeys(CombinationNumbers firstKey, CombinationNumbers secondKey, CombinationNumbers thirdKey, CombinationNumbers fourthKey) {
         this.keys = new CombinationNumbers[]{firstKey, secondKey, thirdKey, fourthKey};
+        Arrays.sort(keys);
     }
 
 
@@ -49,18 +49,21 @@ public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, S
         return keys[3];
     }
 
-    public void addWhatNumbers(ArrayList<Integer> drawNumbers) {
+    public void addWhatNumbers(ArrayList<Integer> drawNumbers, Integer index) {
         for (Integer number:drawNumbers) {
-            if (whatNumbers.containsKey(number)) {
-                whatNumbers.replace(number, whatNumbers.get(number) + 1);
+            if (numbersAfter.containsKey(number)) {
+                Set<Integer> integers = numbersAfter.get(number);
+                numbersAfter.replace(number, integers);
             } else {
-                whatNumbers.put(number, 1);
+                Set<Integer> integers = new TreeSet<>();
+                integers.add(index);
+                numbersAfter.put(number, integers);
             }
         }
     }
 
-    public TreeMap<Integer, Integer> getWhatNumbers() {
-        return whatNumbers;
+    public TreeMap<Integer, Set<Integer>> getNumbersAfter() {
+        return numbersAfter;
     }
 
     public String createIdForDB() {
@@ -199,9 +202,9 @@ public class MultiCombinationKeys implements Comparable<MultiCombinationKeys>, S
 
             @Override
             public CombinationNumbers next() {
-                CombinationNumbers zwrot = list[actual];
+                CombinationNumbers combinationNumbers = list[actual];
                 actual++;
-                return zwrot;
+                return combinationNumbers;
             }
 
         };

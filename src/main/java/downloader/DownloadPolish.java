@@ -19,7 +19,7 @@ import java.util.Properties;
 public class DownloadPolish {
     public DownloadPolish(Properties properties) throws IOException {
         ArrayList<OneDraw> lotteryNumbers = new ArrayList<>();
-        URL url = new URL("https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Lotto&index=0&size=910&sort=drawDate&order=DESC");
+        URL url = new URL("https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Lotto&index=0&size=500&sort=drawDate&order=DESC");
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("GET");
         httpURLConnection.connect();
@@ -28,7 +28,7 @@ public class DownloadPolish {
         String name = event.name();
         if (name.contains("START_OBJECT")) {
             JsonObject object = jsonParser.getObject();
-            for (int i = 909; i >= 0; i--) {
+            for (int i = 499; i >= 0; i--) {
                 OneDraw oneDraw = new OneDraw();
                 JsonObject drawObject = object.getJsonArray("items")
                         .getJsonObject(i)

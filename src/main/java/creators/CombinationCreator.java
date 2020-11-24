@@ -3,18 +3,13 @@ package creators;
 import entity.CombinationNumbers;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class CombinationCreator {
-    private final ArrayList<Integer> weekNumbers;
-    private final int index;
-    private final ArrayList<CombinationNumbers> combinationNumbers = new ArrayList<>();
+    private final Set<CombinationNumbers> combinationNumbers = new TreeSet<>();
 
-    public CombinationCreator(ArrayList<Integer> weekNumbers, int index) {
-        this.weekNumbers = weekNumbers;
-        this.index = index;
-    }
-
-    public ArrayList<CombinationNumbers> getCombinationNumbers() {
+    public Set<CombinationNumbers> getCombinationNumbers(ArrayList<Integer> weekNumbers, int index) {
 //FIRST
         for (Integer firstNumber : weekNumbers) {
             CombinationNumbers keySingle = new CombinationNumbers(firstNumber);

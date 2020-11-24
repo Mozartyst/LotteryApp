@@ -13,15 +13,15 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
         Scanner scanner = new Scanner(System.in);
-        if (FileService.isFile("IrishLottery/FullIrishDraws")
+        if (FileService.isFile("IrishLottery/FullDrawsList")
                 && FileService.isFile("IrishLottery/NumbersAfterMulti")
                 && FileService.isFile("IrishLottery/ListOfNumbers")
-                && FileService.isFile("EuroLottery/FullEuroDraws")
+                && FileService.isFile("EuroLottery/FullDrawsList")
                 && FileService.isFile("EuroLottery/NumbersAfterMulti")
-                && FileService.isFile("EuroLottery/EuroListOfNumbers")
-//                && FileService.isFile("PolishLottery/NumbersAfterMulti")
-//                && FileService.isFile("PolishLottery/ListOfNumbers")
-                && FileService.isFile("PolishLottery/FullPolishDraws")){
+                && FileService.isFile("EuroLottery/ListOfNumbers")
+                && FileService.isFile("PolishLottery/NumbersAfterMulti")
+                && FileService.isFile("PolishLottery/ListOfNumbers")
+                && FileService.isFile("PolishLottery/FullDrawsList")){
             new LotteryUpdate().run();
 
             Properties properties = new LotteryChoice().run(scanner);

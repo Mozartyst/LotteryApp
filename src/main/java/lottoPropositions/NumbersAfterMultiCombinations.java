@@ -2,7 +2,7 @@ package lottoPropositions;
 
 import dataSupport.FileService;
 import entity.CombinationNumbers;
-import entity.MultiCombinationKeys;
+import entity.MultiCombinationNumber;
 import entity.OneDraw;
 
 import java.io.IOException;
@@ -18,29 +18,29 @@ public class NumbersAfterMultiCombinations {
     }
 
     public TreeMap<Integer, Integer> getProposition(int index, Properties properties) throws IOException, ClassNotFoundException {
-        ArrayList<MultiCombinationKeys> afterMultiCombinationKey = FileService.loadObject(properties.getProperty("afterMulti"));
+        ArrayList<MultiCombinationNumber> afterMultiCombinationKey = FileService.loadObject(properties.getProperty("afterMulti"));
         TreeMap<Integer, Integer> proposition = new TreeMap<>();
-        ArrayList<MultiCombinationKeys> multiCombinationKeys = new ArrayList<>();
+        ArrayList<MultiCombinationNumber> multiCombinationKeys = new ArrayList<>();
 
 
-        createAfterCombination(multiCombinationKeys
-                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-3).getDrawNumbers())
-                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-2).getDrawNumbers())
-                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-1).getDrawNumbers()));
-        multiCombinationKeys.forEach((combination) -> {
-            if (afterMultiCombinationKey.contains(combination)) {
-                TreeMap<Integer, Integer> whatNumbers = afterMultiCombinationKey.get(afterMultiCombinationKey.indexOf(combination)).getWhatNumbers();
-                whatNumbers.forEach((key, value) -> {
-                    if (combination.getKeys().length > 1) {
-                        if (proposition.containsKey(key)) {
-                            proposition.replace(key, proposition.get(key) + value);
-                        } else {
-                            proposition.put(key, value);
-                        }
-                    }
-                });
-            }
-        });
+//        createAfterCombination(multiCombinationKeys
+//                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-3).getDrawNumbers())
+//                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-2).getDrawNumbers())
+//                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-1).getDrawNumbers()));
+//        multiCombinationKeys.forEach((combination) -> {
+//            if (afterMultiCombinationKey.contains(combination)) {
+//                TreeMap<Integer, Integer> whatNumbers = afterMultiCombinationKey.get(afterMultiCombinationKey.indexOf(combination)).getNumbersAfter();
+//                whatNumbers.forEach((key, value) -> {
+//                    if (combination.getKeys().length > 1) {
+//                        if (proposition.containsKey(key)) {
+//                            proposition.replace(key, proposition.get(key) + value);
+//                        } else {
+//                            proposition.put(key, value);
+//                        }
+//                    }
+//                });
+//            }
+//        });
 
         return proposition;
     }
@@ -80,29 +80,38 @@ public class NumbersAfterMultiCombinations {
     }
 
 
-    private void createAfterCombination(ArrayList<MultiCombinationKeys> multiCombinationKeys
+    private void createAfterCombination(ArrayList<MultiCombinationNumber> multiCombinationKeys
             , ArrayList<CombinationNumbers> firstCombination
             , ArrayList<CombinationNumbers> secondCombination
             , ArrayList<CombinationNumbers> thirdCombination) {
 
 
         firstCombination.forEach((firstKey) -> {
-            MultiCombinationKeys firstMulti = new MultiCombinationKeys(firstKey);
+            MultiCombinationNumber firstMulti = new MultiCombinationNumber(makeIntArray(firstKey.getNumbers()));
             multiCombinationKeys.add(firstMulti);
 
             secondCombination.forEach((secondKey) -> {
                 if (firstKey.getNumbers().length == secondKey.getNumbers().length) {
-                    MultiCombinationKeys secondMulti = new MultiCombinationKeys(firstKey, secondKey);
+                    MultiCombinationNumber secondMulti = new MultiCombinationNumber(makeIntArray(firstKey.getNumbers()), makeIntArray(secondKey.getNumbers()));
                     multiCombinationKeys.add(secondMulti);
                 }
 
                 thirdCombination.forEach((thirdKey) -> {
                     if (firstKey.getNumbers().length == thirdKey.getNumbers().length) {
-                        MultiCombinationKeys thirdMulti = new MultiCombinationKeys(firstKey, secondKey, thirdKey);
+                        MultiCombinationNumber thirdMulti = new MultiCombinationNumber(makeIntArray(firstKey.getNumbers()), makeIntArray(secondKey.getNumbers()), makeIntArray(thirdKey.getNumbers()));
                         multiCombinationKeys.add(thirdMulti);
                     }
                 });
             });
         });
+    }
+    private int[] makeIntArray(Integer[] integersArray) {
+        int[] array = new int[integersArray.length];
+        int index = 0;
+        for (Integer number : integersArray) {
+            array[index] = number;
+            index++;
+        }
+        return array;
     }
 }

@@ -1,8 +1,10 @@
 url=https://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws=50&drawType=EuroMillions
-lotteryNumbers=EuroLottery/FullEuroDraws
-listOfNumbers=EuroLottery/EuroListOfNumbers
+lotteryNumbers=EuroLottery/FullDrawsList
+listOfNumbers=EuroLottery/ListOfNumbers
 algorithmFile=EuroLottery/AlgorithmFile
 afterMulti=EuroLottery/NumbersAfterMulti
+threes=EuroLottery/MultiThrees
 results=Results
 drawNumbers=5
 range=50
+value=15

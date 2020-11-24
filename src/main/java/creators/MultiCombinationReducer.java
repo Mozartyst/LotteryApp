@@ -1,36 +1,36 @@
 package creators;
 
 import dataSupport.FileService;
-import entity.MultiCombinationKeys;
+import entity.MultiCombinationNumber;
 
 import java.io.IOException;
 import java.util.*;
 
 public class MultiCombinationReducer {
-    private final ArrayList<MultiCombinationKeys> afterMultiCombinationKey;
+    private final ArrayList<MultiCombinationNumber> multiCombinationNumbers;
     private final Properties properties;
 
-    public MultiCombinationReducer(ArrayList<MultiCombinationKeys> afterMultiCombinationKey, Properties properties) {
-        this.afterMultiCombinationKey = afterMultiCombinationKey;
+    public MultiCombinationReducer(ArrayList<MultiCombinationNumber> multiCombinationNumbers, Properties properties) {
+        this.multiCombinationNumbers = multiCombinationNumbers;
         this.properties = properties;
     }
 
     public void reduceMultiFile() throws IOException {
-        for (MultiCombinationKeys multi : afterMultiCombinationKey) {
-            if (multi != null) {
-                TreeMap<Integer, Integer> whatNumbers = new TreeMap<>(multi.getWhatNumbers());
-                Set<Integer> integers = whatNumbers.keySet();
-                for (Integer key : integers) {
-                    if (whatNumbers.get(key) == 1) {
-                        multi.getWhatNumbers().remove(key);
+        for (MultiCombinationNumber multi : multiCombinationNumbers) {
+            TreeMap<Integer, Set<Integer>> whatNumbers = new TreeMap<>();
+            whatNumbers.putAll(multi.getNumbersAfter());
+            Set<Integer> integers = whatNumbers.keySet();
+            for (Integer key : integers) {
+                if (key != null) {
+                    if (whatNumbers.get(key).size() == 1) {
+                        multi.getNumbersAfter().remove(key);
                     }
                 }
             }
         }
-        afterMultiCombinationKey.removeIf(Objects::isNull);
-        afterMultiCombinationKey.removeIf(multiCombinationKeys -> multiCombinationKeys.getWhatNumbers().size() == 0);
+        multiCombinationNumbers.removeIf(multiCombinationNumber -> multiCombinationNumber.getNumbersAfter().size() == 0);
 
-        Collections.sort(afterMultiCombinationKey);
-        FileService.saveObject(afterMultiCombinationKey, properties.getProperty("afterMulti"));
+        Collections.sort(multiCombinationNumbers);
+        FileService.saveObject(multiCombinationNumbers, properties.getProperty("afterMulti"));
     }
 }

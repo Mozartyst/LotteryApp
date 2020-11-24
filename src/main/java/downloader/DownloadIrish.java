@@ -83,7 +83,7 @@ public class DownloadIrish {
             }
         }
         try {
-            FileService.saveObject(Auxiliary.returnReversedOneDraws(listOfNumbers), "IrishLottery/FullIrishDraws");
+            FileService.saveObject(Auxiliary.returnReversedOneDraws(listOfNumbers), properties.getProperty("lotteryNumbers"));
         } catch (IOException e) {
             e.printStackTrace();
         }

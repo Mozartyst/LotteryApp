@@ -3,18 +3,17 @@ package threeHunter;
 import entity.CombinationNumbers;
 import entity.OneDraw;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.*;
 
 public class ThreesCreator {
-    private final TreeMap<CombinationNumbers, Integer> threesMap = new TreeMap<>();
+    private final Set<CombinationNumbers> combinationNumbersSet = new TreeSet<>();
     private final ArrayList<OneDraw> lotteryNumbers;
 
     public ThreesCreator(ArrayList<OneDraw> lotteryNumbers) {
         this.lotteryNumbers = lotteryNumbers;
     }
 
-    public TreeMap<CombinationNumbers, Integer> get() {
+    public Set<CombinationNumbers> get() {
         for (OneDraw week : lotteryNumbers) {
             for (Integer number1 : week.getDrawNumbers()) {
                 for (Integer number2 : week.getDrawNumbers()) {
@@ -26,15 +25,20 @@ public class ThreesCreator {
                             continue;
                         }
                         CombinationNumbers com = new CombinationNumbers(number1, number2, number3);
-                        if (threesMap.containsKey(com)) {
-                            threesMap.replace(com, threesMap.get(com) + 1);
+                        if (combinationNumbersSet.contains(com)) {
+                            for (CombinationNumbers com1 : combinationNumbersSet) {
+                                if (com1.equals(com)) {
+                                    com1.addIndexToList(lotteryNumbers.indexOf(week));
+                                }
+                            }
                         } else {
-                            threesMap.put(com, 1);
+                            com.addIndexToList(lotteryNumbers.indexOf(week));
+                            combinationNumbersSet.add(com);
                         }
                     }
                 }
             }
         }
-        return threesMap;
+        return combinationNumbersSet;
     }
 }

@@ -7,13 +7,14 @@ import entity.Number;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class NumberCreator {
     private final ArrayList<OneDraw> lotteryNumbers;
     private final Properties properties;
     private final TreeMap<Integer, Number> listOfNumbers = new TreeMap<>();
-    private final ArrayList<MultiCombinationKeys> multiCombinationList;
+    private final ArrayList<MultiCombinationNumber> multiCombinationList;
 
     public NumberCreator(ArrayList<OneDraw> lotteryNumbers, Properties properties) throws IOException, ClassNotFoundException {
         this.lotteryNumbers = lotteryNumbers;
@@ -35,10 +36,10 @@ public class NumberCreator {
         FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
     }
 
-    private ArrayList<MultiCombinationKeys> NumberAfterMulti(int number) {
-        ArrayList<MultiCombinationKeys> afterMulti = new ArrayList<>();
-        for (MultiCombinationKeys m: multiCombinationList) {
-            m.getWhatNumbers().forEach((num,value)->{
+    private ArrayList<MultiCombinationNumber> NumberAfterMulti(int number) {
+        ArrayList<MultiCombinationNumber> afterMulti = new ArrayList<>();
+        for (MultiCombinationNumber m: multiCombinationList) {
+            m.getNumbersAfter().forEach((num, value)->{
                 if (num.equals(number)){
                     afterMulti.add(m);
                 }

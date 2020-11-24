@@ -2,7 +2,7 @@ package threeHunter;
 
 import dataSupport.FileService;
 import entity.CombinationNumbers;
-import entity.MultiCombinationKeys;
+import entity.MultiCombinationNumber;
 import entity.OneDraw;
 import lombok.SneakyThrows;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class BestThreesFinder implements Runnable {
-    private final ArrayList<MultiCombinationKeys> multiCombinationKeys = new ArrayList<>();
+    private final ArrayList<MultiCombinationNumber> multiCombinationKeys = new ArrayList<>();
     private final TreeMap<CombinationNumbers, Integer> allThreesInLottery;
     private final ArrayList<CombinationNumbers> listOfCombinations;
     private final ArrayList<OneDraw> lotteryNumbers;
@@ -37,11 +37,11 @@ public class BestThreesFinder implements Runnable {
                         .returnListWithoutNumbers(combinationNumbers1, com2.getFirstNumber(), com2.getSecondNumber(), com2.getThirdNumber());
                 for (CombinationNumbers com3 : combinationNumbers2) {
                     if (com3.compareTo(com2) > 0) {
-                            MultiCombinationKeys multiKeys = new MultiCombinationKeys(
-                                    new CombinationNumbers(com1.getNumbers()[0], com2.getNumbers()[0], com3.getNumbers()[0]),
-                                    new CombinationNumbers(com1.getNumbers()[1], com2.getNumbers()[1], com3.getNumbers()[1]),
-                                    new CombinationNumbers(com1.getNumbers()[2], com2.getNumbers()[2], com3.getNumbers()[2]));
-                            int i = new ThreesChecker().howManyAppeared(multiKeys, lotteryNumbers);
+                            MultiCombinationNumber multiKeys = new MultiCombinationNumber(
+                                    new int[]{com1.getNumbers()[0], com2.getNumbers()[0], com3.getNumbers()[0]}
+                                    ,new int[]{com1.getNumbers()[1], com2.getNumbers()[1], com3.getNumbers()[1]}
+                                    ,new int[]{com1.getNumbers()[2], com2.getNumbers()[2], com3.getNumbers()[2]});
+                            int i = new MultiThreesChecker().howManyAppeared(multiKeys, lotteryNumbers);
                             if (i >= 40) {
                                 multiCombinationKeys.add(multiKeys);
                                 System.out.println(multiKeys + "= " + i);
@@ -54,7 +54,7 @@ public class BestThreesFinder implements Runnable {
     }
 
     private synchronized void saveMulti() throws IOException, ClassNotFoundException {
-        ArrayList<MultiCombinationKeys> bestThrees = FileService.loadObject("IrishLottery/BestThrees");
+        ArrayList<MultiCombinationNumber> bestThrees = FileService.loadObject("IrishLottery/BestThrees");
         bestThrees.addAll(multiCombinationKeys);
         FileService.saveObject(bestThrees, "IrishLottery/BestThrees");
     }
