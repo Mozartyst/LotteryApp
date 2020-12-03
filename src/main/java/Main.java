@@ -1,5 +1,5 @@
 import dataSupport.FileService;
-import mainInterface.FirstTime;
+import update.FirstTime;
 import org.xml.sax.SAXException;
 import update.LotteryUpdate;
 import mainInterface.LotteryChoice;
@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
+        Boolean isRun = true;
         Scanner scanner = new Scanner(System.in);
         if (FileService.isFile("IrishLottery/FullDrawsList")
                 && FileService.isFile("IrishLottery/NumbersAfterMulti")
@@ -21,11 +22,12 @@ public class Main {
                 && FileService.isFile("EuroLottery/ListOfNumbers")
                 && FileService.isFile("PolishLottery/NumbersAfterMulti")
                 && FileService.isFile("PolishLottery/ListOfNumbers")
-                && FileService.isFile("PolishLottery/FullDrawsList")){
+                && FileService.isFile("PolishLottery/FullDrawsList")) {
             new LotteryUpdate().run();
-
-            Properties properties = new LotteryChoice().run(scanner);
-            new MainMenu().showMenu(scanner, properties);
+            while (isRun) {
+                Properties properties = new LotteryChoice().run(scanner);
+                new MainMenu().showMenu(scanner, properties);
+            }
         } else {
             System.out.println("The installation is in progress");
             new FirstTime().run();

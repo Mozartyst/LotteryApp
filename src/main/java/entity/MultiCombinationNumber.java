@@ -6,113 +6,120 @@ import java.util.function.Consumer;
 
 public class MultiCombinationNumber implements Comparable<MultiCombinationNumber>, Serializable, Iterable<CombinationNumbers> {
 
-    private final int[][] keys;
-    private final TreeMap<Integer, Set<Integer>> numbersAfter = new TreeMap<>();
+    private final Integer[][] complexNumber;
+    private final Map<Integer, Integer> numbersAfter = new TreeMap<>();
+    private final Set<Integer> indexes = new TreeSet<>();
 
-    public MultiCombinationNumber(int[] firstKey) {
-        this.keys = new int[1][0];
-        this.keys[0] = firstKey;
+    public MultiCombinationNumber(Integer[] firstComplex) {
+        this.complexNumber = new Integer[1][0];
+        this.complexNumber[0] = firstComplex;
     }
 
-    public MultiCombinationNumber(int[] firstKey, int[] secondKey) {
-        this.keys = new int[2][0];
-        this.keys[0] = firstKey;
-        this.keys[1] = secondKey;
-        Arrays.sort(keys[0]);
+    public MultiCombinationNumber(Integer[] firstComplex, Integer[] secondComplex) {
+        this.complexNumber = new Integer[2][0];
+        this.complexNumber[0] = firstComplex;
+        this.complexNumber[1] = secondComplex;
+        Arrays.sort(complexNumber[0]);
     }
 
-    public MultiCombinationNumber(int[] firstKey, int[] secondKey, int[] thirdKey) {
-        this.keys = new int[3][0];
-        this.keys[0] = firstKey;
-        this.keys[1] = secondKey;
-        this.keys[2] = thirdKey;
-        Arrays.sort(keys[0]);
+    public MultiCombinationNumber(Integer[] firstComplex, Integer[] secondComplex, Integer[] thirdComplex) {
+        this.complexNumber = new Integer[3][0];
+        this.complexNumber[0] = firstComplex;
+        this.complexNumber[1] = secondComplex;
+        this.complexNumber[2] = thirdComplex;
+        Arrays.sort(complexNumber[0]);
     }
 
-    public MultiCombinationNumber(int[] firstKey, int[] secondKey, int[] thirdKey, int[] fourthKey) {
-        this.keys = new int[4][0];
-        this.keys[0] = firstKey;
-        this.keys[1] = secondKey;
-        this.keys[2] = thirdKey;
-        this.keys[3] = fourthKey;
-        Arrays.sort(keys[0]);
+    public MultiCombinationNumber(Integer[] firstComplex, Integer[] secondComplex, Integer[] thirdComplex, Integer[] fourthComplex) {
+        this.complexNumber = new Integer[4][0];
+        this.complexNumber[0] = firstComplex;
+        this.complexNumber[1] = secondComplex;
+        this.complexNumber[2] = thirdComplex;
+        this.complexNumber[3] = fourthComplex;
+        Arrays.sort(complexNumber[0]);
     }
 
 
-    public int[][] getKeys() {
-        return keys;
+    public Integer[][] getComplexNumber() {
+        return complexNumber;
     }
 
     public CombinationNumbers getFirstKey() {
         CombinationNumbers com;
-        if (keys[0].length == 4) {
-            com = new CombinationNumbers(keys[0][0], keys[0][1], keys[0][2], keys[0][3]);
-        } else if (keys[0].length == 3) {
-            com = new CombinationNumbers(keys[0][0], keys[0][1], keys[0][2]);
-        } else if (keys[0].length == 2) {
-            com = new CombinationNumbers(keys[0][0], keys[0][1]);
+        if (complexNumber[0].length == 4) {
+            com = new CombinationNumbers(complexNumber[0][0], complexNumber[0][1], complexNumber[0][2], complexNumber[0][3]);
+        } else if (complexNumber[0].length == 3) {
+            com = new CombinationNumbers(complexNumber[0][0], complexNumber[0][1], complexNumber[0][2]);
+        } else if (complexNumber[0].length == 2) {
+            com = new CombinationNumbers(complexNumber[0][0], complexNumber[0][1]);
         } else {
-            com = new CombinationNumbers(keys[0][0]);
+            com = new CombinationNumbers(complexNumber[0][0]);
         }
         return com;
     }
 
     public CombinationNumbers getSecondKey() {
         CombinationNumbers com;
-        if (keys[1].length == 4) {
-            com = new CombinationNumbers(keys[1][0], keys[1][1], keys[1][2], keys[1][3]);
-        } else if (keys[1].length == 3) {
-            com = new CombinationNumbers(keys[1][0], keys[1][1], keys[1][2]);
-        } else if (keys[1].length == 2) {
-            com = new CombinationNumbers(keys[1][0], keys[1][1]);
+        if (complexNumber[1].length == 4) {
+            com = new CombinationNumbers(complexNumber[1][0], complexNumber[1][1], complexNumber[1][2], complexNumber[1][3]);
+        } else if (complexNumber[1].length == 3) {
+            com = new CombinationNumbers(complexNumber[1][0], complexNumber[1][1], complexNumber[1][2]);
+        } else if (complexNumber[1].length == 2) {
+            com = new CombinationNumbers(complexNumber[1][0], complexNumber[1][1]);
         } else {
-            com = new CombinationNumbers(keys[1][0]);
+            com = new CombinationNumbers(complexNumber[1][0]);
         }
         return com;
     }
 
     public CombinationNumbers getThirdKey() {
         CombinationNumbers com;
-        if (keys[2].length == 4) {
-            com = new CombinationNumbers(keys[2][0], keys[2][1], keys[2][2], keys[2][3]);
-        } else if (keys[2].length == 3) {
-            com = new CombinationNumbers(keys[2][0], keys[2][1], keys[2][2]);
-        } else if (keys[2].length == 2) {
-            com = new CombinationNumbers(keys[2][0], keys[2][1]);
+        if (complexNumber[2].length == 4) {
+            com = new CombinationNumbers(complexNumber[2][0], complexNumber[2][1], complexNumber[2][2], complexNumber[2][3]);
+        } else if (complexNumber[2].length == 3) {
+            com = new CombinationNumbers(complexNumber[2][0], complexNumber[2][1], complexNumber[2][2]);
+        } else if (complexNumber[2].length == 2) {
+            com = new CombinationNumbers(complexNumber[2][0], complexNumber[2][1]);
         } else {
-            com = new CombinationNumbers(keys[2][0]);
+            com = new CombinationNumbers(complexNumber[2][0]);
         }
         return com;
     }
 
     public CombinationNumbers getFourthKey() {
         CombinationNumbers com;
-        if (keys[3].length == 4) {
-            com = new CombinationNumbers(keys[3][0], keys[3][1], keys[3][2], keys[3][3]);
-        } else if (keys[3].length == 3) {
-            com = new CombinationNumbers(keys[3][0], keys[3][1], keys[3][2]);
-        } else if (keys[3].length == 2) {
-            com = new CombinationNumbers(keys[3][0], keys[3][1]);
+        if (complexNumber[3].length == 4) {
+            com = new CombinationNumbers(complexNumber[3][0], complexNumber[3][1], complexNumber[3][2], complexNumber[3][3]);
+        } else if (complexNumber[3].length == 3) {
+            com = new CombinationNumbers(complexNumber[3][0], complexNumber[3][1], complexNumber[3][2]);
+        } else if (complexNumber[3].length == 2) {
+            com = new CombinationNumbers(complexNumber[3][0], complexNumber[3][1]);
         } else {
-            com = new CombinationNumbers(keys[3][0]);
+            com = new CombinationNumbers(complexNumber[3][0]);
         }
         return com;
     }
 
-    public void addWhatNumbers(ArrayList<Integer> drawNumbers, Integer index) {
+    public void addWhatNumbers(ArrayList<Integer> drawNumbers) {
         for (Integer number : drawNumbers) {
             if (numbersAfter.containsKey(number)) {
-               numbersAfter.get(number).add(index);
+                numbersAfter.replace(number, numbersAfter.get(number) + 1);
             } else {
-                Set<Integer> integers = new TreeSet<>();
-                integers.add(index);
-                numbersAfter.put(number, integers);
+                numbersAfter.put(number, 1);
             }
         }
     }
 
-    public TreeMap<Integer, Set<Integer>> getNumbersAfter() {
+    public Map<Integer, Integer> getNumbersAfter() {
         return numbersAfter;
+    }
+
+    public Set<Integer> getIndexesWhereAppeared() {
+        return indexes;
+    }
+
+    public void addIndex(Integer index) {
+        indexes.add(index);
     }
 
     @Override
@@ -120,16 +127,16 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MultiCombinationNumber integers = (MultiCombinationNumber) o;
-        if (getKeys().length == 1 && integers.getKeys().length == 1) {
+        if (getComplexNumber().length == 1 && integers.getComplexNumber().length == 1) {
             return getFirstKey().equals(integers.getFirstKey());
-        } else if (getKeys().length == 2 && integers.getKeys().length == 2) {
+        } else if (getComplexNumber().length == 2 && integers.getComplexNumber().length == 2) {
             return getFirstKey().equals(integers.getFirstKey())
                     && getSecondKey().equals(integers.getSecondKey());
-        } else if (getKeys().length == 3 && integers.getKeys().length == 3) {
+        } else if (getComplexNumber().length == 3 && integers.getComplexNumber().length == 3) {
             return getFirstKey().equals(integers.getFirstKey())
                     && getSecondKey().equals(integers.getSecondKey())
                     && getThirdKey().equals(integers.getThirdKey());
-        } else if (getKeys().length == 4 && integers.getKeys().length == 4) {
+        } else if (getComplexNumber().length == 4 && integers.getComplexNumber().length == 4) {
             return getFirstKey().equals(integers.getFirstKey())
                     && getSecondKey().equals(integers.getSecondKey())
                     && getThirdKey().equals(integers.getThirdKey())
@@ -139,11 +146,11 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
 
     @Override
     public int hashCode() {
-        if (getKeys().length == 1) {
+        if (getComplexNumber().length == 1) {
             return Objects.hash(getFirstKey());
-        } else if (getKeys().length == 2) {
+        } else if (getComplexNumber().length == 2) {
             return Objects.hash(getFirstKey(), getSecondKey());
-        } else if (getKeys().length == 3) {
+        } else if (getComplexNumber().length == 3) {
             return Objects.hash(getFirstKey(), getSecondKey(), getThirdKey());
         } else {
             return Objects.hash(getFirstKey(), getSecondKey(), getThirdKey(), getFourthKey());
@@ -152,29 +159,29 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
 
     @Override
     public int compareTo(MultiCombinationNumber o) {
-        if (keys.length == 1) {
+        if (complexNumber.length == 1) {
             if (getFirstKey().compareTo(o.getFirstKey()) == 0)
-                if (o.getKeys().length > 1)
+                if (o.getComplexNumber().length > 1)
                     return -1;
                 else return 0;
             else return getFirstKey().compareTo(o.getFirstKey());
-        } else if (keys.length == 2) {
+        } else if (complexNumber.length == 2) {
             if (getFirstKey().compareTo(o.getFirstKey()) == 0)
-                if (o.getKeys().length > 1)
+                if (o.getComplexNumber().length > 1)
                     if (getSecondKey().compareTo(o.getSecondKey()) == 0)
-                        if (o.getKeys().length > 2)
+                        if (o.getComplexNumber().length > 2)
                             return -1;
                         else return 0;
                     else return getSecondKey().compareTo(o.getSecondKey());
                 else return 1;
             else return getFirstKey().compareTo(o.getFirstKey());
-        } else if (keys.length == 3) {
+        } else if (complexNumber.length == 3) {
             if (getFirstKey().compareTo(o.getFirstKey()) == 0)
-                if (o.getKeys().length > 1)
+                if (o.getComplexNumber().length > 1)
                     if (getSecondKey().compareTo(o.getSecondKey()) == 0)
-                        if (o.getKeys().length > 2)
+                        if (o.getComplexNumber().length > 2)
                             if (getThirdKey().compareTo(o.getThirdKey()) == 0)
-                                if (o.getKeys().length > 3)
+                                if (o.getComplexNumber().length > 3)
                                     return -1;
                                 else return 0;
                             else return getThirdKey().compareTo(o.getThirdKey());
@@ -184,11 +191,11 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
             else return getFirstKey().compareTo(o.getFirstKey());
         } else {
             if (getFirstKey().compareTo(o.getFirstKey()) == 0)
-                if (o.getKeys().length > 1)
+                if (o.getComplexNumber().length > 1)
                     if (getSecondKey().compareTo(o.getSecondKey()) == 0)
-                        if (o.getKeys().length > 2)
+                        if (o.getComplexNumber().length > 2)
                             if (getThirdKey().compareTo(o.getThirdKey()) == 0)
-                                if (o.getKeys().length > 3)
+                                if (o.getComplexNumber().length > 3)
                                     if (getFourthKey().compareTo(o.getFourthKey()) == 0)
                                         return 0;
                                     else return getFourthKey().compareTo(o.getFourthKey());
@@ -203,16 +210,16 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
 
     @Override
     public String toString() {
-        if (keys.length == 1) {
+        if (complexNumber.length == 1) {
             return "Key{" +
                     getFirstKey() +
                     '}';
-        } else if (keys.length == 2) {
+        } else if (complexNumber.length == 2) {
             return "Key{" +
                     getFirstKey() +
                     "," + getSecondKey() +
                     '}';
-        } else if (keys.length == 3) {
+        } else if (complexNumber.length == 3) {
             return "Key{" +
                     getFirstKey() +
                     "," + getSecondKey() +
@@ -230,7 +237,7 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
     public Iterator<CombinationNumbers> iterator() {
         return new Iterator<CombinationNumbers>() {
 
-            final int[][] list = getKeys();
+            final Integer[][] list = getComplexNumber();
             int actual = 0;
 
             @Override

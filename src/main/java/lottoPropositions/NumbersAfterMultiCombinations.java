@@ -7,6 +7,7 @@ import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -23,24 +24,24 @@ public class NumbersAfterMultiCombinations {
         ArrayList<MultiCombinationNumber> multiCombinationKeys = new ArrayList<>();
 
 
-//        createAfterCombination(multiCombinationKeys
-//                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-3).getDrawNumbers())
-//                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-2).getDrawNumbers())
-//                , returnCombinationNumbers(lotteryNumbers.get(lotteryNumbers.size()-index-1).getDrawNumbers()));
-//        multiCombinationKeys.forEach((combination) -> {
-//            if (afterMultiCombinationKey.contains(combination)) {
-//                TreeMap<Integer, Integer> whatNumbers = afterMultiCombinationKey.get(afterMultiCombinationKey.indexOf(combination)).getNumbersAfter();
-//                whatNumbers.forEach((key, value) -> {
-//                    if (combination.getKeys().length > 1) {
-//                        if (proposition.containsKey(key)) {
-//                            proposition.replace(key, proposition.get(key) + value);
-//                        } else {
-//                            proposition.put(key, value);
-//                        }
-//                    }
-//                });
-//            }
-//        });
+        createAfterCombination(multiCombinationKeys
+                , returnCombinationNumbers(lotteryNumbers.get(index-3).getDrawNumbers())
+                , returnCombinationNumbers(lotteryNumbers.get(index-2).getDrawNumbers())
+                , returnCombinationNumbers(lotteryNumbers.get(index-1).getDrawNumbers()));
+        multiCombinationKeys.forEach((combination) -> {
+            if (afterMultiCombinationKey.contains(combination)) {
+                Map<Integer, Integer> whatNumbers = afterMultiCombinationKey.get(afterMultiCombinationKey.indexOf(combination)).getNumbersAfter();
+                whatNumbers.forEach((key, value) -> {
+                    if (combination.getComplexNumber().length > 1) {
+                        if (proposition.containsKey(key)) {
+                            proposition.replace(key, proposition.get(key) + value);
+                        } else {
+                            proposition.put(key, value);
+                        }
+                    }
+                });
+            }
+        });
 
         return proposition;
     }
@@ -87,31 +88,22 @@ public class NumbersAfterMultiCombinations {
 
 
         firstCombination.forEach((firstKey) -> {
-            MultiCombinationNumber firstMulti = new MultiCombinationNumber(makeIntArray(firstKey.getNumbers()));
+            MultiCombinationNumber firstMulti = new MultiCombinationNumber(firstKey.getNumbers());
             multiCombinationKeys.add(firstMulti);
 
             secondCombination.forEach((secondKey) -> {
                 if (firstKey.getNumbers().length == secondKey.getNumbers().length) {
-                    MultiCombinationNumber secondMulti = new MultiCombinationNumber(makeIntArray(firstKey.getNumbers()), makeIntArray(secondKey.getNumbers()));
+                    MultiCombinationNumber secondMulti = new MultiCombinationNumber(firstKey.getNumbers(), secondKey.getNumbers());
                     multiCombinationKeys.add(secondMulti);
                 }
 
                 thirdCombination.forEach((thirdKey) -> {
                     if (firstKey.getNumbers().length == thirdKey.getNumbers().length) {
-                        MultiCombinationNumber thirdMulti = new MultiCombinationNumber(makeIntArray(firstKey.getNumbers()), makeIntArray(secondKey.getNumbers()), makeIntArray(thirdKey.getNumbers()));
+                        MultiCombinationNumber thirdMulti = new MultiCombinationNumber(firstKey.getNumbers(), secondKey.getNumbers(), thirdKey.getNumbers());
                         multiCombinationKeys.add(thirdMulti);
                     }
                 });
             });
         });
-    }
-    private int[] makeIntArray(Integer[] integersArray) {
-        int[] array = new int[integersArray.length];
-        int index = 0;
-        for (Integer number : integersArray) {
-            array[index] = number;
-            index++;
-        }
-        return array;
     }
 }

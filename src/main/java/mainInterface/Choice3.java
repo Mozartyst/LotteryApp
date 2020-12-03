@@ -1,7 +1,7 @@
 package mainInterface;
 
 
-import support.EachWithEveryOne;
+import printers.EachWithEveryOne;
 
 import java.util.ArrayList;
 import java.util.Scanner;

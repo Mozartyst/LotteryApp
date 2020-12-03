@@ -1,5 +1,7 @@
-package mainInterface;
+package update;
 
+import creators.AfterMultiCreator;
+import creators.NumberCreator;
 import dataSupport.FileService;
 import downloader.DownloadEuro;
 import downloader.DownloadIrish;
@@ -23,19 +25,40 @@ public class FirstTime {
             new DownloadIrish().getNumbers(irishProp, 2016, 2020);
         }
         if (!FileService.isFile(euroProp.getProperty("lotteryNumbers"))) {
-            new DownloadEuro().getNumbers(euroProp, 2015, 2020);
+            new DownloadEuro().getNumbers(euroProp, 2016, 2020);
         }
         if (!FileService.isFile(polishProp.getProperty("lotteryNumbers"))) {
             new DownloadPolish(polishProp);
         }
         if (!FileService.isFile(irishProp.getProperty("afterMulti"))) {
-            new Creator().run(irishProp);
+            new AfterMultiCreator().run(irishProp);
         }
         if (!FileService.isFile(euroProp.getProperty("afterMulti"))) {
-            new Creator().run(euroProp);
+            new AfterMultiCreator().run(euroProp);
         }
         if (!FileService.isFile(polishProp.getProperty("afterMulti"))) {
-            new Creator().run(polishProp);
+            new AfterMultiCreator().run(polishProp);
+        }
+        if (!FileService.isFile(irishProp.getProperty("listOfNumbers"))) {
+            try {
+                new NumberCreator(irishProp).createNumbers();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!FileService.isFile(euroProp.getProperty("listOfNumbers"))) {
+            try {
+                new NumberCreator(euroProp).createNumbers();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!FileService.isFile(polishProp.getProperty("listOfNumbers"))) {
+            try {
+                new NumberCreator(polishProp).createNumbers();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

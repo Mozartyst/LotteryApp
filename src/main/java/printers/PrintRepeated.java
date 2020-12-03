@@ -1,17 +1,20 @@
-import dataSupport.FileService;
-import entity.OneDraw;
-import support.Auxiliary;
+package printers;
 
-import java.io.IOException;
+import entity.OneDraw;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class IsRepeatedSixNumbers {
-    private static int counter = 1;
-    private static ArrayList<ArrayList<Integer>> fullList = new ArrayList<>();
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject("IrishLottery/FullDrawsList");
+public class PrintRepeated {
+    private final ArrayList<ArrayList<Integer>> fullList = new ArrayList<>();
+    private final ArrayList<OneDraw> lotteryNumbers;
+
+    public PrintRepeated(ArrayList<OneDraw> lotteryNumbers) {
+        this.lotteryNumbers = lotteryNumbers;
+    }
+
+    public void print(int manyNumbers) {
         for (OneDraw weeklyNumbers : lotteryNumbers) {
             for (OneDraw nextWeeklyNumbers : lotteryNumbers) {
                 if (lotteryNumbers.indexOf(nextWeeklyNumbers) <= lotteryNumbers.indexOf(weeklyNumbers)) {
@@ -163,15 +166,12 @@ public class IsRepeatedSixNumbers {
                 }
             }
         });
-        print();
-    }
-
-    public static void print() {
+        final int[] counter = {1};
         fullList.forEach((x) -> {
 
-            if (x.size() == 4) {
-                System.out.println(counter + " " + x);
-                counter++;
+            if (x.size() == manyNumbers) {
+                System.out.println(counter[0] + " " + x);
+                counter[0]++;
             }
         });
     }

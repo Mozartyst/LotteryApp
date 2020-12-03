@@ -17,12 +17,11 @@ public class MultiCombinationReducer {
 
     public void reduceMultiFile() throws IOException {
         for (MultiCombinationNumber multi : multiCombinationNumbers) {
-            TreeMap<Integer, Set<Integer>> whatNumbers = new TreeMap<>();
-            whatNumbers.putAll(multi.getNumbersAfter());
+            Map<Integer, Integer> whatNumbers = new TreeMap<>(multi.getNumbersAfter());
             Set<Integer> integers = whatNumbers.keySet();
             for (Integer key : integers) {
                 if (key != null) {
-                    if (whatNumbers.get(key).size() == 1) {
+                    if (whatNumbers.get(key) == 1) {
                         multi.getNumbersAfter().remove(key);
                     }
                 }

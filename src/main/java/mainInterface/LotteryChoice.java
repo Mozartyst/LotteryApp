@@ -15,6 +15,7 @@ public class LotteryChoice {
         System.out.println("1 - IrishLotto");
         System.out.println("2 - EuroMillion");
         System.out.println("3 - PolishLotto");
+        System.out.println("4 - Quit");
         int number = scanner.nextInt();
         if (number == 1){
             properties.load(new FileInputStream("src/main/resources/IrishLotto"));
@@ -22,6 +23,8 @@ public class LotteryChoice {
             properties.load(new FileInputStream("src/main/resources/EuroLotto"));
         }else if (number == 3){
             properties.load(new FileInputStream("src/main/resources/PolishLotto"));
+        }else if (number == 4){
+            System.exit(0);
         }else {
             System.out.println("Zły wybór.");
         }

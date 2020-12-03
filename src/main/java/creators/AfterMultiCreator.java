@@ -1,16 +1,14 @@
-package mainInterface;
+package creators;
 
-import creators.*;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationNumber;
-import entity.Number;
 import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.*;
 
-public class Creator {
+public class AfterMultiCreator {
     private final Set<MultiCombinationNumber> multiCombinationNumbers = new TreeSet<>();
     private final ArrayList<MultiCombinationNumber> multiCombination = new ArrayList<>();
 
@@ -18,8 +16,8 @@ public class Creator {
         ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         ArrayList<CombinationNumbers> comList = new ArrayList<>();
         for (OneDraw weekNumbers : lotteryNumbers) {
-            Set<CombinationNumbers> combinationNumbers = new CombinationCreator().getCombinationNumbers(weekNumbers.getDrawNumbers(), lotteryNumbers.indexOf(weekNumbers));
-            for (CombinationNumbers com : combinationNumbers) {
+            Set<CombinationNumbers> combinationsNumbers = new CombinationCreator().getCombinationNumbers(weekNumbers.getDrawNumbers(), lotteryNumbers.indexOf(weekNumbers));
+            for (CombinationNumbers com : combinationsNumbers) {
                 if (comList.contains(com)) {
                     for (Integer i : com.getIndexesWhereAppeared()) {
                         comList.get(comList.indexOf(com)).getIndexesWhereAppeared().add(i);
@@ -54,16 +52,10 @@ public class Creator {
         }
         new MultiCombinationReducer(multiCombination, properties).reduceMultiFile();
 
-        new DuetCreator(lotteryNumbers, properties).createDuets();
+//        new DuetCreator(lotteryNumbers, properties).createDuets();
 
-        try {
-            new NumberCreator(lotteryNumbers, properties).createNumbers();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
-        new AlgorithmCreator(lotteryNumbers, listOfNumbers, properties).createAlgorithm();
+//        TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
+//        new AlgorithmCreator(lotteryNumbers, listOfNumbers, properties).createAlgorithm();
     }
 }
 

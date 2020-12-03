@@ -34,13 +34,14 @@ public class MultiCombinationCreator implements Runnable {
             if (comList.get(comList.indexOf(first)).getIndexesWhereAppeared().size() == 1) {
                 continue;
             }
-            MultiCombinationNumber combinationFirst = new MultiCombinationNumber(
-                    makeIntArray(first.getNumbers()));
-            if (multiCombinationNumbers.contains(combinationFirst)) {
-                multiCombination.get(multiCombination.indexOf(combinationFirst)).addWhatNumbers(lotteryNumbers.get(index + 1).getDrawNumbers(), index + 1);
-            } else {
-                combinationFirst.addWhatNumbers(lotteryNumbers.get(index + 1).getDrawNumbers(), index);
-                synchronized (multiCombination) {
+            MultiCombinationNumber combinationFirst = new MultiCombinationNumber(first.getNumbers());
+            synchronized (multiCombinationNumbers) {
+                if (multiCombinationNumbers.contains(combinationFirst)) {
+                    multiCombination.get(multiCombination.indexOf(combinationFirst)).addWhatNumbers(lotteryNumbers.get(index + 1).getDrawNumbers());
+                    multiCombination.get(multiCombination.indexOf(combinationFirst)).addIndex(index);
+                } else {
+                    combinationFirst.addWhatNumbers(lotteryNumbers.get(index + 1).getDrawNumbers());
+                    combinationFirst.addIndex(index);
                     multiCombinationNumbers.add(combinationFirst);
                     multiCombination.add(combinationFirst);
                 }
@@ -51,13 +52,15 @@ public class MultiCombinationCreator implements Runnable {
                 }
                 if (first.getNumbers().length == second.getNumbers().length) {
                     MultiCombinationNumber combinationSecond = new MultiCombinationNumber(
-                            makeIntArray(first.getNumbers())
-                            , makeIntArray(second.getNumbers()));
-                    if (multiCombinationNumbers.contains(combinationSecond)) {
-                        multiCombination.get(multiCombination.indexOf(combinationSecond)).addWhatNumbers(lotteryNumbers.get(index + 2).getDrawNumbers(), index + 2);
-                    } else {
-                        combinationSecond.addWhatNumbers(lotteryNumbers.get(index + 2).getDrawNumbers(), index + 1);
-                        synchronized (multiCombination) {
+                            first.getNumbers()
+                            , second.getNumbers());
+                    synchronized (multiCombinationNumbers) {
+                        if (multiCombinationNumbers.contains(combinationSecond)) {
+                            multiCombination.get(multiCombination.indexOf(combinationSecond)).addWhatNumbers(lotteryNumbers.get(index + 2).getDrawNumbers());
+                            multiCombination.get(multiCombination.indexOf(combinationSecond)).addIndex(index + 1);
+                        } else {
+                            combinationSecond.addWhatNumbers(lotteryNumbers.get(index + 2).getDrawNumbers());
+                            combinationSecond.addIndex(index + 1);
                             multiCombinationNumbers.add(combinationSecond);
                             multiCombination.add(combinationSecond);
                         }
@@ -68,14 +71,16 @@ public class MultiCombinationCreator implements Runnable {
                         }
                         if (second.getNumbers().length == third.getNumbers().length) {
                             MultiCombinationNumber combinationThird = new MultiCombinationNumber(
-                                    makeIntArray(first.getNumbers())
-                                    , makeIntArray(second.getNumbers())
-                                    , makeIntArray(third.getNumbers()));
-                            if (multiCombinationNumbers.contains(combinationThird)) {
-                                multiCombination.get(multiCombination.indexOf(combinationThird)).addWhatNumbers(lotteryNumbers.get(index + 3).getDrawNumbers(), index + 3);
-                            } else {
-                                combinationThird.addWhatNumbers(lotteryNumbers.get(index + 3).getDrawNumbers(), index + 2);
-                                synchronized (multiCombination) {
+                                    first.getNumbers()
+                                    , second.getNumbers()
+                                    , third.getNumbers());
+                            synchronized (multiCombinationNumbers) {
+                                if (multiCombinationNumbers.contains(combinationThird)) {
+                                    multiCombination.get(multiCombination.indexOf(combinationThird)).addWhatNumbers(lotteryNumbers.get(index + 3).getDrawNumbers());
+                                    multiCombination.get(multiCombination.indexOf(combinationThird)).addIndex(index + 2);
+                                } else {
+                                    combinationThird.addWhatNumbers(lotteryNumbers.get(index + 3).getDrawNumbers());
+                                    combinationThird.addIndex(index + 2);
                                     multiCombinationNumbers.add(combinationThird);
                                     multiCombination.add(combinationThird);
                                 }
@@ -86,15 +91,5 @@ public class MultiCombinationCreator implements Runnable {
             }
         }
         System.out.println(index);
-    }
-
-    private int[] makeIntArray(Integer[] integersArray) {
-        int[] array = new int[integersArray.length];
-        int index = 0;
-        for (Integer number : integersArray) {
-            array[index] = number;
-            index++;
-        }
-        return array;
     }
 }

@@ -7,7 +7,6 @@ import entity.Number;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.Set;
 import java.util.TreeMap;
 
 public class NumberCreator {
@@ -16,8 +15,8 @@ public class NumberCreator {
     private final TreeMap<Integer, Number> listOfNumbers = new TreeMap<>();
     private final ArrayList<MultiCombinationNumber> multiCombinationList;
 
-    public NumberCreator(ArrayList<OneDraw> lotteryNumbers, Properties properties) throws IOException, ClassNotFoundException {
-        this.lotteryNumbers = lotteryNumbers;
+    public NumberCreator(Properties properties) throws IOException, ClassNotFoundException {
+        this.lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         this.properties = properties;
         this.multiCombinationList = FileService.loadObject(properties.getProperty("afterMulti"));
     }

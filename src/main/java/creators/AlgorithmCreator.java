@@ -1,6 +1,7 @@
 package creators;
 
 import dataSupport.FileService;
+import entity.MultiCombinationNumber;
 import entity.Number;
 import entity.OneDraw;
 
@@ -20,16 +21,25 @@ public class AlgorithmCreator {
         this.properties = properties;
     }
 
-    public void createAlgorithm() {
+    public void createAlgorithm() throws IOException, ClassNotFoundException {
         TreeMap<Integer, TreeMap<Integer, TreeMap<Boolean, Integer>>> algorithm = new TreeMap<>();
         for (int i = 1; i <= Integer.parseInt(properties.getProperty("range")); i++) {
             TreeMap<Integer, TreeMap<Boolean, Integer>> algForNumber = new TreeMap<>();
-            TreeMap<Integer, Integer> afterNumbers = null; //afterNumber
+            ArrayList<MultiCombinationNumber> multi = FileService.loadObject(properties.getProperty("afterMulti"));
+            TreeMap<Integer, Integer> afterNumbers = new TreeMap<>(); //afterNumber
+            for (MultiCombinationNumber mul : multi) {
+                if (mul.getComplexNumber().length == 1) {
+                    if (mul.getFirstKey().getNumbers().length == 1) {
+                        if (mul.getFirstKey().getFirstNumber().equals(i))
+                        afterNumbers.putAll(mul.getNumbersAfter());
+                    }
+                }
+            }
             int finalI = i;
             afterNumbers.forEach((number, value) -> {
                 for (OneDraw weekNumbers : lotteryNumbers) {
                     int index = lotteryNumbers.indexOf(weekNumbers);
-                    if (index == lotteryNumbers.size()-1) {
+                    if (index == lotteryNumbers.size() - 1) {
                         continue;
                     }
                     ArrayList<Integer> nextLottery = lotteryNumbers.get(index + 1).getDrawNumbers();

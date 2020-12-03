@@ -12,8 +12,8 @@ public class MainMenu {
         System.out.println("3 - EachWithEveryOne");
         System.out.println("4 - NAMultiCombination");
         System.out.println("5 - NAT");
-        System.out.println("6 - Reducer for file MultiCombination");
-        System.out.println("7 - ");
+        System.out.println("6 - MultiThreesCreator");
+        System.out.println("7 - Check3X3");
         System.out.println("8 - Tests");
 
         int number = scanner.nextInt();

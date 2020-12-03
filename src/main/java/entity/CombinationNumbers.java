@@ -14,6 +14,7 @@ public class CombinationNumbers implements Comparable<CombinationNumbers>, Seria
     public CombinationNumbers(Integer firstNumber) {
         this.numbers = new Integer[1];
         this.numbers[0] = firstNumber;
+        Arrays.sort(numbers);
     }
 
     public CombinationNumbers(Integer firstNumber, Integer secondNumber) {
