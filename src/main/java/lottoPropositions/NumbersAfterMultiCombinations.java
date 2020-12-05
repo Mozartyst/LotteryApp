@@ -1,15 +1,13 @@
 package lottoPropositions;
 
+import creators.CombinationCreator;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationNumber;
 import entity.OneDraw;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Properties;
-import java.util.TreeMap;
+import java.util.*;
 
 public class NumbersAfterMultiCombinations {
     private final ArrayList<OneDraw> lotteryNumbers;
@@ -25,9 +23,9 @@ public class NumbersAfterMultiCombinations {
 
 
         createAfterCombination(multiCombinationKeys
-                , returnCombinationNumbers(lotteryNumbers.get(index-3).getDrawNumbers())
-                , returnCombinationNumbers(lotteryNumbers.get(index-2).getDrawNumbers())
-                , returnCombinationNumbers(lotteryNumbers.get(index-1).getDrawNumbers()));
+                , new CombinationCreator().getCombinationNumbers(lotteryNumbers.get(index - 2).getDrawNumbers(), index - 2)
+                , new CombinationCreator().getCombinationNumbers(lotteryNumbers.get(index - 1).getDrawNumbers(), index - 1)
+                , new CombinationCreator().getCombinationNumbers(lotteryNumbers.get(index).getDrawNumbers(), index));
         multiCombinationKeys.forEach((combination) -> {
             if (afterMultiCombinationKey.contains(combination)) {
                 Map<Integer, Integer> whatNumbers = afterMultiCombinationKey.get(afterMultiCombinationKey.indexOf(combination)).getNumbersAfter();
@@ -46,45 +44,10 @@ public class NumbersAfterMultiCombinations {
         return proposition;
     }
 
-    private ArrayList<CombinationNumbers> returnCombinationNumbers(ArrayList<Integer> gamesNumbers) {
-        ArrayList<CombinationNumbers> combinationList = new ArrayList<>();
-        //FIRST
-        for (Integer firstNumber : gamesNumbers) {
-            CombinationNumbers keySingle = new CombinationNumbers(firstNumber);
-            combinationList.add(keySingle);
-            //SECOND
-            for (Integer secondNumber : gamesNumbers) {
-                if (secondNumber <= firstNumber) {
-                    continue;
-                }
-                CombinationNumbers keyDouble = new CombinationNumbers(firstNumber, secondNumber);
-                combinationList.add(keyDouble);
-//THIRD
-                for (Integer thirdNumber : gamesNumbers) {
-                    if (thirdNumber <= secondNumber) {
-                        continue;
-                    }
-                    CombinationNumbers keyTriple = new CombinationNumbers(firstNumber, secondNumber, thirdNumber);
-                    combinationList.add(keyTriple);
-//FOURTH
-                    for (Integer fourthNumber : gamesNumbers) {
-                        if (fourthNumber <= thirdNumber) {
-                            continue;
-                        }
-                        CombinationNumbers keyQuadruple = new CombinationNumbers(firstNumber, secondNumber, thirdNumber, fourthNumber);
-                        combinationList.add(keyQuadruple);
-                    }
-                }
-            }
-        }
-        return combinationList;
-    }
-
-
     private void createAfterCombination(ArrayList<MultiCombinationNumber> multiCombinationKeys
-            , ArrayList<CombinationNumbers> firstCombination
-            , ArrayList<CombinationNumbers> secondCombination
-            , ArrayList<CombinationNumbers> thirdCombination) {
+            , Set<CombinationNumbers> firstCombination
+            , Set<CombinationNumbers> secondCombination
+            , Set<CombinationNumbers> thirdCombination) {
 
 
         firstCombination.forEach((firstKey) -> {

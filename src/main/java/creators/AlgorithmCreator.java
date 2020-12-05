@@ -2,7 +2,6 @@ package creators;
 
 import dataSupport.FileService;
 import entity.MultiCombinationNumber;
-import entity.Number;
 import entity.OneDraw;
 
 import java.io.IOException;
@@ -11,13 +10,11 @@ import java.util.*;
 
 public class AlgorithmCreator {
     private final TreeMap<Integer, TreeMap<Integer, Boolean>> algorithmFinished = new TreeMap<>();
-    private final TreeMap<Integer, Number> listOfNumbers;
     private final ArrayList<OneDraw> lotteryNumbers;
     private final Properties properties;
 
-    public AlgorithmCreator(ArrayList<OneDraw> lotteryNumbers, TreeMap<Integer, Number> listOfNumbers, Properties properties) {
+    public AlgorithmCreator(ArrayList<OneDraw> lotteryNumbers, Properties properties) {
         this.lotteryNumbers = lotteryNumbers;
-        this.listOfNumbers = listOfNumbers;
         this.properties = properties;
     }
 

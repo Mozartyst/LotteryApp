@@ -15,6 +15,5 @@ public class Main4 {
         properties.load(new FileInputStream("src/main/resources/IrishLotto"));
         ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
-        new AlgorithmCreator(lotteryNumbers,listOfNumbers,properties).createAlgorithm();
     }
 }

@@ -17,12 +17,15 @@ public class Main {
         if (FileService.isFile("IrishLottery/FullDrawsList")
                 && FileService.isFile("IrishLottery/NumbersAfterMulti")
                 && FileService.isFile("IrishLottery/ListOfNumbers")
+                && FileService.isFile("IrishLottery/AlgorithmFile")
                 && FileService.isFile("EuroLottery/FullDrawsList")
                 && FileService.isFile("EuroLottery/NumbersAfterMulti")
                 && FileService.isFile("EuroLottery/ListOfNumbers")
+                && FileService.isFile("EuroLottery/AlgorithmFile")
                 && FileService.isFile("PolishLottery/NumbersAfterMulti")
                 && FileService.isFile("PolishLottery/ListOfNumbers")
-                && FileService.isFile("PolishLottery/FullDrawsList")) {
+                && FileService.isFile("PolishLottery/FullDrawsList")
+                && FileService.isFile("PolishLottery/AlgorithmFile")) {
             new LotteryUpdate().run();
             while (isRun) {
                 Properties properties = new LotteryChoice().run(scanner);
