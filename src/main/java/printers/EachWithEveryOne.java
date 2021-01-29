@@ -13,7 +13,7 @@ public class EachWithEveryOne {
         this.third = new Integer[]{seventh, eight, ninth};
     }
 
-    public ArrayList<ArrayList<Integer>> getList() {
+    public void getList() {
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
         for (Integer first : first) {
             for (Integer second : second) {
@@ -26,6 +26,6 @@ public class EachWithEveryOne {
                 }
             }
         }
-        return list;
+        list.forEach(System.out::println);
     }
 }

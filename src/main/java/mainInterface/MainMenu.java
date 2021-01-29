@@ -13,8 +13,9 @@ public class MainMenu {
         System.out.println("4 - NAMultiCombination");
         System.out.println("5 - NAT");
         System.out.println("6 - MultiThreesCreator");
-        System.out.println("7 - Check3X3");
+        System.out.println("7 - Manual Checker");
         System.out.println("8 - Tests");
+        System.out.println("9 - LastNumbersProposition");
 
         int number = scanner.nextInt();
         if (number == 1) {
@@ -33,6 +34,8 @@ public class MainMenu {
             new Choice7().run(scanner,properties);
         } else if (number == 8) {
             new Choice8().run(scanner,properties);
+        }else if (number == 9) {
+            new Choice9().run(scanner,properties);
         }
     }
 }

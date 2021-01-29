@@ -10,15 +10,16 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
 
-public class Choice2 {
+public class Choice9 {
     public void run(Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
         ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+        System.out.println("Input range:");
+        int range = scanner.nextInt();
         System.out.println("Input index:");
-        int index = (lotteryNumbers.size() - 1) - scanner.nextInt();
-        System.out.println(new Proposition(index).forMultiCombination(properties));
-        System.out.println(new NumbersFromFewLastDraws().get(lotteryNumbers,3,index));
-        if (index != lotteryNumbers.size() - 1) {
-            System.out.println(lotteryNumbers.get(index + 1));
+        int index = scanner.nextInt();
+        System.out.println(new NumbersFromFewLastDraws().get(lotteryNumbers, range, index));
+        if (index > 0) {
+            System.out.println(lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawNumbers());
         }
     }
 }

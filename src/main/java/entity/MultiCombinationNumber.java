@@ -19,7 +19,6 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
         this.complexNumber = new Integer[2][0];
         this.complexNumber[0] = firstComplex;
         this.complexNumber[1] = secondComplex;
-        Arrays.sort(complexNumber[0]);
     }
 
     public MultiCombinationNumber(Integer[] firstComplex, Integer[] secondComplex, Integer[] thirdComplex) {
@@ -27,7 +26,6 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
         this.complexNumber[0] = firstComplex;
         this.complexNumber[1] = secondComplex;
         this.complexNumber[2] = thirdComplex;
-        Arrays.sort(complexNumber[0]);
     }
 
     public MultiCombinationNumber(Integer[] firstComplex, Integer[] secondComplex, Integer[] thirdComplex, Integer[] fourthComplex) {
@@ -36,7 +34,7 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
         this.complexNumber[1] = secondComplex;
         this.complexNumber[2] = thirdComplex;
         this.complexNumber[3] = fourthComplex;
-        Arrays.sort(complexNumber[0]);
+
     }
 
 
@@ -270,6 +268,57 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
         for (CombinationNumbers combinationNumbers : this) {
             action.accept(combinationNumbers);
         }
+    }
+
+    public MultiCombinationNumber getSorted() {
+        MultiCombinationNumber sortedMulti;
+        if (complexNumber.length == 2) {
+            if (complexNumber[0][0] < complexNumber[1][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[0], complexNumber[1]);
+            }  else {
+                sortedMulti = new MultiCombinationNumber(complexNumber[1], complexNumber[0]);
+
+            }
+        } else if (complexNumber.length == 3) {
+            if (complexNumber[0][0] < complexNumber[1][0] && complexNumber[1][0] < complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[0], complexNumber[1], complexNumber[2]);
+
+            } else if (complexNumber[0][0] < complexNumber[1][0] && complexNumber[1][0] > complexNumber[2][0] && complexNumber[0][0] < complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[0], complexNumber[2], complexNumber[1]);
+
+            } else if (complexNumber[0][0] < complexNumber[1][0] && complexNumber[1][0] > complexNumber[2][0] && complexNumber[0][0] > complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[2], complexNumber[0], complexNumber[1]);
+
+            } else if (complexNumber[0][0] > complexNumber[1][0] && complexNumber[1][0] < complexNumber[2][0] && complexNumber[0][0] < complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[1], complexNumber[0], complexNumber[2]);
+
+            } else if (complexNumber[0][0] > complexNumber[1][0] && complexNumber[1][0] < complexNumber[2][0] && complexNumber[0][0] > complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[1], complexNumber[2], complexNumber[0]);
+
+            } else {
+                sortedMulti = new MultiCombinationNumber(complexNumber[2], complexNumber[1], complexNumber[0]);
+
+            }
+        }else { // 1,2,3,4 / 1,2,4,3 / 1,3,2,4 / 1,3,4,2 / 1,4,2,3 / 1,4,3,2 /
+            // 2,3,4,1 / 2,3,1,4 / 2,4,1,3 / 2,4,3,1 / 2,1,3,4 / 2,1,4,3 /
+            // 3,4,1,2 / 3,4,2,1 / 3,2,1,4 / 3,2,4,1 / 3,1,2,4 / 3,1,4,2 /
+            // 4,3,2,1 / 4,3,1,2 / 4,2,1,3 / 4,2,3,1 / 4,1,2,3 / 4,1,3,2 /
+            if (complexNumber[0][0] < complexNumber[1][0] && complexNumber[1][0] < complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[0], complexNumber[1], complexNumber[2]);
+            } else if (complexNumber[0][0] < complexNumber[1][0] && complexNumber[1][0] > complexNumber[2][0] && complexNumber[0][0] < complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[0], complexNumber[2], complexNumber[1]);
+            } else if (complexNumber[0][0] > complexNumber[1][0] && complexNumber[1][0] < complexNumber[2][0] && complexNumber[0][0] < complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[1], complexNumber[0], complexNumber[2]);
+            } else if (complexNumber[0][0] < complexNumber[1][0] && complexNumber[1][0] > complexNumber[2][0] && complexNumber[0][0] > complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[2], complexNumber[0], complexNumber[1]);
+            } else if (complexNumber[0][0] > complexNumber[1][0] && complexNumber[1][0] < complexNumber[2][0] && complexNumber[0][0] > complexNumber[2][0]) {
+                sortedMulti = new MultiCombinationNumber(complexNumber[1], complexNumber[2], complexNumber[0]);
+            } else {
+                sortedMulti = new MultiCombinationNumber(complexNumber[2], complexNumber[1], complexNumber[0]);
+            }
+        }
+
+        return sortedMulti;
     }
 
 }

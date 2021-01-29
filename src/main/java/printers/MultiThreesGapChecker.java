@@ -1,23 +1,24 @@
-package threeHunter;
+package printers;
 
 import entity.CombinationNumbers;
 import entity.MultiCombinationNumber;
 import entity.OneDraw;
+import creators.ThreesCreatorFromDrawsHistory;
 
 import java.util.*;
 
-public class GapChecker {
+public class MultiThreesGapChecker {
 
     public void print(MultiCombinationNumber multi, ArrayList<OneDraw> lotteryNumbers) {
         Set<Integer> indexes = new HashSet<>();
-        Set<CombinationNumbers> combinationNumbers = new ThreesCreator(lotteryNumbers).get();
+        Set<CombinationNumbers> combinationNumbers = new ThreesCreatorFromDrawsHistory(lotteryNumbers).get();
         ArrayList<CombinationNumbers> com = new ArrayList<>(combinationNumbers);
         CombinationNumbers firstKey = multi.getFirstKey();
         CombinationNumbers secondKey = multi.getSecondKey();
         CombinationNumbers thirdKey = multi.getThirdKey();
-        for (int i = 0; i <= 2; i++) {
-            for (int j = 0; j <= 2; j++) {
-                for (int k = 0; k <= 2; k++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 3; k++) {
                     CombinationNumbers combinationNumbers1 = new CombinationNumbers(firstKey.getNumbers()[i]
                             , secondKey.getNumbers()[j]
                             , thirdKey.getNumbers()[k]);

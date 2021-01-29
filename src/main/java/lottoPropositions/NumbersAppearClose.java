@@ -10,7 +10,7 @@ public class NumbersAppearClose {
         TreeMap<Integer, Integer> pairsForNumber = new TreeMap<>();
 
         for (OneDraw weekNumbers : lotteryNumbers) {
-            if (lotteryNumbers.indexOf(weekNumbers) != 0 && lotteryNumbers.indexOf(weekNumbers) != lotteryNumbers.size()-1) {
+            if (lotteryNumbers.indexOf(weekNumbers) > 0 && lotteryNumbers.indexOf(weekNumbers) < lotteryNumbers.size()-1) {
                 if (weekNumbers.getDrawNumbers().contains(forNumber)) {
                     ArrayList<Integer> nextWeek = lotteryNumbers.get(lotteryNumbers.indexOf(weekNumbers) + 1).getDrawNumbers();
                     ArrayList<Integer> thisWeek = lotteryNumbers.get(lotteryNumbers.indexOf(weekNumbers)).getDrawNumbers();

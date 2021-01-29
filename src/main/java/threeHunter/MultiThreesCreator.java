@@ -1,5 +1,6 @@
 package threeHunter;
 
+import creators.ThreesCreatorFromDrawsHistory;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationNumber;
@@ -13,7 +14,7 @@ public class MultiThreesCreator {
     public void create(Properties properties) throws IOException, ClassNotFoundException {
         ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         ArrayList<MultiCombinationNumber> multiCombinationList = new ArrayList<>();
-        Set<CombinationNumbers> combinationNumbers = new ThreesCreator(lotteryNumbers).get();
+        Set<CombinationNumbers> combinationNumbers = new ThreesCreatorFromDrawsHistory(lotteryNumbers).get();
         ThreadGroup threadGroup = new ThreadGroup("MultiThrees");
         Set<CombinationNumbers> firstCom = new TreeSet<>();
         for (CombinationNumbers combination : combinationNumbers) {

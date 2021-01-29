@@ -1,15 +1,15 @@
-package threeHunter;
+package creators;
 
 import entity.CombinationNumbers;
 import entity.OneDraw;
 
 import java.util.*;
 
-public class ThreesCreator {
+public class ThreesCreatorFromDrawsHistory {
     private final Set<CombinationNumbers> combinationNumbersSet = new TreeSet<>();
     private final ArrayList<OneDraw> lotteryNumbers;
 
-    public ThreesCreator(ArrayList<OneDraw> lotteryNumbers) {
+    public ThreesCreatorFromDrawsHistory(ArrayList<OneDraw> lotteryNumbers) {
         this.lotteryNumbers = lotteryNumbers;
     }
 
