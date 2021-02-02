@@ -1,32 +1,27 @@
 package mainInterface;
 
+import entity.OneDraw;
 
-import printers.EachWithEveryOne;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Choice3 {
-    public void run(Scanner scanner){
-        System.out.println("Input first number to first list:");
-        int first = scanner.nextInt();
-        System.out.println("Input second number to first list:");
-        int second = scanner.nextInt();
-        System.out.println("Input third number to first list:");
-        int third = scanner.nextInt();
-        System.out.println("Input first number to second list:");
-        int fourth = scanner.nextInt();
-        System.out.println("Input second number to second list:");
-        int fifth = scanner.nextInt();
-        System.out.println("Input third number to second list:");
-        int sixth = scanner.nextInt();
-        System.out.println("Input first number to third list:");
-        int seventh = scanner.nextInt();
-        System.out.println("Input second number to third list:");
-        int eight = scanner.nextInt();
-        System.out.println("Input second number to third list:");
-        int ninth = scanner.nextInt();
-        new EachWithEveryOne(first, second, third, fourth, fifth, sixth, seventh, eight, ninth).getList();
+    public void run(ArrayList<OneDraw> lotteryNumbers, Scanner scanner) throws IOException, ClassNotFoundException {
+        System.out.println("1 - MultiThreesGapChecker");
+        System.out.println("2 - EachWithEveryOne");
+        System.out.println("3 - ThreesChecker");
+        System.out.println("4 - ThreesChecker");
+        int choice = scanner.nextInt();
+        if (choice == 1) {
+            new Choice3a().run(lotteryNumbers, scanner);
+        } else if (choice == 2) {
+            new Choice3b().run(scanner);
+        } else if (choice == 3) {
+            new Choice3c().run(lotteryNumbers, scanner);
+        } else if (choice == 4) {
+            new Choice3c().run(lotteryNumbers, scanner);
+        }
 
     }
 }

@@ -1,37 +1,15 @@
 package printers;
 
-import entity.CombinationNumbers;
+import creators.multiThrees.MultiThreesAppeared;
 import entity.MultiCombinationNumber;
 import entity.OneDraw;
-import creators.ThreesCreatorFromDrawsHistory;
 
 import java.util.*;
 
 public class MultiThreesGapChecker {
 
     public void print(MultiCombinationNumber multi, ArrayList<OneDraw> lotteryNumbers) {
-        Set<Integer> indexes = new HashSet<>();
-        Set<CombinationNumbers> combinationNumbers = new ThreesCreatorFromDrawsHistory(lotteryNumbers).get();
-        ArrayList<CombinationNumbers> com = new ArrayList<>(combinationNumbers);
-        CombinationNumbers firstKey = multi.getFirstKey();
-        CombinationNumbers secondKey = multi.getSecondKey();
-        CombinationNumbers thirdKey = multi.getThirdKey();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    CombinationNumbers combinationNumbers1 = new CombinationNumbers(firstKey.getNumbers()[i]
-                            , secondKey.getNumbers()[j]
-                            , thirdKey.getNumbers()[k]);
-                    if (combinationNumbers.contains(combinationNumbers1)) {
-                        indexes.addAll(com.get(com.indexOf(combinationNumbers1)).getIndexesWhereAppeared());
-                    }
-                }
-            }
-        }
-
-
-        List<Integer> list = new ArrayList<>(indexes);
-        Collections.sort(list);
+        List<Integer> list = new MultiThreesAppeared(multi, lotteryNumbers).getAppearedList();
 
         System.out.println("Result for: " + multi);
         System.out.println("_________________________________________________");

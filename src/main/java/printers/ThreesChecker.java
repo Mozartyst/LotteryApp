@@ -1,16 +1,15 @@
 package printers;
 
-import creators.ThreesCreatorFromDrawsHistory;
-import dataSupport.FileService;
+import creators.threes.ThreesCreatorFromDrawsHistory;
 import entity.CombinationNumbers;
+import entity.OneDraw;
 
-import java.io.IOException;
-import java.util.Properties;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class ThreesChecker {
-    public void check(Properties properties, Integer first, Integer second, Integer third) throws IOException, ClassNotFoundException {
-        Set<CombinationNumbers> integerArrayListTreeMap = new ThreesCreatorFromDrawsHistory(FileService.loadObject(properties.getProperty("lotteryNumbers"))).get();
+    public void check(ArrayList<OneDraw> lotteryNumbers, Integer first, Integer second, Integer third){
+        Set<CombinationNumbers> integerArrayListTreeMap = new ThreesCreatorFromDrawsHistory().get(lotteryNumbers);
         CombinationNumbers combinationNumbers = new CombinationNumbers(first, second, third);
         if (integerArrayListTreeMap.contains(combinationNumbers)) {
             for (CombinationNumbers com : integerArrayListTreeMap) {

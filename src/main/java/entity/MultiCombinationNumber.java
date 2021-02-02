@@ -8,7 +8,7 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
 
     private final Integer[][] complexNumber;
     private final Map<Integer, Integer> numbersAfter = new TreeMap<>();
-    private final Set<Integer> indexes = new TreeSet<>();
+    private Set<Integer> indexes = new TreeSet<>();
 
     public MultiCombinationNumber(Integer[] firstComplex) {
         this.complexNumber = new Integer[1][0];
@@ -118,6 +118,10 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
 
     public void addIndex(Integer index) {
         indexes.add(index);
+    }
+
+    public void setIndexes(Set<Integer> indexes) {
+        this.indexes = indexes;
     }
 
     @Override

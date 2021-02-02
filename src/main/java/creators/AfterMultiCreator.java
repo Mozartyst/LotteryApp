@@ -33,19 +33,19 @@ public class AfterMultiCreator {
                     , new MultiCombinationCreator(multiCombinationNumbers, multiCombination, comList, lotteryNumbers, i)
                     , i + "");
             thread.start();
-            while (threadGroup.activeCount() > 3) {
+            while (threadGroup.activeCount() > 7) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(threadGroup.activeCount());
-                System.out.println(multiCombinationNumbers.size());
+//                System.out.println(threadGroup.activeCount());
+//                System.out.println(multiCombinationNumbers.size());
             }
         }
         while (threadGroup.activeCount() > 0) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

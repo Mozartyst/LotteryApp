@@ -23,7 +23,7 @@ public class PropositionReducerCreator implements Runnable {
             , Properties properties
             , TreeMap<Integer
             , TreeMap<Integer, Integer>> appearedNumbers
-            , ArrayList<OneDraw> lotteryNumbers){
+            , ArrayList<OneDraw> lotteryNumbers) {
         this.start = start;
         this.end = end;
         this.results = results;
@@ -38,7 +38,7 @@ public class PropositionReducerCreator implements Runnable {
         for (int i = start; i >= end; i--) {
             TreeSet<Integer> tempPropositionList = null;
             try {
-                tempPropositionList = new Proposition(i).forMultiCombination(properties);
+                tempPropositionList = new Proposition().forMultiCombination(lotteryNumbers, properties, i);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

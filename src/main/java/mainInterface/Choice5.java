@@ -12,11 +12,10 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Choice5 {
-    public void run(Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
+    public void run(ArrayList<OneDraw> lotteryNumbers, Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
         TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumbersAfterTriple = FileService.loadObject(properties.getProperty("afterTriple"));
         System.out.println("Input index:");
         int index = scanner.nextInt();
-        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         TreeMap<Integer, Integer> lotteryNumbersFile = new NumbersAfterTriple(lotteryNumbers, listOfNumbersAfterTriple ).getPropositionNumbersAfterTriple(lotteryNumbers.size() - 1 - index);
         System.out.println(lotteryNumbersFile);
         if (index > 0) {

@@ -21,6 +21,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class DownloadIrish {
     private final ArrayList<OneDraw> listOfNumbers = new ArrayList<>();
@@ -80,6 +82,12 @@ public class DownloadIrish {
                         drawNumber--;
                     }
                 }
+            }
+        }
+        Set<OneDraw> lottery = new TreeSet<>(listOfNumbers);
+        for (OneDraw weekDraw : lottery) {
+            if (weekDraw.getDrawNumber() < 2748) {
+                listOfNumbers.remove(weekDraw);
             }
         }
         try {

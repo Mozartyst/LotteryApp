@@ -90,6 +90,6 @@ public class MultiCombinationCreator implements Runnable {
                 }
             }
         }
-        System.out.println(index);
+        System.out.println((index / (lotteryNumbers.size() - 1))*100 + "%");
     }
 }

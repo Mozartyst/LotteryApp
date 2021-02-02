@@ -22,7 +22,7 @@ public class Algorithm implements Serializable {
             , ArrayList<OneDraw> lotteryNumbers
             , TreeMap<Integer, Number> listOfNumbers) throws IOException, ClassNotFoundException {
 
-        TreeSet<Integer> propositions = new Proposition(index).forMultiCombination(properties);
+        TreeSet<Integer> propositions = new Proposition().forMultiCombination(lotteryNumbers, properties, index);
         System.out.println(propositions);
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index, properties);
 

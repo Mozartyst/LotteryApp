@@ -7,15 +7,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class Proposition {
-    Integer index;
-    TreeSet<Integer> propositionList = new TreeSet<>();
-
-    public Proposition(Integer index) {
-        this.index = index;
-    }
-
-    public TreeSet<Integer> forMultiCombination(Properties properties) throws IOException, ClassNotFoundException {
-        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+    public TreeSet<Integer> forMultiCombination(ArrayList<OneDraw> lotteryNumbers, Properties properties,Integer index) throws IOException, ClassNotFoundException {
+        TreeSet<Integer> propositionList = new TreeSet<>();
         TreeMap<Integer, TreeMap<Integer, Boolean>> algorithm = FileService.loadObject(properties.getProperty("algorithmFile"));
         TreeMap<Integer, Integer> multiProposition = new NumbersAfterMultiCombinations(lotteryNumbers).getProposition(index, properties);
 

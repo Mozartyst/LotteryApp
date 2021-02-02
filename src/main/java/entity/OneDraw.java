@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class OneDraw implements Serializable {
+public class OneDraw implements Serializable, Comparable<OneDraw> {
     private Integer drawNumber;
     private LocalDateTime drawDate;
     private ArrayList<Integer> drawNumbers;
@@ -50,5 +50,11 @@ public class OneDraw implements Serializable {
                 ", drawNumbers=" + drawNumbers +
                 ", bonusBalls=" + bonusBalls +
                 '}';
+    }
+
+    @Override
+    public int compareTo(OneDraw o) {
+        return drawNumber.compareTo(o.drawNumber);
+
     }
 }

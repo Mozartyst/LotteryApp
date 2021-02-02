@@ -2,7 +2,7 @@ package printers;
 
 import entity.CombinationNumbers;
 import entity.OneDraw;
-import creators.ThreesCreatorFromDrawsHistory;
+import creators.threes.ThreesCreatorFromDrawsHistory;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -17,7 +17,7 @@ public class ThreesGraphAnglePrinter {
     public void get(ArrayList<OneDraw> lotteryNumbers) {
         int[][][] ints = new int[48][48][48];
         int[][] intsSquare = new int[48][48];
-        combinationNumbers = new ThreesCreatorFromDrawsHistory(lotteryNumbers).get();
+        combinationNumbers = new ThreesCreatorFromDrawsHistory().get(lotteryNumbers);
         for (CombinationNumbers com : this.combinationNumbers) {
             ints[com.getFirstNumber()][com.getSecondNumber()][com.getThirdNumber()] = com.getIndexesWhereAppeared().size();
 //            addNumber(com.getFirstNumber(), com);

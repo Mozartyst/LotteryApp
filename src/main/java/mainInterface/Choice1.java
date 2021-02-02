@@ -12,14 +12,13 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Choice1 {
-    public void run(Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
+    public void run(ArrayList<OneDraw> lotteryNumbers, Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
         TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
-        ArrayList<OneDraw> temp = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         System.out.println("Input index:");
-        int index = (temp.size() - 1) - scanner.nextInt();
-        System.out.println(new Algorithm().getPropositionList(index, properties, temp, listOfNumbers));
-        if (index != temp.size() - 1) {
-            System.out.println(temp.get(index + 1));
+        int index = (lotteryNumbers.size() - 1) - scanner.nextInt();
+        System.out.println(new Algorithm().getPropositionList(index, properties, lotteryNumbers, listOfNumbers));
+        if (index != lotteryNumbers.size() - 1) {
+            System.out.println(lotteryNumbers.get(index + 1));
         }
     }
 }

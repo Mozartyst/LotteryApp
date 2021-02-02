@@ -1,6 +1,5 @@
 package mainInterface;
 
-import dataSupport.FileService;
 import entity.OneDraw;
 import testy.Testy;
 
@@ -10,7 +9,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 public class Choice8 {
-    public void run(Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
+    public void run(ArrayList<OneDraw> lotteryNumbers, Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
         System.out.println("Select test:");
         System.out.println("1 - NAN");
         System.out.println("2 - NAP");
@@ -21,7 +20,6 @@ public class Choice8 {
         System.out.println("7 - Random");
         System.out.println("8 - NAMultiCombination");
         int choice = scanner.nextInt();
-        ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         ArrayList<OneDraw> lastFiftyDraws = new ArrayList<>();
         for (int i = lotteryNumbers.size()-50; i < lotteryNumbers.size(); i++) {
             lastFiftyDraws.add(lotteryNumbers.get(i));

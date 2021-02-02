@@ -13,6 +13,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -25,10 +26,10 @@ public class FirstTime {
         Properties polishProp = new Properties();
         polishProp.load(new FileInputStream("src/main/resources/PolishLotto"));
         if (!FileService.isFile(irishProp.getProperty("lotteryNumbers"))) {
-            new DownloadIrish().getNumbers(irishProp, 2016, 2020);
+            new DownloadIrish().getNumbers(irishProp, 2015, LocalDateTime.now().getYear());
         }
         if (!FileService.isFile(euroProp.getProperty("lotteryNumbers"))) {
-            new DownloadEuro().getNumbers(euroProp, 2016, 2020);
+            new DownloadEuro().getNumbers(euroProp, 2016, LocalDateTime.now().getYear());
         }
         if (!FileService.isFile(polishProp.getProperty("lotteryNumbers"))) {
             new DownloadPolish(polishProp);
