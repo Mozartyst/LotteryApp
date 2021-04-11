@@ -23,11 +23,11 @@ public class UpdateNumbers {
         Set<MultiCombinationNumber> multiCombinationSet = FileService.loadObject(properties.getProperty("afterMulti"));
         Set<MultiCombinationNumber> reducedMultiCombinationSet = FileService.loadObject(properties.getProperty("reducedAfterMulti"));
         Integer lastIndex = Integer.valueOf(properties.getProperty("lastIndex"));
-        for (int index = lastIndex + 1; index <= lotteryNumbers.size(); index++) {
+        for (int index = lastIndex; index < lotteryNumbers.size(); index++) {
             new AlgorithmCreator1(lotteryNumbers, reducedMultiCombinationSet, listOfNumbers, index, properties).run();
-            new NumberCreator(listOfNumbers, lotteryNumbers, index);
-            new AfterMultiCreator().run(lotteryNumbers, properties, multiCombinationSet, index, (index + 1));
-            properties.setProperty("lastIndex", String.valueOf(index));
+            new NumberCreator(listOfNumbers, lotteryNumbers, index + 1);
+            new AfterMultiCreator().run(lotteryNumbers, properties, multiCombinationSet, index + 1, (index + 2));
+            properties.setProperty("lastIndex", String.valueOf(index + 1));
         }
 //        properties.store(new FileOutputStream(path), null);
 //        FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));

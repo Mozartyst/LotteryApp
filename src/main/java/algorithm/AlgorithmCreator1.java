@@ -7,6 +7,7 @@ import entity.CombinationNumbers;
 import entity.MultiCombinationNumber;
 import entity.Number;
 import entity.OneDraw;
+import lottoPropositions.NumbersFromFewLastDraws;
 import support.Auxiliary;
 
 import java.util.*;
@@ -31,16 +32,17 @@ public class AlgorithmCreator1 implements Runnable {
 
     @Override
     public void run() {
-        if (index < lotteryNumbers.size()) {
-            System.out.println(lotteryNumbers.get(index));
+        if (index < lotteryNumbers.size() - 1) {
+            System.out.println(lotteryNumbers.get(index + 1));
         }
         Set<MultiCombinationNumber> multiCombinationSet = new HashSet<>();
         createMultiSet(multiCombinationSet);
         Map<Integer, Integer> afterNumbers = new HashMap<>();
         getAfterMulti(multiCombinationSet, afterNumbers);
         Set<Integer> numbersFromGaps = getNumbersFromGaps();
-        Set<Integer> after = new TreeSet<>(Auxiliary.returnThreeHighestKey(afterNumbers));
-        getNumbersFromWith(after);
+//        System.out.println(new NumbersFromFewLastDraws().get(lotteryNumbers, 3, index));
+        Set<Integer> after = new TreeSet<>(Auxiliary.returnFiveHighestKey(afterNumbers));
+//        getNumbersFromWith(after);
         System.out.println("AfterNumbers " + Auxiliary.returnFourHighestKey(afterNumbers));
     }
 
@@ -51,22 +53,22 @@ public class AlgorithmCreator1 implements Runnable {
         }
         Map<Integer, Set<CombinationNumbers>> combinationMapByIndexes = new TreeMap<>();
         Set<CombinationNumbers> combinationsNumbers =
-                new CombinationCreator().getCombinationNumbers(allNumbers, index - 1);
-        combinationMapByIndexes.put(index - 1, combinationsNumbers);
+                new CombinationCreator().getCombinationNumbers(allNumbers, index);
+        combinationMapByIndexes.put(index, combinationsNumbers);
         Set<CombinationNumbers> combinationsNumbers1 =
-                new CombinationCreator().getCombinationNumbers(lotteryNumbers.get(index - 2).getDrawNumbers(), index - 2);
-        combinationMapByIndexes.put(index - 2, combinationsNumbers1);
+                new CombinationCreator().getCombinationNumbers(lotteryNumbers.get(index - 1).getDrawNumbers(), index - 1);
+        combinationMapByIndexes.put(index - 1, combinationsNumbers1);
         Set<CombinationNumbers> combinationsNumbers2 =
-                new CombinationCreator().getCombinationNumbers(lotteryNumbers.get(index - 3).getDrawNumbers(), index - 3);
-        combinationMapByIndexes.put(index - 3, combinationsNumbers2);
-        new MultiCombinationCreator(multiCombinationSet, combinationMapByIndexes, index - 1).run();
+                new CombinationCreator().getCombinationNumbers(lotteryNumbers.get(index - 2).getDrawNumbers(), index - 2);
+        combinationMapByIndexes.put(index - 2, combinationsNumbers2);
+        new MultiCombinationCreator(multiCombinationSet, combinationMapByIndexes, index).run();
     }
 
     private Set<Integer> getNumbersFromGaps() {
         Set<Integer> numbers = new TreeSet<>();
-        for (int i = index - 1; i > index - 8; i--) {
+        for (int i = index ; i > index - 7; i--) {
             for (Integer num : lotteryNumbers.get(i).getDrawNumbers()) {
-                int currentGap = (index) - i;
+                int currentGap = (index + 1) - i;
                 for (Integer gap : listOfNumbers.get(num).getFourHighestGap()) {
                     if (currentGap == gap) {
                         numbers.add(num);
@@ -75,7 +77,6 @@ public class AlgorithmCreator1 implements Runnable {
             }
         }
         System.out.println("Gaps " + numbers);
-        System.out.println(numbers.size());
         return numbers;
     }
 
@@ -110,7 +111,7 @@ public class AlgorithmCreator1 implements Runnable {
                     if (m.getSecondKey().getNumbers().length == 1) {
                         Auxiliary.addAfterNumber(afterNumbers, m.getSecondKey().getFirstNumber(), m.getIndexesWhereAppeared().size());
                     } else if (m.getSecondKey().getNumbers().length == 2) {
-                        Auxiliary.addAfterNumber(afterNumbers,m.getSecondKey().getSecondNumber(),m.getIndexesWhereAppeared().size());
+                        Auxiliary.addAfterNumber(afterNumbers, m.getSecondKey().getSecondNumber(), m.getIndexesWhereAppeared().size());
                     } else if (m.getSecondKey().getNumbers().length == 3) {
                         Auxiliary.addAfterNumber(afterNumbers, m.getSecondKey().getThirdNumber(), m.getIndexesWhereAppeared().size());
                     }
@@ -120,7 +121,7 @@ public class AlgorithmCreator1 implements Runnable {
                     } else if (m.getThirdKey().getNumbers().length == 2) {
                         Auxiliary.addAfterNumber(afterNumbers, m.getThirdKey().getSecondNumber(), m.getIndexesWhereAppeared().size());
                     } else if (m.getThirdKey().getNumbers().length == 3) {
-                        Auxiliary.addAfterNumber(afterNumbers,m.getThirdKey().getThirdNumber(),m.getIndexesWhereAppeared().size());
+                        Auxiliary.addAfterNumber(afterNumbers, m.getThirdKey().getThirdNumber(), m.getIndexesWhereAppeared().size());
                     }
                 }
             }

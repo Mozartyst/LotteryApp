@@ -11,10 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class LotteryDrawsJSONDownloader {
     public LotteryDrawsJSONDownloader(Properties properties) throws IOException, ClassNotFoundException {
@@ -53,6 +50,7 @@ public class LotteryDrawsJSONDownloader {
                             .split(","));
                     ArrayList<Integer> results = new ArrayList<>();
                     resultsJson.forEach((s -> results.add(Integer.valueOf(s))));
+                    Collections.sort(results);
                     oneDraw.setDrawNumbers(results);
                     lotteryNumbers.add(oneDraw);
                 }

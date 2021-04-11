@@ -22,7 +22,7 @@ public class Main4 {
         ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         TreeMap<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
         Set<MultiCombinationNumber> reduced = FileService.loadObject(properties.getProperty("reducedAfterMulti"));
-//        new AlgorithmCreator1(lotteryNumbers, reduced, listOfNumbers, Integer.parseInt(properties.getProperty("lastIndex")) + 1, properties).run();
+//        new AlgorithmCreator1(lotteryNumbers, reduced, listOfNumbers, Integer.parseInt(properties.getProperty("lastIndex")), properties).run();
         new UpdateNumbers().run(lotteryNumbers, properties);
     }
 }

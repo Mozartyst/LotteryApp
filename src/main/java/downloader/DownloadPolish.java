@@ -11,10 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class DownloadPolish {
     public DownloadPolish(Properties properties) throws IOException {
@@ -45,6 +42,7 @@ public class DownloadPolish {
                         .split(","));
                 ArrayList<Integer> weekList = new ArrayList<>();
                 strings.forEach((s -> weekList.add(Integer.valueOf(s))));
+                Collections.sort(weekList);
                 oneDraw.setDrawNumbers(weekList);
                 lotteryNumbers.add(oneDraw);
             }

@@ -1,4 +1,4 @@
-#Mon Apr 05 18:00:01 IST 2021
+#Sun Apr 11 21:12:15 IST 2021
 reducedAfterMulti=EuroLottery/ReducedAfterMulti
 range=50
 listOfNumbers=EuroLottery/ListOfNumbers
@@ -10,7 +10,7 @@ threes=EuroLottery/MultiThrees
 name=EuroLottery
 drawNumbers=5
 from=2016
-lastIndex=498
+lastIndex=500
 lotteryNumbers=EuroLottery/FullDrawsList
 results=Results
 value=15

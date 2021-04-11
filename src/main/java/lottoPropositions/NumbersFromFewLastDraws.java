@@ -9,7 +9,7 @@ import java.util.TreeSet;
 public class NumbersFromFewLastDraws {
     public Set<Integer> get(ArrayList<OneDraw> lotteryNumbers, int range, int index) {
         Set<Integer> proposition = new TreeSet<>();
-        for (int i = index - range; i < index; i++) {
+        for (int i = index - range + 1; i <= index; i++) {
             for (Integer number : lotteryNumbers.get(i).getDrawNumbers()) {
                 proposition.add(number);
             }

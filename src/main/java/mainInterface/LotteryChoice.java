@@ -5,6 +5,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -16,7 +17,12 @@ public class LotteryChoice {
         System.out.println("2 - EuroMillion");
         System.out.println("3 - PolishLotto");
         System.out.println("4 - Quit");
-        int number = scanner.nextInt();
+        int number = 4;
+        try {
+            number = scanner.nextInt();
+        }catch (InputMismatchException e){
+            System.out.println("Your choose isn't a number.");
+        }
         if (number == 1){
             properties.load(new FileInputStream("src/main/resources/IrishLotto"));
         }else if (number == 2){
@@ -26,7 +32,9 @@ public class LotteryChoice {
         }else if (number == 4){
             System.exit(0);
         }else {
-            System.out.println("Zły wybór.");
+            System.out.println("Wrong choice!!!");
+            System.out.println("Default is choose IrishLotto");
+            properties.load(new FileInputStream("src/main/resources/IrishLotto"));
         }
         return properties;
     }
