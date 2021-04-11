@@ -23,7 +23,7 @@ public class MultiThreesAppeared {
     }
 
     public MultiCombinationNumber addAppearedToMulti() {
-        multi.setIndexes(getIndexes());
+        multi.addIndexes(getIndexes());
         return multi;
     }
 

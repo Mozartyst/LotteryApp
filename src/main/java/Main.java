@@ -1,4 +1,5 @@
 import dataSupport.FileService;
+import entity.MultiCombinationNumber;
 import entity.OneDraw;
 import update.FirstTime;
 import org.xml.sax.SAXException;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException, InterruptedException {
@@ -19,18 +21,16 @@ public class Main {
         if (FileService.isFile("IrishLottery/FullDrawsList")
                 && FileService.isFile("IrishLottery/NumbersAfterMulti")
                 && FileService.isFile("IrishLottery/ListOfNumbers")
-                && FileService.isFile("IrishLottery/AlgorithmFile")
                 && FileService.isFile("EuroLottery/FullDrawsList")
                 && FileService.isFile("EuroLottery/NumbersAfterMulti")
                 && FileService.isFile("EuroLottery/ListOfNumbers")
-                && FileService.isFile("EuroLottery/AlgorithmFile")
                 && FileService.isFile("PolishLottery/NumbersAfterMulti")
                 && FileService.isFile("PolishLottery/ListOfNumbers")
-                && FileService.isFile("PolishLottery/FullDrawsList")
-                && FileService.isFile("PolishLottery/AlgorithmFile")) {
+                && FileService.isFile("PolishLottery/FullDrawsList")) {
             new LotteryUpdate().run();
             Properties properties = new LotteryChoice().run(scanner);
             ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+            Set<MultiCombinationNumber> multiCombinationNumbers = FileService.loadObject(properties.getProperty("reducedAfterMulti"));
             while (isRun) {
                 new MainMenu().showMenu(lotteryNumbers,scanner, properties);
             }

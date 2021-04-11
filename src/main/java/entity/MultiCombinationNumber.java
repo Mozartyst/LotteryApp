@@ -7,8 +7,7 @@ import java.util.function.Consumer;
 public class MultiCombinationNumber implements Comparable<MultiCombinationNumber>, Serializable, Iterable<CombinationNumbers> {
 
     private final Integer[][] complexNumber;
-    private final Map<Integer, Integer> numbersAfter = new TreeMap<>();
-    private Set<Integer> indexes = new TreeSet<>();
+    private final Set<Integer> indexes = new TreeSet<>();
 
     public MultiCombinationNumber(Integer[] firstComplex) {
         this.complexNumber = new Integer[1][0];
@@ -98,20 +97,6 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
         return com;
     }
 
-    public void addWhatNumbers(ArrayList<Integer> drawNumbers) {
-        for (Integer number : drawNumbers) {
-            if (numbersAfter.containsKey(number)) {
-                numbersAfter.replace(number, numbersAfter.get(number) + 1);
-            } else {
-                numbersAfter.put(number, 1);
-            }
-        }
-    }
-
-    public Map<Integer, Integer> getNumbersAfter() {
-        return numbersAfter;
-    }
-
     public Set<Integer> getIndexesWhereAppeared() {
         return indexes;
     }
@@ -120,8 +105,10 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
         indexes.add(index);
     }
 
-    public void setIndexes(Set<Integer> indexes) {
-        this.indexes = indexes;
+    public void addIndexes(Set<Integer> indexes) {
+        for (Integer index : indexes) {
+            addIndex(index);
+        }
     }
 
     @Override
@@ -279,7 +266,7 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
         if (complexNumber.length == 2) {
             if (complexNumber[0][0] < complexNumber[1][0]) {
                 sortedMulti = new MultiCombinationNumber(complexNumber[0], complexNumber[1]);
-            }  else {
+            } else {
                 sortedMulti = new MultiCombinationNumber(complexNumber[1], complexNumber[0]);
 
             }
@@ -303,7 +290,7 @@ public class MultiCombinationNumber implements Comparable<MultiCombinationNumber
                 sortedMulti = new MultiCombinationNumber(complexNumber[2], complexNumber[1], complexNumber[0]);
 
             }
-        }else { // 1,2,3,4 / 1,2,4,3 / 1,3,2,4 / 1,3,4,2 / 1,4,2,3 / 1,4,3,2 /
+        } else { // 1,2,3,4 / 1,2,4,3 / 1,3,2,4 / 1,3,4,2 / 1,4,2,3 / 1,4,3,2 /
             // 2,3,4,1 / 2,3,1,4 / 2,4,1,3 / 2,4,3,1 / 2,1,3,4 / 2,1,4,3 /
             // 3,4,1,2 / 3,4,2,1 / 3,2,1,4 / 3,2,4,1 / 3,1,2,4 / 3,1,4,2 /
             // 4,3,2,1 / 4,3,1,2 / 4,2,1,3 / 4,2,3,1 / 4,1,2,3 / 4,1,3,2 /

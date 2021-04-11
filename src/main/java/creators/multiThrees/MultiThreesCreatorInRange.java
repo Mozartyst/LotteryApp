@@ -3,7 +3,7 @@ package creators.multiThrees;
 import dataSupport.FileService;
 import entity.CombinationNumbers;
 import entity.MultiCombinationNumber;
-import creators.multiThrees.NumbersForMultiThreesFinder;
+import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.*;
@@ -17,7 +17,8 @@ public class MultiThreesCreatorInRange {
             , Integer rangeFromForDoubleThree
             , Integer rangeToForDoubleThree
             , Integer rangeFromForTripleThree
-            , Integer rangeToForTripleThree) throws InterruptedException, IOException {
+            , Integer rangeToForTripleThree
+            , ArrayList<OneDraw> lotteryNumbers) throws InterruptedException, IOException {
 
 
         for (CombinationNumbers com : combinationNumbers) {
@@ -25,16 +26,15 @@ public class MultiThreesCreatorInRange {
             addIndex(com.getIndexesWhereAppeared().size(), com);
         }
 
-        TreeMap<Integer, Set<MultiCombinationNumber>> mapMulti = new TreeMap<>();
+        Set<MultiCombinationNumber> mapMulti = new TreeSet<>();
         ThreadGroup forOne = new ThreadGroup("ForOne");
-        int activeThreads = 0;
         int counter = 0;
-        for (int i = 2; i < byIndexes.size(); i++) {
+        for (int i = 4; i < byIndexes.size(); i++) {
             if (byIndexes.containsKey(i)) {
                 for (CombinationNumbers com : byIndexes.get(i)) {
                     boolean isCom = true;
                     while (isCom) {
-                        if (activeThreads < 50) {
+                        if (forOne.activeCount() <= Runtime.getRuntime().availableProcessors()) {
                             new NumbersForMultiThreesFinder(new MultiCombinationNumber(
                                     new Integer[]{com.getFirstNumber()}
                                     , new Integer[]{com.getSecondNumber()}
@@ -44,14 +44,14 @@ public class MultiThreesCreatorInRange {
                                     , combinationNumbers
                                     , forOne
                                     , rangeFromForDoubleThree
-                                    , rangeToForDoubleThree);
+                                    , rangeToForDoubleThree
+                                    , lotteryNumbers);
                             counter++;
                             isCom = false;
                         } else {
                             System.out.println("DoubleNumbersFinders: " + counter);
-                            Thread.sleep(1000);
+                            Thread.sleep(150);
                         }
-                        activeThreads = forOne.activeCount();
                     }
                 }
             }
@@ -61,28 +61,26 @@ public class MultiThreesCreatorInRange {
             Thread.sleep(1000);
         }
 
-        TreeMap<Integer, Set<MultiCombinationNumber>> mapMulti1 = new TreeMap<>();
+        Set<MultiCombinationNumber> mapMulti1 = new TreeSet<>();
         ThreadGroup forTwo = new ThreadGroup("ForTwo");
-        for (Integer index : mapMulti.keySet()) {
-            for (MultiCombinationNumber multi : mapMulti.get(index)) {
-                boolean isCom = true;
-                while (isCom) {
-                    if (activeThreads < 50) {
-                        new NumbersForMultiThreesFinder(
-                                multi
-                                , mapMulti1
-                                , byCombination
-                                , combinationNumbers
-                                , forTwo
-                                , rangeFromForTripleThree
-                                , rangeToForTripleThree);
-                        counter++;
-                        isCom = false;
-                    } else {
-                        System.out.println("TripleNumbersFinder: " + counter);
-                        Thread.sleep(1000);
-                    }
-                    activeThreads = forTwo.activeCount();
+        for (MultiCombinationNumber multi : mapMulti) {
+            boolean isCom = true;
+            while (isCom) {
+                if (forTwo.activeCount() <= Runtime.getRuntime().availableProcessors()) {
+                    new NumbersForMultiThreesFinder(
+                            multi
+                            , mapMulti1
+                            , byCombination
+                            , combinationNumbers
+                            , forTwo
+                            , rangeFromForTripleThree
+                            , rangeToForTripleThree
+                            , lotteryNumbers);
+                    counter++;
+                    isCom = false;
+                } else {
+                    System.out.println("TripleNumbersFinder: " + counter);
+                    Thread.sleep(1000);
                 }
             }
         }

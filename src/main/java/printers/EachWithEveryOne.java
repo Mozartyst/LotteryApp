@@ -1,31 +1,26 @@
 package printers;
 
-import java.util.ArrayList;
+import entity.CombinationNumbers;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 public class EachWithEveryOne {
-    private final Integer[] first;
-    private final Integer[] second;
-    private final Integer[] third;
 
-    public EachWithEveryOne(Integer first, Integer second, Integer third,Integer fourth,Integer fifth, Integer sixth, Integer seventh, Integer eight, Integer ninth) {
-        this.first = new Integer[]{first, second, third};
-        this.second = new Integer[]{fourth, fifth, sixth};
-        this.third = new Integer[]{seventh, eight, ninth};
-    }
-
-    public void getList() {
-        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-        for (Integer first : first) {
-            for (Integer second : second) {
-                for (Integer third : third) {
-                    ArrayList<Integer> trio = new ArrayList<>();
-                    trio.add(first);
-                    trio.add(second);
-                    trio.add(third);
-                    list.add(trio);
+    public void printList(Set<Integer> numbersList) {
+        Set<CombinationNumbers> list = new TreeSet<>();
+        for (Integer first : numbersList) {
+            for (Integer second : numbersList) {
+                if (!second.equals(first)) {
+                    for (Integer third : numbersList) {
+                        if (!third.equals(first) && !third.equals(second)) {
+                            list.add(new CombinationNumbers(first, second, third));
+                        }
+                    }
                 }
             }
         }
         list.forEach(System.out::println);
+        System.out.println(list.size());
     }
 }

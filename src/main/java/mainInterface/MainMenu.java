@@ -10,11 +10,11 @@ import java.util.Scanner;
 public class MainMenu {
     public void showMenu(ArrayList<OneDraw> lotteryNumbers, Scanner scanner, Properties properties) throws IOException, ClassNotFoundException, InterruptedException {
         System.out.println("Select number:");
-        System.out.println("1 - Algorithm proposition");
-        System.out.println("2 - Proposition");
+        System.out.println("1 - ");
+        System.out.println("2 - ");
         System.out.println("3 - Printers");
-        System.out.println("4 - NAMultiCombination");
-        System.out.println("5 - NAT");
+        System.out.println("4 - ");
+        System.out.println("5 - ");
         System.out.println("6 - MultiThreesCreator");
         System.out.println("7 - ");
         System.out.println("8 - Tests");

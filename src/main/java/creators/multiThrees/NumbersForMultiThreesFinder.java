@@ -3,37 +3,41 @@ package creators.multiThrees;
 import entity.CombinationNumbers;
 import entity.MultiCombinationNumber;
 import entity.NonSortedCombinationNumbers;
+import entity.OneDraw;
 
 import java.util.*;
 
 public class NumbersForMultiThreesFinder implements Runnable {
     private final MultiCombinationNumber multiToProceed;
-    private final TreeMap<Integer, Set<MultiCombinationNumber>> mapMultiToReturn;
+    private final Set<MultiCombinationNumber> mapMultiToReturn;
     private final TreeMap<CombinationNumbers, Set<Integer>> byCombination;
     private final Set<CombinationNumbers> combinationNumbers;
     private final Integer rangeFrom;
     private final Integer rangeTo;
+    private final ArrayList<OneDraw> lotteryNumbers;
 
     public NumbersForMultiThreesFinder(MultiCombinationNumber multiToProceed
-            , TreeMap<Integer, Set<MultiCombinationNumber>> mapMultiToReturn
+            , Set<MultiCombinationNumber> mapMultiToReturn
             , TreeMap<CombinationNumbers, Set<Integer>> byCombination
             , Set<CombinationNumbers> combinationNumbers
             , ThreadGroup threadGroup
             , Integer rangeFrom
-            , Integer rangeTo) {
+            , Integer rangeTo
+            , ArrayList<OneDraw> lotteryNumbers) {
         this.multiToProceed = multiToProceed;
         this.mapMultiToReturn = mapMultiToReturn;
         this.byCombination = byCombination;
         this.combinationNumbers = combinationNumbers;
         this.rangeFrom = rangeFrom;
         this.rangeTo = rangeTo;
+        this.lotteryNumbers = lotteryNumbers;
         Thread t = new Thread(threadGroup, this);
         t.start();
     }
 
     @Override
     public void run() {
-        TreeMap<Integer, Set<MultiCombinationNumber>> mapMulti = new TreeMap<>();
+        Set<MultiCombinationNumber> mapMulti = new TreeSet<>();
         if (multiToProceed.getFirstKey().getNumbers().length == 1) {
             List<Integer> firstNumbers = getNumbersForOne(
                     multiToProceed.getSecondKey().getFirstNumber()
@@ -112,23 +116,19 @@ public class NumbersForMultiThreesFinder implements Runnable {
             }
         }
         synchronized (mapMultiToReturn) {
-            mapMultiToReturn.putAll(mapMulti);
+            mapMultiToReturn.addAll(mapMulti);
         }
     }
 
-    private void addMulti(TreeMap<Integer, Set<MultiCombinationNumber>> mapMulti, MultiCombinationNumber multi) {
-        int appeared = checkAppeared(multi);
-        if (appeared >= rangeFrom && appeared <= rangeTo)
-            if (mapMulti.containsKey(appeared)) {
-                mapMulti.get(appeared).add(multi);
-            } else {
-                Set<MultiCombinationNumber> tempSet = new TreeSet<>();
-                tempSet.add(multi);
-                mapMulti.put(appeared, tempSet);
-            }
+    private void addMulti(Set<MultiCombinationNumber> mapMulti, MultiCombinationNumber multi) {
+        Set<Integer> appeared = checkAppeared(multi);
+        if (appeared.size() >= rangeFrom && appeared.size() <= rangeTo) {
+            multi.addIndexes(appeared);
+            mapMulti.add(multi);
+        }
     }
 
-    private int checkAppeared(MultiCombinationNumber multi) {
+    private Set<Integer> checkAppeared(MultiCombinationNumber multi) {
         Set<Integer> appeared = new TreeSet<>();
         Integer[][] complexNumber = multi.getComplexNumber();
 
@@ -142,7 +142,7 @@ public class NumbersForMultiThreesFinder implements Runnable {
                 }
             }
         }
-        return appeared.size();
+        return appeared;
     }
 
     private List<Integer> getNumbersForOne(Integer first, Integer second, Integer exclude) {

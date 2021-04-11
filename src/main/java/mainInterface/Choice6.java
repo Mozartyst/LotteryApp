@@ -38,6 +38,7 @@ public class Choice6 {
                 , rangeFromForDoubleThrees
                 , rangeToForDoubleThrees
                 , rangeFromForTripleThrees
-                , rangeToForTripleThrees);
+                , rangeToForTripleThrees
+                , lotteryNumbers);
     }
 }

@@ -1,80 +1,63 @@
 package creators;
 
 import entity.*;
-import dataSupport.FileService;
 import entity.Number;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.TreeMap;
+import java.util.*;
 
 public class NumberCreator {
+    private final Map<Integer, Number> listOfNumbers;
     private final ArrayList<OneDraw> lotteryNumbers;
-    private final Properties properties;
-    private final TreeMap<Integer, Number> listOfNumbers = new TreeMap<>();
-    private final ArrayList<MultiCombinationNumber> multiCombinationList;
+    private final Integer index;
 
-    public NumberCreator(Properties properties) throws IOException, ClassNotFoundException {
-        this.lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
-        this.properties = properties;
-        this.multiCombinationList = FileService.loadObject(properties.getProperty("afterMulti"));
+    public NumberCreator(Map<Integer, Number> listOfNumbers
+            , ArrayList<OneDraw> lotteryNumbers
+            , Integer index) {
+        this.listOfNumbers = listOfNumbers;
+        this.lotteryNumbers = lotteryNumbers;
+        this.index = index;
     }
 
-    public void createNumbers() throws IOException {
-        TreeMap<Integer, ArrayList<Integer>> distance = returnDistanceBetweenNumbers();
-        for (int i = 1; i <= Integer.parseInt(properties.getProperty("range")); i++) {
-            Dependencies dependencies = new Dependencies();
-            Number number = new Number(i);
-            listOfNumbers.put(i, number);
-            dependencies.setAfterMulti(NumberAfterMulti(i));
-            dependencies.setDistance(distance.get(i));
-            listOfNumbers.get(i).setDependency(dependencies);
-            listOfNumbers.get(i).setOccurred(valueOfAppeared(i));
-        }
-        FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
-    }
-
-    private ArrayList<MultiCombinationNumber> NumberAfterMulti(int number) {
-        ArrayList<MultiCombinationNumber> afterMulti = new ArrayList<>();
-        for (MultiCombinationNumber m: multiCombinationList) {
-            m.getNumbersAfter().forEach((num, value)->{
-                if (num.equals(number)){
-                    afterMulti.add(m);
-                }
-            });
-        }
-        return afterMulti;
-    }
-
-    private Integer valueOfAppeared(int forNumber) {
-        int value = 0;
-        for (OneDraw currentDraw : lotteryNumbers) {
-            if (currentDraw.getDrawNumbers().contains(forNumber)) {
-                value += 1;
+    public void run() {
+        ArrayList<Integer> drawNumbersBefore = lotteryNumbers.get(index - 1).getDrawNumbers();
+        ArrayList<Integer> drawNumbersCurrent = lotteryNumbers.get(index).getDrawNumbers();
+        for (Integer num : drawNumbersCurrent) {
+            Number number;
+            if (listOfNumbers.containsKey(num)) {
+                number = listOfNumbers.get(num);
+                number.addIndex(index);
+                addOccureedWith(drawNumbersBefore, drawNumbersCurrent, number);
+            } else {
+                number = new Number(num);
+                number.addIndex(index);
+                addOccureedWith(drawNumbersBefore, drawNumbersCurrent, number);
+                listOfNumbers.put(num, number);
             }
+
         }
-        return value;
     }
 
-    private TreeMap<Integer, ArrayList<Integer>> returnDistanceBetweenNumbers() {
-        TreeMap<Integer, ArrayList<Integer>> distanceBetweenNumbers = new TreeMap<>();
-        int[] lastIndex = new int[Integer.parseInt(properties.getProperty("range"))];
+    private void addOccureedWith(ArrayList<Integer> drawNumbersBefore
+            , ArrayList<Integer> drawNumbersCurrent
+            , Number number) {
 
-        for (OneDraw weekNumbers : lotteryNumbers) {
-            for (Integer number : weekNumbers.getDrawNumbers()) {
-                ArrayList<Integer> distanceList;
-                if (distanceBetweenNumbers.containsKey(number)) {
-                    distanceList = distanceBetweenNumbers.get(number);
-                    distanceList.add((lotteryNumbers.indexOf(weekNumbers) - lastIndex[number - 1]) - 1);
-                    distanceBetweenNumbers.replace(number, distanceList);
+        for (Integer numberBefore : drawNumbersBefore) {
+            if (!numberBefore.equals(number.getValue())) {
+                if (number.getOccurredWith().containsKey(numberBefore)) {
+                    number.getOccurredWith().replace(numberBefore, number.getOccurredWith().get(numberBefore) + 1);
                 } else {
-                    distanceList = new ArrayList<>();
-                    distanceBetweenNumbers.put(number, distanceList);
+                    number.getOccurredWith().put(numberBefore, 1);
                 }
-                lastIndex[number - 1] = lotteryNumbers.indexOf(weekNumbers);
             }
         }
-        return distanceBetweenNumbers;
+        for (Integer numberCurrent : drawNumbersCurrent) {
+            if (!numberCurrent.equals(number.getValue())) {
+                if (number.getOccurredWith().containsKey(numberCurrent)) {
+                    number.getOccurredWith().replace(numberCurrent, number.getOccurredWith().get(numberCurrent) + 1);
+                } else {
+                    number.getOccurredWith().put(numberCurrent, 1);
+                }
+            }
+        }
     }
 }

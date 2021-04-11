@@ -11,14 +11,14 @@ import java.util.Scanner;
 public class Choice8 {
     public void run(ArrayList<OneDraw> lotteryNumbers, Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
         System.out.println("Select test:");
-        System.out.println("1 - NAN");
-        System.out.println("2 - NAP");
-        System.out.println("3 - NAT");
-        System.out.println("4 - Duet");
-        System.out.println("5 - Slant");
-        System.out.println("6 - Algorithm");
+        System.out.println("1 - ");
+        System.out.println("2 - ");
+        System.out.println("3 - ");
+        System.out.println("4 - ");
+        System.out.println("5 - ");
+        System.out.println("6 - ");
         System.out.println("7 - Random");
-        System.out.println("8 - NAMultiCombination");
+        System.out.println("8 - ");
         int choice = scanner.nextInt();
         ArrayList<OneDraw> lastFiftyDraws = new ArrayList<>();
         for (int i = lotteryNumbers.size()-50; i < lotteryNumbers.size(); i++) {
@@ -26,17 +26,11 @@ public class Choice8 {
         }
         Testy testy = new Testy(lastFiftyDraws, properties);
         if (choice == 1) {
-            testy.skutecznoscNumbersAfterNumber();
         } else if (choice == 2) {
-            testy.skutecznoscNumbersAfterPairs();
         } else if (choice == 3) {
-            testy.skutecznoscNumbersAfterTriple();
         } else if (choice == 4) {
-            testy.skutecznoscDuet();
         } else if (choice == 5) {
-            testy.skutecznoscSlant();
         } else if (choice == 6) {
-            testy.skutecznoscAlgorithm();
         } else if (choice == 7) {
             System.out.println("Input 6 numbers:");
             ArrayList<Integer> arrayList = new ArrayList<>();
@@ -46,7 +40,6 @@ public class Choice8 {
             }
             testy.skutecznoscLiczbRandomowych(arrayList);
         } else if (choice == 8) {
-            testy.skutecznoscMultiCombination();
         }
     }
 }

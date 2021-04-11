@@ -1,10 +1,16 @@
-url=https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Lotto&index=0&size=50&sort=drawDate&order=DESC
-lotteryNumbers=PolishLottery/FullDrawsList
-listOfNumbers=PolishLottery/ListOfNumbers
-algorithmFile=PolishLottery/AlgorithmFile
-afterMulti=PolishLottery/NumbersAfterMulti
-threes=PolishLottery/MultiThrees
-results=Results
-drawNumbers=6
+#Thu Apr 08 18:50:08 IST 2021
+reducedAfterMulti=PolishLottery/ReducedAfterMulti
 range=49
+listOfNumbers=PolishLottery/ListOfNumbers
+url=https\://www.lotto.pl/api/lotteries/draw-results/by-gametype?game\=Lotto&index\=0&size\=50&sort\=drawDate&order\=DESC
+afterMulti=PolishLottery/NumbersAfterMulti
+path=src/main/resources/PolishLotto
+multiByIndexes=PolishLottery/MultiCombinationMapByIndexes
+threes=PolishLottery/MultiThrees
+name=PolishLottery
+drawNumbers=6
+lastIndex=490
+lotteryNumbers=PolishLottery/FullDrawsList
+results=Results
 value=30
+algorithmFile=PolishLottery/AlgorithmFile

@@ -18,17 +18,17 @@ public class AlgorithmCreator {
         this.properties = properties;
     }
 
-    public void createAlgorithm() throws IOException, ClassNotFoundException {
+    public void createAlgorithm(Set<MultiCombinationNumber> multi) {
         TreeMap<Integer, TreeMap<Integer, TreeMap<Boolean, Integer>>> algorithm = new TreeMap<>();
         for (int i = 1; i <= Integer.parseInt(properties.getProperty("range")); i++) {
             TreeMap<Integer, TreeMap<Boolean, Integer>> algForNumber = new TreeMap<>();
-            ArrayList<MultiCombinationNumber> multi = FileService.loadObject(properties.getProperty("afterMulti"));
             TreeMap<Integer, Integer> afterNumbers = new TreeMap<>(); //afterNumber
             for (MultiCombinationNumber mul : multi) {
                 if (mul.getComplexNumber().length == 1) {
                     if (mul.getFirstKey().getNumbers().length == 1) {
-                        if (mul.getFirstKey().getFirstNumber().equals(i))
-                        afterNumbers.putAll(mul.getNumbersAfter());
+                        if (mul.getFirstKey().getFirstNumber().equals(i)) {
+//                        afterNumbers.putAll(mul.getNumbersAfter());
+                        }
                     }
                 }
             }

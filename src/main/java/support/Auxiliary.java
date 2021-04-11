@@ -3,9 +3,8 @@ package support;
 import entity.CombinationNumbers;
 import entity.OneDraw;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Auxiliary {
@@ -122,5 +121,224 @@ public class Auxiliary {
             if (y.size() == 0) listOfNumber.remove(x);
         });
         return listOfNumber;
+    }
+
+    public static int returnMaxKey(Map<Integer, Integer> map) {
+        AtomicInteger number = new AtomicInteger();
+        AtomicInteger max = new AtomicInteger(0);
+        map.forEach((key, value) -> {
+            if (max.get() < value) {
+                number.set(key);
+                max.set(value);
+
+            }
+        });
+
+        return number.get();
+    }
+
+    public static Set<Integer> returnFiveHighestKey(Map<Integer, Integer> map) {
+        Set<Integer> highestList = new TreeSet<>();
+        AtomicInteger first = new AtomicInteger(0);
+        AtomicInteger firstValue = new AtomicInteger(0);
+        AtomicInteger second = new AtomicInteger(0);
+        AtomicInteger secondValue = new AtomicInteger(0);
+        AtomicInteger third = new AtomicInteger(0);
+        AtomicInteger thirdValue = new AtomicInteger(0);
+        AtomicInteger fourth = new AtomicInteger(0);
+        AtomicInteger fourthValue = new AtomicInteger(0);
+        AtomicInteger fifth = new AtomicInteger(0);
+        AtomicInteger fifthValue = new AtomicInteger(0);
+        map.forEach((key, value) -> {
+            if (value > firstValue.get()) {
+                fifthValue.set(fourthValue.get());
+                fifth.set(fourth.get());
+                fourthValue.set(thirdValue.get());
+                fourth.set(third.get());
+                thirdValue.set(secondValue.get());
+                third.set(second.get());
+                secondValue.set(firstValue.get());
+                second.set(first.get());
+                firstValue.set(value);
+                first.set(key);
+            } else if (value > secondValue.get()) {
+                fifthValue.set(fourthValue.get());
+                fifth.set(fourth.get());
+                fourthValue.set(thirdValue.get());
+                fourth.set(third.get());
+                thirdValue.set(secondValue.get());
+                third.set(second.get());
+                secondValue.set(value);
+                second.set(key);
+            } else if (value > thirdValue.get()) {
+                fifthValue.set(fourthValue.get());
+                fifth.set(fourth.get());
+                fourthValue.set(thirdValue.get());
+                fourth.set(third.get());
+                thirdValue.set(value);
+                third.set(key);
+            } else if (value > fourthValue.get()) {
+                fifthValue.set(fourthValue.get());
+                fifth.set(fourth.get());
+                fourthValue.set(value);
+                fourth.set(key);
+            } else if (value > fifthValue.get()) {
+                fifthValue.set(value);
+                fifth.set(key);
+            }
+        });
+        if (first.get() != 0) {
+            highestList.add(first.get());
+        }
+        if (second.get() != 0) {
+            highestList.add(second.get());
+        }
+        if (third.get() != 0) {
+            highestList.add(third.get());
+        }
+        if (fourth.get() != 0) {
+            highestList.add(fourth.get());
+        }
+        if (fifth.get() != 0) {
+            highestList.add(fifth.get());
+        }
+        return highestList;
+    }
+
+    public static Set<Integer> returnFourHighestKey(Map<Integer, Integer> map) {
+        Set<Integer> highestList = new TreeSet<>();
+        AtomicInteger first = new AtomicInteger(0);
+        AtomicInteger firstValue = new AtomicInteger(0);
+        AtomicInteger second = new AtomicInteger(0);
+        AtomicInteger secondValue = new AtomicInteger(0);
+        AtomicInteger third = new AtomicInteger(0);
+        AtomicInteger thirdValue = new AtomicInteger(0);
+        AtomicInteger fourth = new AtomicInteger(0);
+        AtomicInteger fourthValue = new AtomicInteger(0);
+        map.forEach((key, value) -> {
+            if (value > firstValue.get()) {
+                fourthValue.set(thirdValue.get());
+                fourth.set(third.get());
+                thirdValue.set(secondValue.get());
+                third.set(second.get());
+                secondValue.set(firstValue.get());
+                second.set(first.get());
+                firstValue.set(value);
+                first.set(key);
+            } else if (value > secondValue.get()) {
+                fourthValue.set(thirdValue.get());
+                fourth.set(third.get());
+                thirdValue.set(secondValue.get());
+                third.set(second.get());
+                secondValue.set(value);
+                second.set(key);
+            } else if (value > thirdValue.get()) {
+                fourthValue.set(thirdValue.get());
+                fourth.set(third.get());
+                thirdValue.set(value);
+                third.set(key);
+            } else if (value > fourthValue.get()) {
+                fourthValue.set(value);
+                fourth.set(key);
+            }
+        });
+        if (first.get() != 0) {
+            highestList.add(first.get());
+        }
+        if (second.get() != 0) {
+            highestList.add(second.get());
+        }
+        if (third.get() != 0) {
+            highestList.add(third.get());
+        }
+        if (fourth.get() != 0) {
+            highestList.add(fourth.get());
+        }
+        return highestList;
+    }
+
+    public static Set<Integer> returnThreeHighestKey(Map<Integer, Integer> map) {
+        Set<Integer> highestList = new TreeSet<>();
+        AtomicInteger first = new AtomicInteger(0);
+        AtomicInteger firstValue = new AtomicInteger(0);
+        AtomicInteger second = new AtomicInteger(0);
+        AtomicInteger secondValue = new AtomicInteger(0);
+        AtomicInteger third = new AtomicInteger(0);
+        AtomicInteger thirdValue = new AtomicInteger(0);
+        map.forEach((key, value) -> {
+            if (value > firstValue.get()) {
+                thirdValue.set(secondValue.get());
+                third.set(second.get());
+                secondValue.set(firstValue.get());
+                second.set(first.get());
+                firstValue.set(value);
+                first.set(key);
+            } else if (value > secondValue.get()) {
+                thirdValue.set(secondValue.get());
+                third.set(second.get());
+                secondValue.set(value);
+                second.set(key);
+            } else if (value > thirdValue.get()) {
+                thirdValue.set(value);
+                third.set(key);
+            }
+        });
+        if (first.get() != 0) {
+            highestList.add(first.get());
+        }
+        if (second.get() != 0) {
+            highestList.add(second.get());
+        }
+        if (third.get() != 0) {
+            highestList.add(third.get());
+        }
+        return highestList;
+    }
+
+    public static Set<Integer> returnTwoHighestKey(Map<Integer, Integer> map) {
+        Set<Integer> highestList = new TreeSet<>();
+        AtomicInteger first = new AtomicInteger(0);
+        AtomicInteger firstValue = new AtomicInteger(0);
+        AtomicInteger second = new AtomicInteger(0);
+        AtomicInteger secondValue = new AtomicInteger(0);
+
+        map.forEach((key, value) -> {
+            if (value > firstValue.get()) {
+                secondValue.set(firstValue.get());
+                second.set(first.get());
+                firstValue.set(value);
+                first.set(key);
+            } else if (value > secondValue.get()) {
+                secondValue.set(value);
+                second.set(key);
+            }
+        });
+        if (first.get() != 0) {
+            highestList.add(first.get());
+        }
+        if (second.get() != 0) {
+            highestList.add(second.get());
+        }
+        return highestList;
+    }
+
+    public static void returnAfterNumbersFromIndexes(Set<Integer> indexesWhereAppeared, ArrayList<OneDraw> lotteryNumbers, Map<Integer, Integer> afterNumbers) {
+        for (Integer index : indexesWhereAppeared) {
+            for (Integer number : lotteryNumbers.get(index + 1).getDrawNumbers()) {
+                if (afterNumbers.containsKey(number)) {
+                    afterNumbers.replace(number, afterNumbers.get(number) + 1);
+                } else {
+                    afterNumbers.put(number, 1);
+                }
+            }
+        }
+    }
+
+    public static void addAfterNumber(Map<Integer, Integer> afterNumbers, Integer number, Integer size) {
+        if (afterNumbers.containsKey(number)) {
+            afterNumbers.replace(number, afterNumbers.get(number) + size);
+        } else {
+            afterNumbers.put(number, size);
+        }
     }
 }

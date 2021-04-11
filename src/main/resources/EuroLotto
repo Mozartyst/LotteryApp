@@ -1,10 +1,17 @@
-url=https://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws=50&drawType=EuroMillions
-lotteryNumbers=EuroLottery/FullDrawsList
-listOfNumbers=EuroLottery/ListOfNumbers
-algorithmFile=EuroLottery/AlgorithmFile
-afterMulti=EuroLottery/NumbersAfterMulti
-threes=EuroLottery/MultiThrees
-results=Results
-drawNumbers=5
+#Mon Apr 05 18:00:01 IST 2021
+reducedAfterMulti=EuroLottery/ReducedAfterMulti
 range=50
+listOfNumbers=EuroLottery/ListOfNumbers
+url=https\://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws\=50&drawType\=EuroMillions
+afterMulti=EuroLottery/NumbersAfterMulti
+path=src/main/resources/EuroLotto
+multiByIndexes=EuroLottery/MultiCombinationMapByIndexes
+threes=EuroLottery/MultiThrees
+name=EuroLottery
+drawNumbers=5
+from=2016
+lastIndex=498
+lotteryNumbers=EuroLottery/FullDrawsList
+results=Results
 value=15
+algorithmFile=EuroLottery/AlgorithmFile
