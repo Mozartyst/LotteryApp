@@ -321,7 +321,22 @@ public class Auxiliary {
         }
         return highestList;
     }
+    public static Set<Integer> returnOneHighestKey(Map<Integer, Integer> map) {
+        Set<Integer> highestList = new TreeSet<>();
+        AtomicInteger first = new AtomicInteger(0);
+        AtomicInteger firstValue = new AtomicInteger(0);
 
+        map.forEach((key, value) -> {
+            if (value > firstValue.get()) {
+                firstValue.set(value);
+                first.set(key);
+            }
+        });
+        if (first.get() != 0) {
+            highestList.add(first.get());
+        }
+        return highestList;
+    }
     public static void returnAfterNumbersFromIndexes(Set<Integer> indexesWhereAppeared, ArrayList<OneDraw> lotteryNumbers, Map<Integer, Integer> afterNumbers) {
         for (Integer index : indexesWhereAppeared) {
             for (Integer number : lotteryNumbers.get(index + 1).getDrawNumbers()) {

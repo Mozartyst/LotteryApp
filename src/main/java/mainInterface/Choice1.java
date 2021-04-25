@@ -12,8 +12,9 @@ public class Choice1 {
         System.out.println("1 - MultiThreesGapChecker");
         System.out.println("2 - EachWithEveryOne");
         System.out.println("3 - ThreesChecker");
-        System.out.println("4 - ThreesChecker");
+        System.out.println("4 - ThreesPrinter");
         System.out.println("5 - LastDrawsThreesPrinter");
+        System.out.println("6 - AllDrawsPrinter");
         int choice = scanner.nextInt();
         if (choice == 1) {
             new Choice1a().run(lotteryNumbers, scanner);
@@ -22,9 +23,11 @@ public class Choice1 {
         } else if (choice == 3) {
             new Choice1c().run(lotteryNumbers, scanner);
         } else if (choice == 4) {
-            new Choice1c().run(lotteryNumbers, scanner);
+            new Choice1e().run(lotteryNumbers, scanner, properties);
         }else if (choice == 5) {
             new Choice1d().run(lotteryNumbers, scanner);
+        }else if (choice == 6) {
+            new Choice1f().run(lotteryNumbers, scanner);
         }
     }
 }

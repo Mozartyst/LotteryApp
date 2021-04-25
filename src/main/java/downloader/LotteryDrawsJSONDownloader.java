@@ -33,7 +33,7 @@ public class LotteryDrawsJSONDownloader {
             Integer lastDrawNumber = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawNumber();
             int difference = latestDrawNumber - lastDrawNumber;
             if (difference > 0) {
-                for (int i = difference; i >= 0; i--) {
+                for (int i = difference - 1; i >= 0; i--) {
                     OneDraw oneDraw = new OneDraw();
                     JsonObject drawObject = object.getJsonArray("items")
                             .getJsonObject(i)
@@ -41,12 +41,12 @@ public class LotteryDrawsJSONDownloader {
                             .getJsonObject(0);
 
                     oneDraw.setDrawDate(LocalDateTime.parse(drawObject.get("drawDate").toString()
-                            .replace("\"",""), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")));
+                            .replace("\"", ""), DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")));
                     oneDraw.setDrawNumber(Integer.valueOf(drawObject.get("drawSystemId").toString()));
 
                     List<String> resultsJson = Arrays.asList(drawObject.get("resultsJson").toString()
-                            .replace("[","")
-                            .replace("]","")
+                            .replace("[", "")
+                            .replace("]", "")
                             .split(","));
                     ArrayList<Integer> results = new ArrayList<>();
                     resultsJson.forEach((s -> results.add(Integer.valueOf(s))));

@@ -1,7 +1,9 @@
-#Sun Apr 11 21:12:15 IST 2021
+#Sat Apr 24 16:21:37 IST 2021
 reducedAfterMulti=EuroLottery/ReducedAfterMulti
 range=50
+dateFrom=2016
 listOfNumbers=EuroLottery/ListOfNumbers
+gaps=EuroLottery/GapsPropositions
 url=https\://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws\=50&drawType\=EuroMillions
 afterMulti=EuroLottery/NumbersAfterMulti
 path=src/main/resources/EuroLotto
@@ -9,8 +11,7 @@ multiByIndexes=EuroLottery/MultiCombinationMapByIndexes
 threes=EuroLottery/MultiThrees
 name=EuroLottery
 drawNumbers=5
-from=2016
-lastIndex=500
+lastIndex=504
 lotteryNumbers=EuroLottery/FullDrawsList
 results=Results
 value=15

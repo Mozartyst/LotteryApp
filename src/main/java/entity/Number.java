@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Number implements Serializable, Comparable<Number> {
     private final int value;
+    private double weight;
     private int lastIndex;
     private final Map<Integer, Integer> occurredGaps = new TreeMap<>();
     private final Map<Integer, Integer> occurredWith = new TreeMap<>();
@@ -20,16 +21,43 @@ public class Number implements Serializable, Comparable<Number> {
         return value;
     }
 
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
     public int getCurrentGap(int currentIndex) {
         return currentIndex - this.lastIndex;
+    }
+
+    public Set<Integer> getTwoHighestGap() {
+        return Auxiliary.returnTwoHighestKey(occurredGaps);
+    }
+
+    public Set<Integer> getThreeHighestGap() {
+        return Auxiliary.returnThreeHighestKey(occurredGaps);
     }
 
     public Set<Integer> getFourHighestGap() {
         return Auxiliary.returnFourHighestKey(occurredGaps);
     }
 
+    public Set<Integer> getFiveHighestGap() {
+        return Auxiliary.returnFiveHighestKey(occurredGaps);
+    }
+
+    public Set<Integer> getOneHighestNumberOccurredWith() {
+        return Auxiliary.returnOneHighestKey(occurredWith);
+    }
     public Set<Integer> getTwoHighestNumbersOccurredWith() {
         return Auxiliary.returnTwoHighestKey(occurredWith);
+    }
+
+    public Set<Integer> getThreeHighestNumbersOccurredWith() {
+        return Auxiliary.returnThreeHighestKey(occurredWith);
     }
 
     public Map<Integer, Integer> getOccurredWith() {

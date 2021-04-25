@@ -10,6 +10,7 @@ import downloader.DownloadPolish;
 import entity.MultiCombinationNumber;
 import entity.Number;
 import entity.OneDraw;
+import lottoPropositions.NumbersFromGaps;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,10 +34,10 @@ public class FirstTime {
         String polishPath = polishProp.getProperty("path");
 
         if (!FileService.isFile(irishProp.getProperty("lotteryNumbers"))) {
-            new DownloadIrish().getNumbers(irishProp, Integer.parseInt(irishProp.getProperty("from")), LocalDateTime.now().getYear());
+            new DownloadIrish().getNumbers(irishProp, Integer.parseInt(irishProp.getProperty("dateFrom")), LocalDateTime.now().getYear());
         }
         if (!FileService.isFile(euroProp.getProperty("lotteryNumbers"))) {
-            new DownloadEuro().getNumbers(euroProp, Integer.parseInt(euroProp.getProperty("from")), LocalDateTime.now().getYear());
+            new DownloadEuro().getNumbers(euroProp, Integer.parseInt(euroProp.getProperty("dateFrom")), LocalDateTime.now().getYear());
         }
         if (!FileService.isFile(polishProp.getProperty("lotteryNumbers"))) {
             new DownloadPolish(polishProp);
@@ -68,12 +69,18 @@ public class FirstTime {
             , String path) throws IOException {
         if (!FileService.isFile(properties.getProperty("listOfNumbers"))) {
             Map<Integer, Number> listOfNumbers = new TreeMap<>();
+            Map<Integer, Set<Integer>> numbersFromGaps = new TreeMap<>();
             for (int i = 1; i < (lotteryNumbers.size() - 50); i++) {
                 new NumberCreator(listOfNumbers, lotteryNumbers, i).run();
                 properties.setProperty("lastIndex", String.valueOf(i));
+                if (i >= lotteryNumbers.size() - 53) {
+                    Set<Integer> integers = new NumbersFromGaps().get(lotteryNumbers, listOfNumbers, i);
+                    numbersFromGaps.put(i, integers);
+                }
             }
             properties.store(new FileOutputStream(path), null);
             FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
+            FileService.saveObject(numbersFromGaps, properties.getProperty("gaps"));
         }
     }
 }

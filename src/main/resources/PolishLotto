@@ -1,7 +1,8 @@
-#Sun Apr 11 22:51:36 IST 2021
+#Sat Apr 24 16:21:38 IST 2021
 reducedAfterMulti=PolishLottery/ReducedAfterMulti
 range=49
 listOfNumbers=PolishLottery/ListOfNumbers
+gaps=PolishLottery/GapsPropositions
 url=https\://www.lotto.pl/api/lotteries/draw-results/by-gametype?game\=Lotto&index\=0&size\=50&sort\=drawDate&order\=DESC
 afterMulti=PolishLottery/NumbersAfterMulti
 path=src/main/resources/PolishLotto
@@ -9,7 +10,7 @@ multiByIndexes=PolishLottery/MultiCombinationMapByIndexes
 threes=PolishLottery/MultiThrees
 name=PolishLottery
 drawNumbers=6
-lastIndex=449
+lastIndex=459
 lotteryNumbers=PolishLottery/FullDrawsList
 results=Results
 value=30
