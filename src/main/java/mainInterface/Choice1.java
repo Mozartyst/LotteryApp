@@ -16,7 +16,7 @@ public class Choice1 {
         System.out.println("5 - LastDrawsThreesPrinter");
         System.out.println("6 - AllDrawsPrinter");
         System.out.println("7 - AllDrawsGraph");
-        System.out.println("8 - ");
+        System.out.println("8 - Print repeated");
         System.out.println("9 - ");
         System.out.println("10 - ");
         System.out.println("11 - ");
