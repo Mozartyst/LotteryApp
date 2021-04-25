@@ -16,3 +16,4 @@ results=Results
 value=30
 algorithmFile=PolishLottery/AlgorithmFile
 bonusBalls=false
+bonusTogether=false

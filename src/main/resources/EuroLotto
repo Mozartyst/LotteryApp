@@ -17,3 +17,5 @@ results=Results
 value=15
 algorithmFile=EuroLottery/AlgorithmFile
 bonusBalls=true
+bonusTogether=false
+bonusRange=12

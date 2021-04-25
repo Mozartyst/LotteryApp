@@ -17,3 +17,4 @@ results=Results
 value=30
 algorithmFile=IrishLottery/AlgorithmFile
 bonusBalls=true
+bonusTogether=true
