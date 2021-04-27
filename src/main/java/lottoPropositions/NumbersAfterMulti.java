@@ -36,7 +36,9 @@ public class NumbersAfterMulti {
             if (multiCombinationSet.contains(m)) {
                 if (m.getComplexNumber().length == 2) {
                     if (m.getSecondKey().getNumbers().length == 1) {
-//                        Auxiliary.addAfterNumber(afterNumbers, m.getSecondKey().getFirstNumber(), m.getIndexesWhereAppeared().size());
+                        if (properties.getProperty("name").equals("EuroLottery")) {
+                            Auxiliary.addAfterNumber(afterNumbers, m.getSecondKey().getFirstNumber(), m.getIndexesWhereAppeared().size());
+                        }
                     } else if (m.getSecondKey().getNumbers().length == 2) {
                         Auxiliary.addAfterNumber(afterNumbers, m.getSecondKey().getSecondNumber(), m.getIndexesWhereAppeared().size());
                     } else if (m.getSecondKey().getNumbers().length == 3) {

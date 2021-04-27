@@ -16,7 +16,8 @@ public class LotteryChoice {
         System.out.println("1 - IrishLotto");
         System.out.println("2 - EuroMillion");
         System.out.println("3 - PolishLotto");
-        System.out.println("4 - Quit");
+        System.out.println("4 - AustralianLotto");
+        System.out.println("5 - Quit");
         int number = 4;
         try {
             number = scanner.nextInt();
@@ -30,6 +31,8 @@ public class LotteryChoice {
         }else if (number == 3){
             properties.load(new FileInputStream("src/main/resources/PolishLotto"));
         }else if (number == 4){
+            properties.load(new FileInputStream("src/main/resources/AustralianLotto"));
+        }else if (number == 5){
             System.exit(0);
         }else {
             System.out.println("Wrong choice!!!");

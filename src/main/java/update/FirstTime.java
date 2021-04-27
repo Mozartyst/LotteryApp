@@ -4,6 +4,7 @@ import creators.AfterMultiCreator;
 import creators.MultiCombinationReducer;
 import creators.NumberCreator;
 import dataSupport.FileService;
+import downloader.DownloadAustralian;
 import downloader.DownloadEuro;
 import downloader.DownloadIrish;
 import downloader.DownloadPolish;
@@ -28,10 +29,13 @@ public class FirstTime {
         euroProp.load(new FileInputStream("src/main/resources/EuroLotto"));
         Properties polishProp = new Properties();
         polishProp.load(new FileInputStream("src/main/resources/PolishLotto"));
+        Properties australianProp = new Properties();
+        australianProp.load(new FileInputStream("src/main/resources/AustralianLotto"));
 
         String irishPath = irishProp.getProperty("path");
         String euroPath = euroProp.getProperty("path");
         String polishPath = polishProp.getProperty("path");
+        String australianPath = australianProp.getProperty("path");
 
         if (!FileService.isFile(irishProp.getProperty("lotteryNumbers"))) {
             new DownloadIrish().getNumbers(irishProp, Integer.parseInt(irishProp.getProperty("dateFrom")), LocalDateTime.now().getYear());
@@ -42,17 +46,23 @@ public class FirstTime {
         if (!FileService.isFile(polishProp.getProperty("lotteryNumbers"))) {
             new DownloadPolish(polishProp);
         }
+        if (!FileService.isFile(australianProp.getProperty("lotteryNumbers"))) {
+            new DownloadAustralian().getNumbers(australianProp, Integer.parseInt(australianProp.getProperty("dateFrom")), LocalDateTime.now().getYear());
+        }
 
         ArrayList<OneDraw> irishLotteryNumbers = FileService.loadObject(irishProp.getProperty("lotteryNumbers"));
         ArrayList<OneDraw> euroLotteryNumbers = FileService.loadObject(euroProp.getProperty("lotteryNumbers"));
         ArrayList<OneDraw> polishLotteryNumbers = FileService.loadObject(polishProp.getProperty("lotteryNumbers"));
+        ArrayList<OneDraw> australianLotteryNumbers = FileService.loadObject(australianProp.getProperty("lotteryNumbers"));
 
         afterMultiCreator(irishLotteryNumbers, irishProp);
         afterMultiCreator(euroLotteryNumbers, euroProp);
         afterMultiCreator(polishLotteryNumbers, polishProp);
+        afterMultiCreator(australianLotteryNumbers, australianProp);
         numbersCreator(irishLotteryNumbers, irishProp, irishPath);
         numbersCreator(euroLotteryNumbers, euroProp, euroPath);
         numbersCreator(polishLotteryNumbers, polishProp, polishPath);
+        numbersCreator(australianLotteryNumbers, australianProp, australianPath);
     }
 
     private void afterMultiCreator(ArrayList<OneDraw> lotteryNumbers, Properties properties) throws IOException, ClassNotFoundException {

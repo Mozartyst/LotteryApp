@@ -26,7 +26,11 @@ public class Main {
                 && FileService.isFile("EuroLottery/ListOfNumbers")
                 && FileService.isFile("PolishLottery/NumbersAfterMulti")
                 && FileService.isFile("PolishLottery/ListOfNumbers")
-                && FileService.isFile("PolishLottery/FullDrawsList")) {
+                && FileService.isFile("PolishLottery/FullDrawsList")
+                && FileService.isFile("Australian/FullDrawsList")
+                && FileService.isFile("Australian/ListOfNumbers")
+                && FileService.isFile("Australian/NumbersAfterMulti")
+        ) {
             new LotteryUpdate().run();
             Properties properties = new LotteryChoice().run(scanner);
             ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
