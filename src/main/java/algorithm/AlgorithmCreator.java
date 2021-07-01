@@ -7,7 +7,7 @@ import entity.OneDraw;
 import lottoPropositions.NumbersAfterMulti;
 import lottoPropositions.NumbersAppearedWith;
 import lottoPropositions.NumbersFromGaps;
-import printers.PropositionChecker;
+import printers.PropositionMatcher;
 
 import java.util.*;
 
@@ -41,10 +41,10 @@ public class AlgorithmCreator implements Runnable {
         Set<Integer> numbersFromGaps = new NumbersFromGaps().get(lotteryNumbers, listOfNumbers, index);
         Set<Integer> after = new NumbersAfterMulti().get(lotteryNumbers, reducedMultiCombination, properties, index);
         Set<Integer> numbers = new NumbersAppearedWith().get(listOfNumbers, numbersFromGaps);
-        new PropositionChecker().check(lotteryNumbers, numbersFromGaps, index);
-        new PropositionChecker().check(lotteryNumbers, after, index);
-        new PropositionChecker().check(lotteryNumbers, numbers, index);
-        new PropositionChecker().check(lotteryNumbers, unrealized(), index);
+        new PropositionMatcher().check(lotteryNumbers, numbersFromGaps, index);
+        new PropositionMatcher().check(lotteryNumbers, after, index);
+        new PropositionMatcher().check(lotteryNumbers, numbers, index);
+        new PropositionMatcher().check(lotteryNumbers, unrealized(), index);
 
     }
 

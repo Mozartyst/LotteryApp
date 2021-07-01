@@ -26,18 +26,18 @@ public class NumberCreator {
             if (listOfNumbers.containsKey(num)) {
                 number = listOfNumbers.get(num);
                 number.addIndex(index);
-                addOccureedWith(drawNumbersBefore, drawNumbersCurrent, number);
+                addOccurredWith(drawNumbersBefore, drawNumbersCurrent, number);
             } else {
                 number = new Number(num);
                 number.addIndex(index);
-                addOccureedWith(drawNumbersBefore, drawNumbersCurrent, number);
+                addOccurredWith(drawNumbersBefore, drawNumbersCurrent, number);
                 listOfNumbers.put(num, number);
             }
 
         }
     }
 
-    private void addOccureedWith(ArrayList<Integer> drawNumbersBefore
+    private void addOccurredWith(ArrayList<Integer> drawNumbersBefore
             , ArrayList<Integer> drawNumbersCurrent
             , Number number) {
 

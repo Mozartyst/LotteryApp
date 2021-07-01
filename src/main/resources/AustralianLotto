@@ -1,8 +1,9 @@
-#Tue Apr 27 22:30:57 IST 2021
+#Sun May 23 17:21:45 IST 2021
 reducedAfterMulti=Australian/ReducedAfterMulti
 bonusBalls=true
 range=45
 dateFrom=2015
+bonusRange=45
 listOfNumbers=Australian/ListOfNumbers
 gaps=Australian/GapsPropositions
 url=https\://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws\=50&drawType\=Lotto
@@ -13,9 +14,8 @@ threes=Australian/MultiThrees
 name=Australian
 bonusTogether=true
 drawNumbers=6
-lastIndex=279
+lastIndex=304
 lotteryNumbers=Australian/FullDrawsList
 results=Results
 value=30
 algorithmFile=Australian/AlgorithmFile
-bonusRange=45

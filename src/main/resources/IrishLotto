@@ -1,7 +1,9 @@
-#Sat Apr 24 16:21:37 IST 2021
+#Thu Jul 01 19:19:18 IST 2021
 reducedAfterMulti=IrishLottery/ReducedAfterMulti
+bonusBalls=true
 range=47
 dateFrom=2015
+bonusRange=47
 listOfNumbers=IrishLottery/ListOfNumbers
 gaps=IrishLottery/GapsPropositions
 url=https\://resultsservice.lottery.ie/rest/GetResults?lastNumberOfDraws\=50&drawType\=Lotto
@@ -10,11 +12,10 @@ path=src/main/resources/IrishLotto
 multiByIndexes=IrishLottery/MultiCombinationMapByIndexes
 threes=IrishLottery/MultiThrees
 name=IrishLottery
+bonusTogether=true
 drawNumbers=6
-lastIndex=537
+lastIndex=587
 lotteryNumbers=IrishLottery/FullDrawsList
 results=Results
 value=30
 algorithmFile=IrishLottery/AlgorithmFile
-bonusBalls=true
-bonusTogether=true

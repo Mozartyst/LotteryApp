@@ -22,6 +22,9 @@ public class UpdateNumbers {
         Integer lastIndex = Integer.valueOf(properties.getProperty("lastIndex"));
         for (int index = lastIndex; index < lotteryNumbers.size(); index++) {
             new AlgorithmCreator(lotteryNumbers, reducedMultiCombinationSet, listOfNumbers, index, properties, gaps).run();
+//            for (int j = 1; j <= Integer.parseInt(properties.getProperty("range")); j++) {
+//                new WeightCreator(lotteryNumbers, listOfNumbers, properties, index, j).run();
+//            }
             if (index < lotteryNumbers.size() - 1) {
                 new NumberCreator(listOfNumbers, lotteryNumbers, index + 1);
                 new AfterMultiCreator().run(lotteryNumbers, properties, multiCombinationSet, index + 1, (index + 2));

@@ -1,3 +1,4 @@
+import checker.FilesChecker;
 import dataSupport.FileService;
 import entity.MultiCombinationNumber;
 import entity.OneDraw;
@@ -18,30 +19,20 @@ public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException, InterruptedException {
         Boolean isRun = true;
         Scanner scanner = new Scanner(System.in);
-        if (FileService.isFile("IrishLottery/FullDrawsList")
-                && FileService.isFile("IrishLottery/NumbersAfterMulti")
-                && FileService.isFile("IrishLottery/ListOfNumbers")
-                && FileService.isFile("EuroLottery/FullDrawsList")
-                && FileService.isFile("EuroLottery/NumbersAfterMulti")
-                && FileService.isFile("EuroLottery/ListOfNumbers")
-                && FileService.isFile("PolishLottery/NumbersAfterMulti")
-                && FileService.isFile("PolishLottery/ListOfNumbers")
-                && FileService.isFile("PolishLottery/FullDrawsList")
-                && FileService.isFile("Australian/FullDrawsList")
-                && FileService.isFile("Australian/ListOfNumbers")
-                && FileService.isFile("Australian/NumbersAfterMulti")
-        ) {
-            new LotteryUpdate().run();
-            Properties properties = new LotteryChoice().run(scanner);
-            ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
-            Set<MultiCombinationNumber> multiCombinationNumbers = FileService.loadObject(properties.getProperty("reducedAfterMulti"));
-            while (isRun) {
-                new MainMenu().showMenu(lotteryNumbers,scanner, properties);
+        while (isRun) {
+            if (new FilesChecker().areFiles()) {
+                new LotteryUpdate().run();
+                Properties properties = new LotteryChoice().run(scanner);
+                ArrayList<OneDraw> lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
+                Set<MultiCombinationNumber> multiCombinationNumbers = FileService.loadObject(properties.getProperty("reducedAfterMulti"));
+                while (isRun) {
+                    new MainMenu().showMenu(lotteryNumbers, scanner, properties);
+                }
+            } else {
+                System.out.println("The installation is in progress");
+                new FirstTime().run();
+                System.out.println("Installation Finished.");
             }
-        } else {
-            System.out.println("The installation is in progress");
-            new FirstTime().run();
-            System.out.println("Installation Finished. Run program again");
         }
     }
 }

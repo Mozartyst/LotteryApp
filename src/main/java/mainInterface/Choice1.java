@@ -17,7 +17,7 @@ public class Choice1 {
         System.out.println("6 - AllDrawsPrinter");
         System.out.println("7 - AllDrawsGraph");
         System.out.println("8 - Print repeated");
-        System.out.println("9 - ");
+        System.out.println("9 - Numbers printer");
         System.out.println("10 - ");
         System.out.println("11 - ");
         int choice = scanner.nextInt();
@@ -38,9 +38,9 @@ public class Choice1 {
         }else if (choice == 8) {
             new Choice1h().run(lotteryNumbers, scanner);
         }else if (choice == 9) {
-            new Choice1i().run(lotteryNumbers, scanner);
+            new Choice1i().run(lotteryNumbers, scanner, properties);
         }else if (choice == 10) {
-            new Choice1j().run(lotteryNumbers, scanner);
+            new Choice1j().run(lotteryNumbers, scanner, properties);
         }else if (choice == 11) {
             new Choice1k().run(lotteryNumbers, scanner);
         }

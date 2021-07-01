@@ -72,8 +72,8 @@ public class Auxiliary {
         return listOfNumbersAroundAverage;
     }
 
-    public static TreeMap<Integer, Integer> returnListOfNumbersOverAverage(TreeMap<Integer, Integer> listOfNumbers) {
-        TreeMap<Integer, Integer> listOfNumbersOverAverage = new TreeMap<>();
+    public static Map<Integer, Integer> returnListOfNumbersOverAverage(Map<Integer, Integer> listOfNumbers) {
+        Map<Integer, Integer> listOfNumbersOverAverage = new TreeMap<>();
         AtomicReference<Integer> average = new AtomicReference<>(0);
         for (Integer integer : listOfNumbers.values()) {
             average.updateAndGet(v -> v + integer);
@@ -113,8 +113,8 @@ public class Auxiliary {
         return reversedLotteryNumbersList;
     }
 
-    public TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> reducer(TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> listOfNumber) {
-        TreeMap<CombinationNumbers, TreeMap<Integer, Integer>> tempList = new TreeMap<>(listOfNumber);
+    public TreeMap<CombinationNumbers, Map<Integer, Integer>> reducer(TreeMap<CombinationNumbers, Map<Integer, Integer>> listOfNumber) {
+        TreeMap<CombinationNumbers, Map<Integer, Integer>> tempList = new TreeMap(listOfNumber);
         tempList.forEach((x, y) -> listOfNumber.replace(x, returnListOfNumbersOverAverage(y)));
         tempList.putAll(listOfNumber);
         tempList.forEach((x, y) -> {
@@ -321,6 +321,7 @@ public class Auxiliary {
         }
         return highestList;
     }
+
     public static Set<Integer> returnOneHighestKey(Map<Integer, Integer> map) {
         Set<Integer> highestList = new TreeSet<>();
         AtomicInteger first = new AtomicInteger(0);
@@ -337,6 +338,7 @@ public class Auxiliary {
         }
         return highestList;
     }
+
     public static void returnAfterNumbersFromIndexes(Set<Integer> indexesWhereAppeared, ArrayList<OneDraw> lotteryNumbers, Map<Integer, Integer> afterNumbers) {
         for (Integer index : indexesWhereAppeared) {
             for (Integer number : lotteryNumbers.get(index + 1).getDrawNumbers()) {
@@ -355,5 +357,26 @@ public class Auxiliary {
         } else {
             afterNumbers.put(number, size);
         }
+    }
+
+    public static double returnPercentage(Map<Integer, Integer> integerMap, Integer number) {
+        double percentage = 0.0;
+        int max = 0;
+        int min = 0;
+        for (Integer num : integerMap.values()) {
+            if (num > max) {
+                max = num;
+            } else if (num < min || min == 0) {
+                min = num;
+            }
+        }
+        double scale = 100.00 / (max - min);
+        if (integerMap.get(number) != null) {
+            for (int i = min; i < integerMap.get(number); i++) {
+                percentage += scale;
+            }
+        }
+
+        return percentage;
     }
 }

@@ -3,6 +3,7 @@ package update;
 import creators.AfterMultiCreator;
 import creators.MultiCombinationReducer;
 import creators.NumberCreator;
+import creators.weightSystem.WeightCreator;
 import dataSupport.FileService;
 import downloader.DownloadAustralian;
 import downloader.DownloadEuro;
@@ -68,7 +69,7 @@ public class FirstTime {
     private void afterMultiCreator(ArrayList<OneDraw> lotteryNumbers, Properties properties) throws IOException, ClassNotFoundException {
         if (!FileService.isFile(properties.getProperty("afterMulti"))) {
             Set<MultiCombinationNumber> multiCombinationSet = new HashSet<>();
-            new AfterMultiCreator().run(lotteryNumbers, properties, multiCombinationSet, 3, lotteryNumbers.size() - 50);
+            new AfterMultiCreator().run(lotteryNumbers, properties, multiCombinationSet, 3, lotteryNumbers.size() - 20);
             FileService.saveObject(multiCombinationSet, properties.getProperty("afterMulti"));
             new MultiCombinationReducer(multiCombinationSet, properties).reduceMultiFile();
         }
@@ -80,12 +81,15 @@ public class FirstTime {
         if (!FileService.isFile(properties.getProperty("listOfNumbers"))) {
             Map<Integer, Number> listOfNumbers = new TreeMap<>();
             Map<Integer, Set<Integer>> numbersFromGaps = new TreeMap<>();
-            for (int i = 1; i < (lotteryNumbers.size() - 50); i++) {
-                new NumberCreator(listOfNumbers, lotteryNumbers, i).run();
-                properties.setProperty("lastIndex", String.valueOf(i));
-                if (i >= lotteryNumbers.size() - 53) {
-                    Set<Integer> integers = new NumbersFromGaps().get(lotteryNumbers, listOfNumbers, i);
-                    numbersFromGaps.put(i, integers);
+            for (int index = 1; index < (lotteryNumbers.size() - 20); index++) {
+                new NumberCreator(listOfNumbers, lotteryNumbers, index).run();
+                properties.setProperty("lastIndex", String.valueOf(index));
+                if (index > lotteryNumbers.size() - 150) {
+                    new WeightCreator(lotteryNumbers, listOfNumbers, index).run();
+                }
+                if (index >= lotteryNumbers.size() - 28) {
+                    Set<Integer> integers = new NumbersFromGaps().get(lotteryNumbers, listOfNumbers, index);
+                    numbersFromGaps.put(index, integers);
                 }
             }
             properties.store(new FileOutputStream(path), null);

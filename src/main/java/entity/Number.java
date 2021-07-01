@@ -29,6 +29,7 @@ public class Number implements Serializable, Comparable<Number> {
         this.weight = weight;
     }
 
+
     public int getCurrentGap(int currentIndex) {
         return currentIndex - this.lastIndex;
     }
@@ -52,12 +53,21 @@ public class Number implements Serializable, Comparable<Number> {
     public Set<Integer> getOneHighestNumberOccurredWith() {
         return Auxiliary.returnOneHighestKey(occurredWith);
     }
+
     public Set<Integer> getTwoHighestNumbersOccurredWith() {
         return Auxiliary.returnTwoHighestKey(occurredWith);
     }
 
     public Set<Integer> getThreeHighestNumbersOccurredWith() {
         return Auxiliary.returnThreeHighestKey(occurredWith);
+    }
+
+    public Set<Integer> getFourHighestNumbersOccurredWith() {
+        return Auxiliary.returnFourHighestKey(occurredWith);
+    }
+
+    public Set<Integer> getFiveHighestNumbersOccurredWith() {
+        return Auxiliary.returnFiveHighestKey(occurredWith);
     }
 
     public Map<Integer, Integer> getOccurredWith() {
@@ -103,4 +113,12 @@ public class Number implements Serializable, Comparable<Number> {
         return value - o.value;
     }
 
+    @Override
+    public String toString() {
+        return "Number " + value + "{" +
+                ", weight=" + weight +
+                ", lastIndex=" + lastIndex +
+                ", occurred=" + indexesWhereAppeared.size() +
+                '}';
+    }
 }

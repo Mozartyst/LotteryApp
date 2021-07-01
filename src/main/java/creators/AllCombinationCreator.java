@@ -4,65 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllCombinationCreator {
-    public List<List<Integer>> getCombinationNumbers(ArrayList<Integer> numbersList) {
+    public List<List<Integer>> getCombinationNumbers(List<Integer> numbersList) {
         List<List<Integer>> combinationNumbers = new ArrayList<>();
-        for (Integer firstNumber : numbersList) {
-            List<Integer> one = new ArrayList<>();
-            one.add(firstNumber);
-            combinationNumbers.add(one);
-
-            for (Integer secondNumber : numbersList) {
-                if (firstNumber < secondNumber) {
-                    List<Integer> two = new ArrayList<>();
-                    two.add(firstNumber);
-                    two.add(secondNumber);
-                    combinationNumbers.add(two);
-                    for (Integer thirdNumber : numbersList) {
-                        if (secondNumber < thirdNumber) {
-                            List<Integer> three = new ArrayList<>();
-                            three.add(firstNumber);
-                            three.add(secondNumber);
-                            three.add(thirdNumber);
-                            combinationNumbers.add(three);
-                            for (Integer fourthNumber : numbersList) {
-                                if (thirdNumber < fourthNumber) {
-                                    List<Integer> four = new ArrayList<>();
-                                    four.add(firstNumber);
-                                    four.add(secondNumber);
-                                    four.add(thirdNumber);
-                                    four.add(fourthNumber);
-                                    combinationNumbers.add(four);
-                                    for (Integer fifthNumber : numbersList) {
-                                        if (fourthNumber < fifthNumber) {
-                                            List<Integer> five = new ArrayList<>();
-                                            five.add(firstNumber);
-                                            five.add(secondNumber);
-                                            five.add(thirdNumber);
-                                            five.add(fourthNumber);
-                                            five.add(fifthNumber);
-                                            combinationNumbers.add(five);
-                                            for (Integer sixthNumber : numbersList) {
-                                                if (fifthNumber < sixthNumber) {
-                                                    List<Integer> six = new ArrayList<>();
-                                                    six.add(firstNumber);
-                                                    six.add(secondNumber);
-                                                    six.add(thirdNumber);
-                                                    six.add(fourthNumber);
-                                                    six.add(fifthNumber);
-                                                    six.add(sixthNumber);
-                                                    combinationNumbers.add(six);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+        for (int i = 0; i < numbersList.size(); i++) {
+            combinationNumbers.add(new ArrayList<>(List.of(numbersList.get(i))));
+            if (numbersList.size() - i > 1) {
+                combinationNumbers.add(new ArrayList<>(List.of(numbersList.get(i), numbersList.get(i + 1))));
+                if (numbersList.size() - i > 2) {
+                    combinationNumbers.add(new ArrayList<>(List.of(numbersList.get(i)
+                            , numbersList.get(i + 1)
+                            , numbersList.get(i + 2))));
+                    if (numbersList.size() - i > 3) {
+                        combinationNumbers.add(new ArrayList<>(List.of(numbersList.get(i)
+                                , numbersList.get(i + 1)
+                                , numbersList.get(i + 2)
+                                , numbersList.get(i + 3))));
+                        if (numbersList.size() - i > 4) {
+                            combinationNumbers.add(new ArrayList<>(List.of(numbersList.get(i)
+                                    , numbersList.get(i + 1)
+                                    , numbersList.get(i + 2)
+                                    , numbersList.get(i + 3)
+                                    , numbersList.get(i + 4))));
+                            if (numbersList.size() - i > 5) {
+                                combinationNumbers.add(new ArrayList<>(List.of(numbersList.get(i)
+                                        , numbersList.get(i + 1)
+                                        , numbersList.get(i + 2)
+                                        , numbersList.get(i + 3)
+                                        , numbersList.get(i + 4)
+                                        , numbersList.get(i + 5))));
                             }
                         }
                     }
                 }
             }
         }
-
         return combinationNumbers;
     }
 }
