@@ -15,7 +15,7 @@ public class MainMenu {
         System.out.println("2 - Creators");
         System.out.println("3 - Tests");
         System.out.println("4 - ");
-        System.out.println("5 - ");
+        System.out.println("5 - Prediction of numbers");
         System.out.println("0 - QUIT");
         int number = 0;
         try {

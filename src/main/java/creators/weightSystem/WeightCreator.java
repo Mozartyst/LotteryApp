@@ -21,22 +21,21 @@ public class WeightCreator implements Runnable {
 
     @SneakyThrows
     public void run() {
-        //Mam liczbę która wypadła.
-        //Do tej liczby sprawdzam zależności.
-        //
         ArrayList<Integer> nextDrawNumbers = lotteryNumbers.get(index + 1).getDrawNumbers();
         ArrayList<Integer> currentDrawNumbers = lotteryNumbers.get(index).getDrawNumbers();
         for (Integer drawNumber :
-                nextDrawNumbers) {
+                currentDrawNumbers) {
             Number number = listOfNumbers.get(drawNumber);
             Map<Integer, Integer> occurredWith = number.getOccurredWith();
-            Integer value = occurredWith.get(drawNumber);
-            int currentGap = listOfNumbers.get(drawNumber).getCurrentGap(index + 1);
-            Map<Integer, Integer> occurredGaps = listOfNumbers.get(drawNumber).getOccurredGaps();
-            for (Integer currentNumber:currentDrawNumbers) {
-                System.out.println(occurredWith);
-                System.out.println(currentNumber);
+            for (Integer currentNumber :
+                    nextDrawNumbers) {
+                if (occurredWith.containsKey(currentNumber)) {
+                    Integer integer = occurredWith.get(currentNumber);
+
+                }
             }
         }
     }
 }
+//            int currentGap = number.getCurrentGap(index + 1);
+//            Map<Integer, Integer> occurredGaps = number.getOccurredGaps();

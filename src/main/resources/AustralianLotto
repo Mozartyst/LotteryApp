@@ -1,4 +1,4 @@
-#Sun May 23 17:21:45 IST 2021
+#Sun Nov 28 23:50:40 CET 2021
 reducedAfterMulti=Australian/ReducedAfterMulti
 bonusBalls=true
 range=45
@@ -14,7 +14,7 @@ threes=Australian/MultiThrees
 name=Australian
 bonusTogether=true
 drawNumbers=6
-lastIndex=304
+lastIndex=309
 lotteryNumbers=Australian/FullDrawsList
 results=Results
 value=30

@@ -10,34 +10,29 @@ import java.util.Properties;
 import java.util.Scanner;
 
 public class LotteryChoice {
-    public Properties run(Scanner scanner) throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException {
+    public Properties run(Scanner scanner, Properties lotteriesProp) throws IOException, ParserConfigurationException, SAXException, ClassNotFoundException {
         Properties properties = new Properties();
-        System.out.println("Select lottery:");
-        System.out.println("1 - IrishLotto");
-        System.out.println("2 - EuroMillion");
-        System.out.println("3 - PolishLotto");
-        System.out.println("4 - AustralianLotto");
-        System.out.println("5 - Quit");
-        int number = 4;
+        int number = 0;
+        int counter = 0;
+        System.out.println("0 - EXIT");
+        for (Object o : lotteriesProp.keySet()) {
+            counter++;
+            System.out.println(counter + " - " + o.toString().toUpperCase());
+        }
         try {
             number = scanner.nextInt();
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("Your choose isn't a number.");
         }
-        if (number == 1){
-            properties.load(new FileInputStream("src/main/resources/IrishLotto"));
-        }else if (number == 2){
-            properties.load(new FileInputStream("src/main/resources/EuroLotto"));
-        }else if (number == 3){
-            properties.load(new FileInputStream("src/main/resources/PolishLotto"));
-        }else if (number == 4){
-            properties.load(new FileInputStream("src/main/resources/AustralianLotto"));
-        }else if (number == 5){
+        if (number == 0) {
             System.exit(0);
-        }else {
-            System.out.println("Wrong choice!!!");
-            System.out.println("Default is choose IrishLotto");
-            properties.load(new FileInputStream("src/main/resources/IrishLotto"));
+        }
+        counter = 0;
+        for (Object o : lotteriesProp.keySet()) {
+            counter++;
+            if (number == counter) {
+                properties.load(new FileInputStream(lotteriesProp.getProperty(o.toString())));
+            }
         }
         return properties;
     }

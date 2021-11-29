@@ -1,9 +1,12 @@
 package mainInterface;
 
+import dataSupport.FileService;
+import entity.Number;
 import entity.OneDraw;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -20,6 +23,7 @@ public class Choice1 {
         System.out.println("9 - Numbers printer");
         System.out.println("10 - ");
         System.out.println("11 - ");
+        Map<Integer, Number> listOfNumbers = FileService.loadObject(properties.getProperty("listOfNumbers"));
         int choice = scanner.nextInt();
         if (choice == 1) {
             new Choice1a().run(lotteryNumbers, scanner);
@@ -42,7 +46,7 @@ public class Choice1 {
         }else if (choice == 10) {
             new Choice1j().run(lotteryNumbers, scanner, properties);
         }else if (choice == 11) {
-            new Choice1k().run(lotteryNumbers, scanner);
+            new Choice1k().run(lotteryNumbers, scanner, listOfNumbers);
         }
     }
 }

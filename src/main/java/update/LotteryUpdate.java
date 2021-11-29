@@ -17,13 +17,13 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class LotteryUpdate {
-    public void run() throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
+    public void run(Properties lotteriesProp) throws IOException, ClassNotFoundException, ParserConfigurationException, SAXException {
         LocalDateTime localDateTime = LocalDateTime.now();
         Properties properties = new Properties();
         ArrayList<OneDraw> lotteryNumbers;
         LocalDateTime lastDrawDate;
 
-        properties.load(new FileInputStream("src/main/resources/IrishLotto"));
+        properties.load(new FileInputStream(lotteriesProp.getProperty("irishLotto")));
         lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
         if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.WEDNESDAY)) {
@@ -39,7 +39,7 @@ public class LotteryUpdate {
         lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
         printDate("Irish ", lastDrawDate);
 
-        properties.load(new FileInputStream("src/main/resources/EuroLotto"));
+        properties.load(new FileInputStream(lotteriesProp.getProperty("euroLotto")));
         lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
         if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.TUESDAY)) {
@@ -55,7 +55,7 @@ public class LotteryUpdate {
         lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
         printDate("Euro ", lastDrawDate);
 
-        properties.load(new FileInputStream("src/main/resources/PolishLotto"));
+        properties.load(new FileInputStream(lotteriesProp.getProperty("polishLotto")));
         lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
         lastDrawDate = lotteryNumbers.get(lotteryNumbers.size() - 1).getDrawDate();
         if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.TUESDAY)) {

@@ -61,8 +61,8 @@ public class NumbersClassification {
     private static void irisNNetwork(DataSet trainingData, DataSet testData) throws IOException {
 
         MultiLayerConfiguration configuration = new NeuralNetConfiguration.Builder()
-                .activation(Activation.HARDTANH)
-                .weightInit(WeightInit.XAVIER_LEGACY)
+                .activation(Activation.RATIONALTANH)
+                .weightInit(WeightInit.XAVIER)
                 .updater(new Nesterovs(0.1, 0.9))
                 .l2(0.0001)
                 .list()
@@ -83,6 +83,8 @@ public class NumbersClassification {
             INDArray features = next.getFeatures();
             INDArray labels = next.getLabels();
             INDArray output1 = model.output(features, false);
+            System.out.println(labels);
+            System.out.println(output1);
             eval.eval(labels, output1);
         }
         System.out.print(eval.stats());

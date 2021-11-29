@@ -1,4 +1,4 @@
-#Wed Jun 30 18:57:50 IST 2021
+#Sun Nov 28 23:46:31 CET 2021
 reducedAfterMulti=EuroLottery/ReducedAfterMulti
 bonusBalls=true
 range=50
@@ -14,7 +14,7 @@ threes=EuroLottery/MultiThrees
 name=EuroLottery
 bonusTogether=false
 drawNumbers=5
-lastIndex=553
+lastIndex=596
 lotteryNumbers=EuroLottery/FullDrawsList
 results=Results
 value=15

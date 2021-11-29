@@ -40,7 +40,9 @@ public class AlgorithmCreator implements Runnable {
         }
         Set<Integer> numbersFromGaps = new NumbersFromGaps().get(lotteryNumbers, listOfNumbers, index);
         Set<Integer> after = new NumbersAfterMulti().get(lotteryNumbers, reducedMultiCombination, properties, index);
-        Set<Integer> numbers = new NumbersAppearedWith().get(listOfNumbers, numbersFromGaps);
+        ArrayList<Integer> drawNumbers = lotteryNumbers.get(index).getDrawNumbers();
+        Set<Integer> integers = new TreeSet<>(drawNumbers);
+        Set<Integer> numbers = new NumbersAppearedWith().get(listOfNumbers, integers);
         new PropositionMatcher().check(lotteryNumbers, numbersFromGaps, index);
         new PropositionMatcher().check(lotteryNumbers, after, index);
         new PropositionMatcher().check(lotteryNumbers, numbers, index);
