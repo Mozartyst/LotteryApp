@@ -39,6 +39,8 @@ public class Dependency {
             number1.getFiveHighestGap();
         }
         System.out.println(results);
-        System.out.println(lotteryNumbers.get(index + 1));
+        if (index < lotteryNumbers.size() - 1) {
+            System.out.println(lotteryNumbers.get(index + 1));
+        }
     }
 }

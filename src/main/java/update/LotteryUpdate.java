@@ -29,10 +29,12 @@ public class LotteryUpdate {
         if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.WEDNESDAY)) {
             if (setNextTime(lastDrawDate, 3).isBefore(localDateTime)) {
                 new LotteryDrawsXMLDownloader(properties);
+//                new UpdateNumbers().run(lotteryNumbers,properties);
             }
         } else if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
             if (setNextTime(lastDrawDate, 4).isBefore(localDateTime)) {
                 new LotteryDrawsXMLDownloader(properties);
+//                new UpdateNumbers().run(lotteryNumbers,properties);
             }
         }
         lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
@@ -45,10 +47,12 @@ public class LotteryUpdate {
         if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.TUESDAY)) {
             if (setNextTime(lastDrawDate, 3).isBefore(localDateTime)) {
                 new LotteryDrawsXMLDownloader(properties);
+//                new UpdateNumbers().run(lotteryNumbers,properties);
             }
         } else if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.FRIDAY)) {
             if (setNextTime(lastDrawDate, 4).isBefore(localDateTime)) {
                 new LotteryDrawsXMLDownloader(properties);
+//                new UpdateNumbers().run(lotteryNumbers,properties);
             }
         }
         lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));
@@ -61,14 +65,17 @@ public class LotteryUpdate {
         if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.TUESDAY)) {
             if (setNextTime(lastDrawDate, 2).isBefore(localDateTime)) {
                 new LotteryDrawsJSONDownloader(properties);
+//                new UpdateNumbers().run(lotteryNumbers,properties);
             }
         } else if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.THURSDAY)) {
             if (setNextTime(lastDrawDate, 2).isBefore(localDateTime)) {
                 new LotteryDrawsJSONDownloader(properties);
+//                new UpdateNumbers().run(lotteryNumbers,properties);
             }
         } else if (lastDrawDate.getDayOfWeek().equals(DayOfWeek.SATURDAY)) {
             if (setNextTime(lastDrawDate, 3).isBefore(localDateTime)) {
                 new LotteryDrawsJSONDownloader(properties);
+//                new UpdateNumbers().run(lotteryNumbers,properties);
             }
         }
         lotteryNumbers = FileService.loadObject(properties.getProperty("lotteryNumbers"));

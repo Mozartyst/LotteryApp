@@ -17,7 +17,7 @@ public class Choice2 {
     public void run(ArrayList<OneDraw> lotteryNumbers, Scanner scanner, Properties properties) throws IOException, ClassNotFoundException, InterruptedException {
         System.out.println("Select number:");
         System.out.println("1 - MultiThreesCreator ");
-        System.out.println("2 - ");
+        System.out.println("2 - DataForTestsCreator ");
         int choiceCreator = scanner.nextInt();
         if (choiceCreator == 1) {
             Set<CombinationNumbers> combinationNumbers;
@@ -30,13 +30,13 @@ public class Choice2 {
             } else {
                 combinationNumbers = new AllThreesCreator().get(lotteryNumbers, properties);
             }
-            System.out.println("Put number for bottom range for double threes: ");
+            System.out.println("Enter a number for the lower range occurrences for double threes: ");
             int rangeFromForDoubleThrees = scanner.nextInt();
-            System.out.println("Put number for top range for double threes: ");
+            System.out.println("Enter a number for the upper range occurrences for double threes: ");
             int rangeToForDoubleThrees = scanner.nextInt();
-            System.out.println("Put number for bottom range for triple threes: ");
+            System.out.println("Enter a number for the lower range occurrences for triple threes: ");
             int rangeFromForTripleThrees = scanner.nextInt();
-            System.out.println("Put number for top range for triple threes: ");
+            System.out.println("Enter a number for the upper range occurrences for triple threes: ");
             int rangeToForTripleThrees = scanner.nextInt();
             new MultiThreesCreatorInRange().create(
                     combinationNumbers

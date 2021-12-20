@@ -1,7 +1,7 @@
 package mainInterface;
 
 import entity.OneDraw;
-import testy.Testy;
+import printers.Testy;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -10,6 +10,6 @@ import java.util.Scanner;
 
 public class Choice1e {
     public void run(ArrayList<OneDraw> lotteryNumbers, Scanner scanner, Properties properties) throws IOException, ClassNotFoundException {
-        new MultiThreesPrinter().print(properties);
+        new MultiThreesPrinter().print(lotteryNumbers, properties);
     }
 }

@@ -63,10 +63,10 @@ public class FirstTime {
         if (!FileService.isFile(properties.getProperty("listOfNumbers"))) {
             Map<Integer, Number> listOfNumbers = new TreeMap<>();
             Map<Integer, Set<Integer>> numbersFromGaps = new TreeMap<>();
-            for (int index = 1; index < (lotteryNumbers.size() - 20); index++) {
+            for (int index = 1; index < (lotteryNumbers.size()); index++) {
                 new NumberCreator(listOfNumbers, lotteryNumbers, index).run();
                 properties.setProperty("lastIndex", String.valueOf(index));
-                if (index > lotteryNumbers.size() - 150) {
+                if (index < lotteryNumbers.size() - 1) {
                     new WeightCreator(lotteryNumbers, listOfNumbers, index).run();
                 }
                 if (index >= lotteryNumbers.size() - 28) {

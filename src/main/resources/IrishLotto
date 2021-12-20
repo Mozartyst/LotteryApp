@@ -1,4 +1,4 @@
-#Sun Nov 28 20:34:16 CET 2021
+#Wed Dec 08 19:56:54 CET 2021
 reducedAfterMulti=IrishLottery/ReducedAfterMulti
 bonusBalls=true
 range=47
@@ -14,7 +14,7 @@ threes=IrishLottery/MultiThrees
 name=IrishLottery
 bonusTogether=true
 drawNumbers=6
-lastIndex=630
+lastIndex=652
 lotteryNumbers=IrishLottery/FullDrawsList
 results=Results
 value=30

@@ -1,4 +1,4 @@
-#Sun Nov 28 23:51:22 CET 2021
+#Sat Dec 04 20:26:02 CET 2021
 reducedAfterMulti=PolishLottery/ReducedAfterMulti
 bonusBalls=false
 range=49
@@ -12,7 +12,7 @@ threes=PolishLottery/MultiThrees
 name=PolishLottery
 bonusTogether=false
 drawNumbers=6
-lastIndex=572
+lastIndex=574
 lotteryNumbers=PolishLottery/FullDrawsList
 results=Results
 value=30

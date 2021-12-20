@@ -26,30 +26,20 @@ public class NumberCreator {
             if (listOfNumbers.containsKey(num)) {
                 number = listOfNumbers.get(num);
                 number.addIndex(index);
-                addOccurredWith(drawNumbersBefore, drawNumbersCurrent, number);
+                addOccurredWith(drawNumbersCurrent, number);
             } else {
                 number = new Number(num);
                 number.addIndex(index);
-                addOccurredWith(drawNumbersBefore, drawNumbersCurrent, number);
+                addOccurredWith(drawNumbersCurrent, number);
                 listOfNumbers.put(num, number);
             }
 
         }
     }
 
-    private void addOccurredWith(ArrayList<Integer> drawNumbersBefore
-            , ArrayList<Integer> drawNumbersCurrent
+    private void addOccurredWith(ArrayList<Integer> drawNumbersCurrent
             , Number number) {
 
-        for (Integer numberBefore : drawNumbersBefore) {
-            if (!numberBefore.equals(number.getValue())) {
-                if (number.getOccurredWith().containsKey(numberBefore)) {
-                    number.getOccurredWith().replace(numberBefore, number.getOccurredWith().get(numberBefore) + 1);
-                } else {
-                    number.getOccurredWith().put(numberBefore, 1);
-                }
-            }
-        }
         for (Integer numberCurrent : drawNumbersCurrent) {
             if (!numberCurrent.equals(number.getValue())) {
                 if (number.getOccurredWith().containsKey(numberCurrent)) {

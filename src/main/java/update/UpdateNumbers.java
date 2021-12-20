@@ -1,7 +1,7 @@
 package update;
 
-import algorithm.AlgorithmCreator;
 import creators.AfterMultiCreator;
+import creators.MultiCombinationReducer;
 import creators.NumberCreator;
 import dataSupport.FileService;
 import entity.MultiCombinationNumber;
@@ -9,6 +9,7 @@ import entity.Number;
 import entity.OneDraw;
 import lottoPropositions.NumbersFromGaps;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 
@@ -21,7 +22,6 @@ public class UpdateNumbers {
         TreeMap<Integer, Set<Integer>> gaps = FileService.loadObject(properties.getProperty("gaps"));
         Integer lastIndex = Integer.valueOf(properties.getProperty("lastIndex"));
         for (int index = lastIndex; index < lotteryNumbers.size(); index++) {
-            new AlgorithmCreator(lotteryNumbers, reducedMultiCombinationSet, listOfNumbers, index, properties, gaps).run();
 //            for (int j = 1; j <= Integer.parseInt(properties.getProperty("range")); j++) {
 //                new WeightCreator(lotteryNumbers, listOfNumbers, properties, index, j).run();
 //            }
@@ -32,9 +32,9 @@ public class UpdateNumbers {
                 gaps.put(index + 1, new NumbersFromGaps().get(lotteryNumbers, listOfNumbers, index + 1));
             }
         }
-//        properties.store(new FileOutputStream(path), null);
-//        FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
-//        FileService.saveObject(multiCombinationSet, properties.getProperty("afterMulti"));
-//        new MultiCombinationReducer(multiCombinationSet, properties).reduceMultiFile();
+        properties.store(new FileOutputStream(path), null);
+        FileService.saveObject(listOfNumbers, properties.getProperty("listOfNumbers"));
+        FileService.saveObject(multiCombinationSet, properties.getProperty("afterMulti"));
+        new MultiCombinationReducer(multiCombinationSet, properties).reduceMultiFile();
     }
 }

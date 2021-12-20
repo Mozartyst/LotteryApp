@@ -23,19 +23,13 @@ public class WeightCreator implements Runnable {
     public void run() {
         ArrayList<Integer> nextDrawNumbers = lotteryNumbers.get(index + 1).getDrawNumbers();
         ArrayList<Integer> currentDrawNumbers = lotteryNumbers.get(index).getDrawNumbers();
-        for (Integer drawNumber :
+        for (Integer currentNumber :
                 currentDrawNumbers) {
-            Number number = listOfNumbers.get(drawNumber);
-            Map<Integer, Integer> occurredWith = number.getOccurredWith();
-            for (Integer currentNumber :
+            for (Integer nextNumber :
                     nextDrawNumbers) {
-                if (occurredWith.containsKey(currentNumber)) {
-                    Integer integer = occurredWith.get(currentNumber);
 
-                }
+
             }
         }
     }
 }
-//            int currentGap = number.getCurrentGap(index + 1);
-//            Map<Integer, Integer> occurredGaps = number.getOccurredGaps();
